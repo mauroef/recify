@@ -8,7 +8,7 @@ class Band {
 	// object properties
 	public $id;
 	public $name;    
-	public $created;
+	// public $created;
 
 	// constructor with $db as database connection
 	public function __construct($db) {
