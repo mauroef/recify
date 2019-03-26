@@ -4,7 +4,8 @@
   "description": "recitals crud for personal use",
   "main": "build/index.html",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "styles": "gulp pack-css"
   },
   "author": "@mauroef",
   "license": "ISC",

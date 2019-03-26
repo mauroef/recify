@@ -31,7 +31,7 @@ gulp.task('babel', () =>
 // concat css files
 gulp.task('pack-css', () =>
   gulp
-    .src(['./node_modules/bulma/css/bulma.css'])
+    .src(['./node_modules/bulma/css/bulma.min.css', './src/css/styles.css'])
     .pipe(concat('stylesheet.css'))
     .pipe(gulp.dest('build/css'))
 );
