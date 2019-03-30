@@ -17,7 +17,7 @@ $band = new Band($db);
 // query bands
 $stmt = $band->read();
 $num = $stmt->rowCount();
- 
+
 // check if more than 0 record found
 if($num > 0) {
  
