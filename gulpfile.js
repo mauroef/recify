@@ -1,7 +1,10 @@
 const gulp = require('gulp');
 const pug = require('gulp-pug');
-const babel = require('gulp-babel');
 const concat = require('gulp-concat');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
 
 // pug html
 gulp.task('pug', () =>
@@ -16,20 +19,17 @@ gulp.task('pug', () =>
 );
 
 // babel & concat js
-gulp.task('babel', () =>
-  gulp
-    .src('./src/js/api/*.js')
-    .pipe(
-      babel({
-        presets: ['@babel/preset-env']
-      })
-    )
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('./build/js'))
-);
+gulp.task('js', async () => {
+  browserify('./src/js/main.js')
+    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./build/js'));
+});
 
 // concat css files
-gulp.task('pack-css', () =>
+gulp.task('css', () =>
   gulp
     .src(['./node_modules/bulma/css/bulma.min.css', './src/css/styles.css'])
     .pipe(concat('stylesheet.css'))
@@ -39,5 +39,5 @@ gulp.task('pack-css', () =>
 // watch all tasks
 gulp.task('default', () => {
   gulp.watch('./src/views/**/*.pug', gulp.series('pug'));
-  gulp.watch('./src/js/**/*.js', gulp.series('babel'));
+  gulp.watch('./src/js/main.js', gulp.series('js'));
 });

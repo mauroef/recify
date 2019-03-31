@@ -5,17 +5,21 @@
   "main": "build/index.html",
   "scripts": {
     "start": "gulp",
-    "styles": "gulp pack-css"
+    "css": "gulp css",
+    "js" : "gulp js"
   },
   "author": "@mauroef",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
     "gulp": "^4.0.0",
-    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-pug": "^4.0.1"
+    "gulp-pug": "^4.0.1",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
