@@ -7,12 +7,11 @@ html(lang='en')
     title Recify
     block styles
       link(rel="stylesheet" href="css/stylesheet.css")
-    block scripts
-      script(src="js/bundle.js")
-      script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
   body
     header
       include ../blocks/navbar      
-      block main      
-      include ../blocks/footer
-
+    block main      
+    include ../blocks/footer
+    block scripts
+      script(src="js/bundle.js" async)
+      script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")

@@ -1,4 +1,18 @@
 extends ./template/template
 
 block main
-  h1 titulo dentro de bands
+  section.hero.is-success
+    .hero-body
+      .container
+        h1.title Bands & Artists
+        h2.subtitle Feel free to modify or add new members to the list.
+  section.section
+    .container
+      table.table.is-hoverable.is-fullwidth
+        thead
+          tr
+            th Name
+            th Action
+        tbody#band-data
+          tr
+  span#txt  
