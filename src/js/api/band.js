@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import { apiUri } from '../../config/paths';
-import { createNode, createButton, append } from '../helpers/render';
+import { modal, populateTable } from '../helpers/render';
 
 class Band {
-  getAll() {
+  static getAll() {
     fetch(`${apiUri}band/read.php`)
       .then(response => {
         if (response) {
@@ -12,20 +12,36 @@ class Band {
       })
       .then(data => {
         const records = data.records;
-        const tbody = document.getElementById('band-data');
-        records.map(item => {
-          let tr = createNode('tr');
-          let tdName = createNode('td');
-          let tdEdit = createNode('td');
-          let btnEdit = createButton(item.id);
-          tdName.innerHTML = item.name;
-          append(tbody, tr);
-          append(tr, tdName);
-          append(tr, tdEdit);
-          append(tdEdit, btnEdit);
-        });
+        populateTable(records);
       })
+      .then(modal)
       .catch(error => console.error(error));
+  }
+  static update(id, name) {
+    const init = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id, name: name })
+    };
+    fetch(`${apiUri}band/update.php`, init).then(response => {
+      console.log(response.json());
+    });
+  }
+  static delete(id) {
+    const init = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id })
+    };
+    fetch(`${apiUri}band/delete.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 }
 

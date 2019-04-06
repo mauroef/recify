@@ -1,5 +1,7 @@
 import Band from './api/band';
 
-const band = new Band();
+const initBandRequest = () => {
+  Band.getAll();
+};
 
-band.getAll();
+initBandRequest();

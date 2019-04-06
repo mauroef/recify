@@ -6,13 +6,46 @@ block main
       .container
         h1.title Bands & Artists
         h2.subtitle Feel free to modify or add new members to the list.
+  //- actions
   section.section
     .container
-      table.table.is-hoverable.is-fullwidth
+      .tile.is-ancestor
+        //- insert
+        .tile.is-6.is-parent          
+          article.tile.is-child.notification
+            p.title Insert new ones!
+            //- input
+            .field              
+              .control.has-icons-left
+                input.input.is-medium(type="text", id="new-name", placeholder="New name...")
+                span.icon.is-medium.is-left
+                  i.fas.fa-plus-square
+            //- button
+            .field
+              .control
+                button.button.is-primary.is-medium.is-fullwidth Save changes
+        //- edit
+        .tile.is-6.is-parent
+          article.tile.is-child.notification
+            p.title What you're looking for? 
+            //- input
+            .field              
+              .control.has-icons-left
+                input.input.is-medium(type="text", id="edit-name", placeholder="Type here...")
+                span.icon.is-medium.is-left
+                  i.fas.fa-search
+            //- button
+            .field
+              .control
+                button.button.is-primary.is-medium.is-fullwidth Search
+  //- table
+  section.section
+    .container
+      table.table.is-hoverable.is-fullwidth#table
         thead
           tr
             th Name
-            th Action
+            th Edit
+            th Delete
         tbody#band-data
-          tr
-  span#txt  
+  include ./blocks/modal  
