@@ -133,9 +133,19 @@ function destroyInput() {
   let input = document.getElementById('edit-input');
   input.remove();
 }
+
 function modalToggle() {
   const modal = document.getElementById('modal');
   modal.classList.toggle('is-active');
 }
 
-export { modal, populateTable };
+const saveBand = () => {
+  const btnSave = document.getElementById('save-band');
+  btnSave.onclick = event => {
+    event.preventDefault();
+    const name = document.getElementById('new-name').value;
+    Band.create(name);
+  };
+};
+
+export { modal, populateTable, saveBand };

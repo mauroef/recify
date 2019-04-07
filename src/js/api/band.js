@@ -14,15 +14,29 @@ class Band {
         const records = data.records;
         populateTable(records);
       })
-      .then(modal)
+      .then(() => {
+        modal();
+      })
       .catch(error => console.error(error));
+  }
+  static create(name) {
+    const init = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*'
+      },
+      body: JSON.stringify({ name: name })
+    };
+    console.log(init.body);
+    fetch(`${apiUri}band/create.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
   static update(id, name) {
     const init = {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        Accept: 'application/json, text/plain, */*'
       },
       body: JSON.stringify({ id: id, name: name })
     };
@@ -34,8 +48,7 @@ class Band {
     const init = {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        Accept: 'application/json, text/plain, */*'
       },
       body: JSON.stringify({ id: id })
     };
