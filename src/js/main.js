@@ -1,7 +1,12 @@
-import Band from './api/band';
+/* eslint-disable indent */
+import { getBand } from './helpers/handler';
 
-const initBandRequest = () => {
-  Band.getAll();
-};
+const location = window.location.pathname;
 
-initBandRequest();
+switch (location) {
+  case '/bands.html':
+    getBand();
+    break;
+  default:
+    break;
+}
