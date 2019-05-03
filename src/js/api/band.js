@@ -2,6 +2,9 @@
 import { apiUri } from '../../config/paths';
 import { modal, populateTable } from '../helpers/render';
 
+// TODO:
+// refactor ajax
+
 class Band {
   static getAll() {
     fetch(`${apiUri}band/read.php`)
@@ -17,7 +20,7 @@ class Band {
       .then(() => {
         modal();
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error('Ooops!...', error));
   }
   static create(name) {
     const init = {
@@ -27,10 +30,17 @@ class Band {
       },
       body: JSON.stringify({ name: name })
     };
-    console.log(init.body);
-    fetch(`${apiUri}band/create.php`, init).then(response => {
-      console.log(response.json());
-    });
+    fetch(`${apiUri}band/create.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
   static update(id, name) {
     const init = {
@@ -40,9 +50,17 @@ class Band {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-    fetch(`${apiUri}band/update.php`, init).then(response => {
-      console.log(response.json());
-    });
+    fetch(`${apiUri}band/update.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
   static delete(id) {
     const init = {
@@ -52,9 +70,17 @@ class Band {
       },
       body: JSON.stringify({ id: id })
     };
-    fetch(`${apiUri}band/delete.php`, init).then(response => {
-      console.log(response.json());
-    });
+    fetch(`${apiUri}band/delete.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
 }
 
