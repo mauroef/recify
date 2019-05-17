@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable no-undef */
 import Band from '../api/band';
+import Place from '../api/place';
 
 const createNode = element => document.createElement(element);
 
@@ -15,7 +16,8 @@ const createButton = (id, action, color, icon) => {
   return button;
 };
 
-const modal = () => {
+// modal
+const modal = target => {
   const table = document.getElementById('table');
   const buttons = table.getElementsByTagName('a');
   const close = document.getElementsByClassName('modal-remove');
@@ -23,7 +25,7 @@ const modal = () => {
     buttons[i].onclick = event => {
       event.preventDefault();
       modalToggle();
-      renderModal(buttons[i]);
+      renderModal(buttons[i], target);
     };
   }
   for (let i = 0; i < close.length; i++) {
@@ -34,33 +36,36 @@ const modal = () => {
   }
 };
 
-const renderModal = button => {
+const renderModal = (button, target) => {
   let action = '';
   if (button.classList.contains('btn-edit')) action = 'edit';
   if (button.classList.contains('btn-delete')) action = 'delete';
 
   let id = button.id;
+  // console.log('button id', id);
+  // name ??
   let name = button.textContent;
-  buildDataModal(action, id, name);
+  // console.log('action', action);
+  buildDataModal(action, id, target);
 };
 
-const buildDataModal = (action, id) => {
+const buildDataModal = (action, id, target) => {
   const modal = document.getElementById('modal');
   const p = modal.getElementsByTagName('p');
   const button = modal.getElementsByTagName('button');
 
   switch (action) {
     case 'edit':
-      editModal(p, id, button);
+      editModal(p, id, target, button);
       break;
     case 'delete':
-      deleteModal(p, id, button);
+      deleteModal(p, id, target, button);
       break;
     default:
       break;
   }
 
-  function editModal(p, id, button) {
+  function editModal(p, id, target, button) {
     p[0].textContent = 'Edit';
     p[1].textContent = 'Click the green button to save.';
     button[0].classList.remove('is-danger');
@@ -68,7 +73,8 @@ const buildDataModal = (action, id) => {
     buildInput();
     button[0].onclick = () => {
       let val = document.getElementById('edit-input').value;
-      Band.update(id, val);
+      if (target === 'band') Band.update(id, val);
+      else if (target === 'place') Place.update(id, val);
       destroyInput();
       modalToggle();
     };
@@ -82,14 +88,14 @@ const buildDataModal = (action, id) => {
     };
   }
 
-  function deleteModal(p, id, button) {
+  function deleteModal(p, id, target, button) {
     p[0].textContent = 'Delete';
     p[1].textContent = 'Are you sure?';
     button[0].classList.remove('is-success');
     button[0].classList.add('is-danger');
     button[0].onclick = () => {
-      console.log('deleting', id);
-      Band.delete(id);
+      if (target === 'band') Band.delete(id);
+      else if (target === 'place') Place.delete(id);
       modalToggle();
     };
     button[1].onclick = () => {
@@ -101,8 +107,8 @@ const buildDataModal = (action, id) => {
   }
 };
 
-const populateTable = records => {
-  const tbody = document.getElementById('band-data');
+const populateTable = (records, target) => {
+  const tbody = document.getElementById(`${target}-data`);
   records.map(item => {
     let tr = createNode('tr');
     let tdName = createNode('td');
@@ -139,13 +145,4 @@ function modalToggle() {
   modal.classList.toggle('is-active');
 }
 
-const saveBand = () => {
-  const btnSave = document.getElementById('save-band');
-  btnSave.onclick = event => {
-    event.preventDefault();
-    const name = document.getElementById('new-name').value;
-    Band.create(name);
-  };
-};
-
-export { modal, populateTable, saveBand };
+export { modal, populateTable };

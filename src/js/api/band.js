@@ -15,13 +15,14 @@ class Band {
       })
       .then(data => {
         const records = data.records;
-        populateTable(records);
+        populateTable(records, 'band');
       })
       .then(() => {
-        modal();
+        modal('band');
       })
       .catch(error => console.error('Ooops!...', error));
   }
+
   static create(name) {
     const init = {
       method: 'POST',
@@ -42,6 +43,7 @@ class Band {
       })
       .then(() => Band.getAll());
   }
+
   static update(id, name) {
     const init = {
       method: 'POST',
@@ -62,6 +64,7 @@ class Band {
       })
       .then(() => Band.getAll());
   }
+
   static delete(id) {
     const init = {
       method: 'POST',

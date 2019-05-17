@@ -1,1 +1,51 @@
 extends ./template/template
+
+block main
+  section.hero.is-success
+    .hero-body
+      .container
+        h1.title Places
+        h2.subtitle Add new places or modify them.
+  //- actions
+  section.section
+    .container
+      .tile.is-ancestor
+        //- insert
+        .tile.is-6.is-parent          
+          article.tile.is-child.notification
+            p.title Insert new ones!
+            //- input
+            .field              
+              .control.has-icons-left
+                input.input.is-medium(type="text", id="new-place", placeholder="New name...")
+                span.icon.is-medium.is-left
+                  i.fas.fa-plus-square
+            //- button
+            .field
+              .control
+                button.button.is-primary.is-medium.is-fullwidth#save-place Save changes
+        //- edit
+        .tile.is-6.is-parent
+          article.tile.is-child.notification
+            p.title What you're looking for? 
+            //- input
+            .field              
+              .control.has-icons-left
+                input.input.is-medium(type="text", id="edit-name", placeholder="Type here...")
+                span.icon.is-medium.is-left
+                  i.fas.fa-search
+            //- button
+            .field
+              .control
+                button.button.is-primary.is-medium.is-fullwidth Search
+  //- table
+  section.section
+    .container
+      table.table.is-hoverable.is-fullwidth#table
+        thead
+          tr
+            th Name
+            th Edit
+            th Delete
+        tbody#place-data
+  include ./blocks/modal  
