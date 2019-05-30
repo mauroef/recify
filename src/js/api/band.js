@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { apiUri } from '../../config/paths';
 import { modal, populateTable } from '../helpers/render';
 

@@ -11,11 +11,19 @@ module.exports = {
     es6: true
   },
   rules: {
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'windows'],
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'linebreak-style': ['error', 'unix'], // linux
+    // 'linebreak-style': ['error', 'windows'], // windows
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-console': 'off',
     'no-alert': 'off'
+  },
+  globals: {
+    window: true,
+    document: true,
+    location: true,
+    fetch: true,
+    console: true
   }
 };
