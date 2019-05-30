@@ -101,6 +101,29 @@ const buildDataModal = (action, id, target) => {
   }
 };
 
+const populateRecitalTable = records => {
+  const tbody = document.getElementById('recital-data');
+  records.map(item => {
+    let tr = createNode('tr');
+    let tdNumber = createNode('td');
+    let tdDate = createNode('td');
+    let tdBand = createNode('td');
+    let tdPlace = createNode('td');
+    let tdTicket = createNode('td');
+    tdNumber.textContent = item.id;
+    tdDate.textContent = item.date;
+    tdBand.textContent = item.band;
+    tdPlace.textContent = item.place;
+    tdTicket.textContent = item.ticket;
+    append(tbody, tr);
+    append(tr, tdNumber);
+    append(tr, tdDate);
+    append(tr, tdBand);
+    append(tr, tdPlace);
+    append(tr, tdTicket);
+  });
+};
+
 const populateTable = (records, target) => {
   const tbody = document.getElementById(`${target}-data`);
   records.map(item => {
@@ -139,4 +162,4 @@ function modalToggle() {
   modal.classList.toggle('is-active');
 }
 
-export { modal, populateTable };
+export { modal, populateRecitalTable, populateTable };
