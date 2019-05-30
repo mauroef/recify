@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-undef */
 import Band from '../api/band';
 import Place from '../api/place';
 
@@ -42,10 +40,6 @@ const renderModal = (button, target) => {
   if (button.classList.contains('btn-delete')) action = 'delete';
 
   let id = button.id;
-  // console.log('button id', id);
-  // name ??
-  let name = button.textContent;
-  // console.log('action', action);
   buildDataModal(action, id, target);
 };
 
