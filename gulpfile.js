@@ -37,13 +37,14 @@ gulp.task('css', () =>
   gulp
     .src(['./node_modules/bulma/css/bulma.min.css', './src/css/styles.css'])
     .pipe(concat('stylesheet.css'))
-    .pipe(gulp.dest('build/css'))
+    .pipe(gulp.dest('./build/css'))
+    .pipe(reload({ stream: true }))
 );
 
 // browserSync
 gulp.task(
   'serve',
-  gulp.series('pug', 'js', () => {
+  gulp.series('pug', 'js', 'css', () => {
     browserSync.init({
       server: {
         baseDir: './build/'
@@ -52,11 +53,9 @@ gulp.task(
   })
 );
 
-gulp.watch('./src/views/**/*.pug', gulp.series('pug'));
-gulp.watch('./src/js/main.js', gulp.series('js'));
-
 // watch all tasks
-gulp.task('dev', () => {
+gulp.task('default', () => {
   gulp.watch('./src/views/**/*.pug', gulp.series('pug'));
-  gulp.watch('./src/js/main.js', gulp.series('js'));
+  gulp.watch('./src/js/**/*.js', gulp.series('js'));
+  gulp.watch('./src/css/styles.css', gulp.series('css'));
 });
