@@ -1,1 +1,1 @@
-export const apiUri = 'http://localhost/recify-app/php/';
+export const apiUri = 'http://192.169.1.62/recify-backend/';
