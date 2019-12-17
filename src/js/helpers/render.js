@@ -162,15 +162,6 @@ const populateTable = (records, target) => {
   });
 };
 
-function buildInput() {
-  let bodyModal = document.getElementsByClassName('modal-card-body');
-  let input = createNode('input');
-  input.setAttribute('type', 'text');
-  input.setAttribute('id', 'edit-input');
-  input.classList.add('input');
-  append(bodyModal[0], input);
-}
-
 function destroyInput() {
   let input = document.getElementById('edit-input');
   input.remove();
