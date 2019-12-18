@@ -1,15 +1,24 @@
 import { createNode, append, createButton } from '../helpers/ui';
 
 class Row {
-  constructor(id, name) {
+  constructor(id, name, date, band, place, ticket) {
     this.id = id;
     this.name = name;
+    // Recital Row Data
+    this.date = date;
+    this.band = band;
+    this.place = place;
+    this.ticket = ticket;
   }
 
-  createRow() {
+  createRow(isRecitalRow) {
     const row = createNode('tr');
 
-    this.appendRowNodes(row);
+    if (isRecitalRow) {
+      this.appendRecitalRowNodes(row);
+    } else {
+      this.appendRowNodes(row);
+    }
 
     return row;
   }
@@ -31,6 +40,15 @@ class Row {
     append(row, this.createRowNode(this.id));
     append(row, this.createRowNode(this.name));
     append(row, this.createRowButton('edit', 'is-info', 'edit'));
+    append(row, this.createRowButton('delete', 'is-danger', 'trash'));
+  }
+
+  appendRecitalRowNodes(row) {
+    append(row, this.createRowNode(this.id));
+    append(row, this.createRowNode(this.date));
+    append(row, this.createRowNode(this.place));
+    append(row, this.createRowNode(this.band));
+    append(row, this.createRowNode(this.ticket));
     append(row, this.createRowButton('delete', 'is-danger', 'trash'));
   }
 }
