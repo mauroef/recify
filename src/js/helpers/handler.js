@@ -27,11 +27,13 @@ function handleModalOpen(actionClass, id, name) {
         'edit'
       );
       editModal.renderModal(modalElement, name);
+      // TODO: handle editBtn
       break;
     }
     case 'btn-delete': {
       const deleteModal = new Modal(id, 'Delete', 'Are you sure?', 'delete');
       deleteModal.renderModal(modalElement);
+      // TODO: handle deleteBtn
       break;
     }
     default:
