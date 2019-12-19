@@ -1,6 +1,10 @@
-import Table from './table';
-import Row from './row';
-import { handleActionButtons, handleModalClose } from './handler';
+import Table from "./table";
+import Row from "./row";
+import {
+  handleActionButtons,
+  handleModalClose,
+  handleModalAcceptButton
+} from "./handler";
 
 function renderTable(apiClass, tableSelector, isRecitalTable) {
   const table = new Table();
@@ -10,7 +14,7 @@ function renderTable(apiClass, tableSelector, isRecitalTable) {
     .then(records => {
       records.forEach(r => {
         if (isRecitalTable) {
-          let recitalRow = new Row(r.id, '', r.date, r.band, r.place, r.ticket);
+          let recitalRow = new Row(r.id, "", r.date, r.band, r.place, r.ticket);
           table.addRow(recitalRow.createRow(true));
         } else {
           let row = new Row(r.id, r.name);
@@ -21,11 +25,13 @@ function renderTable(apiClass, tableSelector, isRecitalTable) {
     })
     .then(() => {
       if (!isRecitalTable) {
-        handleModalClose(document.getElementById('modal'));
-        handleActionButtons(apiClass, tableSelector, 'btn-edit');
+        handleModalClose(document.getElementById("modal"));
+        handleActionButtons(tableSelector, "btn-edit");
       }
-      handleActionButtons(apiClass, tableSelector, 'btn-delete');
-    });
+      handleActionButtons(tableSelector, "btn-delete");
+      handleModalAcceptButton(apiClass);
+    })
+
 }
 
 export { renderTable };
