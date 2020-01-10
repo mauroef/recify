@@ -46,7 +46,7 @@ class Recital {
       },
       body: JSON.stringify({ id })
     };
-    fetch(`${apiUri}recital/delete.php`, init)
+    return fetch(`${apiUri}recital/delete.php`, init)
       .then(response => {
         console.log(response.json());
       })
@@ -55,8 +55,8 @@ class Recital {
         while (table.firstChild) {
           table.removeChild(table.firstElementChild);
         }
-      })
-      .then(() => Recital.getAll());
+      });
+    // .then(() => Recital.getAll());
   }
 }
 

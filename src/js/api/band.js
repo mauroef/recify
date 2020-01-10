@@ -49,7 +49,7 @@ class Band {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-    fetch(`${apiUri}band/update.php`, init)
+    return fetch(`${apiUri}band/update.php`, init)
       .then(response => {
         console.log(response.json());
       })
