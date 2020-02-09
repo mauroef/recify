@@ -11,14 +11,18 @@ const initApp = function() {
     case '/':
       renderTable(Recital, 'recital-data', true);
       break;
-    case '/bands.html':
-      let panelCreate = new Panel('create', 'band');
-      panelCreate.handleCreate();
+    case '/bands.html': {
+      let panelCreate = new Panel('create');
+      panelCreate.handlePanelEvents(Band);
       renderTable(Band, 'band-data', false);
       break;
-    case '/places.html':
+    }
+    case '/places.html': {
+      let panelCreate = new Panel('create');
+      panelCreate.handlePanelEvents(Place);
       renderTable(Place, 'place-data', false);
       break;
+    }
     default:
       console.warn('unrecheable view');
       break;
