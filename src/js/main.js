@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { getBand, saveBand, getPlace, savePlace } from './helpers/handler';
 
 const location = window.location.pathname;
