@@ -10,15 +10,7 @@ class Band {
         }
       })
       .then(data => data.records)
-      .catch(error => {
-        const message = 'return mocked data.';
-        console.warn(message, error);
-        return [
-          { id: '1', name: 'shaila' },
-          { id: '2', name: 'boom boom kid' },
-          { id: '3', name: 'eterna inocencia' },
-        ]
-      });
+      .catch(error => console.error('Ooops!...', error));
   }
 
   static create(name) {
