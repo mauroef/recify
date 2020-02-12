@@ -28,10 +28,17 @@ class Band {
       },
       body: JSON.stringify({ name: name })
     };
-
-    return fetch(`${apiUri}band/create.php`, init).then(response => {
-      console.log(response.json());
-    });
+    fetch(`${apiUri}band/create.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
 
   static update(id, name) {
@@ -42,10 +49,17 @@ class Band {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-
-    return fetch(`${apiUri}band/update.php`, init).then(response => {
-      console.log(response.json());
-    });
+    return fetch(`${apiUri}band/update.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
 
   static delete(id) {
@@ -56,10 +70,16 @@ class Band {
       },
       body: JSON.stringify({ id: id })
     };
-
     return fetch(`${apiUri}band/delete.php`, init).then(response => {
       console.log('respuesta del servidor', response.json());
     });
+    // .then(() => {
+    //   let table = document.getElementById('band-data');
+    //   while (table.firstChild) {
+    //     table.removeChild(table.firstChild);
+    //   }
+    // })
+    // .then(() => Band.getAll());
   }
 }
 

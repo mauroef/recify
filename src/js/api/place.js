@@ -28,10 +28,17 @@ class Place {
       },
       body: JSON.stringify({ name: name })
     };
-
-    return fetch(`${apiUri}place/create.php`, init).then(response => {
-      console.log(response.json());
-    });
+    fetch(`${apiUri}place/create.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('place-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Place.getAll());
   }
 
   static update(id, name) {
@@ -42,10 +49,17 @@ class Place {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-
-    return fetch(`${apiUri}place/update.php`, init).then(response => {
-      console.log(response.json());
-    });
+    return fetch(`${apiUri}place/update.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('place-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Place.getAll());
   }
 
   static delete(id) {
@@ -56,10 +70,17 @@ class Place {
       },
       body: JSON.stringify({ id })
     };
-
-    return fetch(`${apiUri}place/delete.php`, init).then(response => {
-      console.log(response.json());
-    });
+    return fetch(`${apiUri}place/delete.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('place-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      });
+    // .then(() => Place.getAll());
   }
 }
 

@@ -3,17 +3,11 @@ class Panel {
     this.type = type; // create || search
   }
 
-  handlePanelEvents(apiClass) {
-    const input = document.querySelector(
-      `#panel-${this.type} input[type=text]`
-    );
-    const btn = document.querySelector(`#panel-${this.type} button`);
+  handleCreate() {
+    const input = document.querySelector('#panel-create input[type=text]');
+    const btn = document.querySelector('#panel-create button');
     btn.addEventListener('click', () => {
-      if (this.type === 'create') {
-        apiClass
-          .create(input.value)
-          .then(() => console.log('ejecuto bien la req.'));
-      }
+      console.log('do the API thing', input.value);
     });
   }
 
