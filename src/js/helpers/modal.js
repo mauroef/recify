@@ -98,7 +98,11 @@ class Modal {
 
       if (btnAccept.dataset.action == 'delete') {
         apiClass.delete(btnAccept.dataset.id).then(data => {
-          removeRow(tableSelector, data !== undefined ? data.id : 0);
+          if (data !== undefined) {
+            removeRow(tableSelector, data.id);
+          } else {
+            removeRow(tableSelector, 0);
+          }
 
           this.toggleModal(modalElement);
         });
