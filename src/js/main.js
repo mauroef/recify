@@ -1,17 +1,8 @@
-import {
-  getRecital,
-  getBand,
-  saveBand,
-  getPlace,
-  savePlace
-} from './helpers/handler';
+import { getBand, saveBand, getPlace, savePlace } from './helpers/handler';
 
 const location = window.location.pathname;
 
 switch (location) {
-  case '/':
-    getRecital();
-    break;
   case '/bands.html':
     getBand();
     saveBand();
