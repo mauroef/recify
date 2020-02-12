@@ -1,6 +1,6 @@
 import Modal from './modal';
 
-function handleActionButtons(apiClass, tableSelector, actionClass) {
+function handleActionButtons(tableSelector, actionClass) {
   const buttons = document.querySelectorAll(
     `#${tableSelector} a.${actionClass}`
   );
@@ -10,12 +10,12 @@ function handleActionButtons(apiClass, tableSelector, actionClass) {
       let id = buttons[i].id;
       let name = buttons[i].parentNode.previousSibling.textContent;
 
-      handleModalOpen(apiClass, actionClass, id, name);
+      handleModalOpen(actionClass, id, name, buttons[i]);
     });
   }
 }
 
-function handleModalOpen(apiClass, actionClass, id, name) {
+function handleModalOpen(actionClass, id, name) {
   const modalElement = document.getElementById('modal');
 
   switch (actionClass) {
@@ -27,15 +27,11 @@ function handleModalOpen(apiClass, actionClass, id, name) {
         'edit'
       );
       editModal.renderModal(modalElement, name);
-      handleEditButton(apiClass, id, name);
-
       break;
     }
     case 'btn-delete': {
       const deleteModal = new Modal(id, 'Delete', 'Are you sure?', 'delete');
       deleteModal.renderModal(modalElement);
-      handleDeleteButton(apiClass, id);
-
       break;
     }
     default:
@@ -44,26 +40,13 @@ function handleModalOpen(apiClass, actionClass, id, name) {
 }
 
 function handleModalClose(modalElement) {
-  const btnClose = modalElement.querySelectorAll('.modal-remove');
+  var btnClose = modalElement.querySelectorAll('.modal-remove');
 
   for (var i = 0; i < btnClose.length; i++) {
     btnClose[i].addEventListener('click', () => {
       Modal.toggleModal(modalElement);
     });
   }
-}
-
-function handleEditButton(id) {
-  console.log(id);
-}
-
-function handleDeleteButton(apiClass, id) {
-  const btnAccept = document.getElementById('btn-accept');
-
-  btnAccept.addEventListener('click', () => {
-    console.log('click en boton accept');
-    apiClass.delete(id);
-  });
 }
 
 export { handleActionButtons, handleModalOpen, handleModalClose };

@@ -70,16 +70,17 @@ class Band {
       },
       body: JSON.stringify({ id: id })
     };
-    return fetch(`${apiUri}band/delete.php`, init).then(response => {
-      console.log(response.json());
-    });
-    // .then(() => {
-    //   let table = document.getElementById('band-data');
-    //   while (table.firstChild) {
-    //     table.removeChild(table.firstChild);
-    //   }
-    // })
-    // .then(() => Band.getAll());
+    fetch(`${apiUri}band/delete.php`, init)
+      .then(response => {
+        console.log(response.json());
+      })
+      .then(() => {
+        let table = document.getElementById('band-data');
+        while (table.firstChild) {
+          table.removeChild(table.firstChild);
+        }
+      })
+      .then(() => Band.getAll());
   }
 }
 

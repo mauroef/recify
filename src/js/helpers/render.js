@@ -2,10 +2,10 @@ import Table from './table';
 import Row from './row';
 import { handleActionButtons, handleModalClose } from './handler';
 
-function renderTable(apiClass, tableSelector, isRecitalTable) {
+function renderTable(apiObject, tableSelector, isRecitalTable) {
   const table = new Table();
 
-  apiClass
+  apiObject
     .getAll()
     .then(records => {
       records.forEach(r => {
@@ -22,9 +22,9 @@ function renderTable(apiClass, tableSelector, isRecitalTable) {
     .then(() => {
       if (!isRecitalTable) {
         handleModalClose(document.getElementById('modal'));
-        handleActionButtons(apiClass, tableSelector, 'btn-edit');
+        handleActionButtons(tableSelector, 'btn-edit');
       }
-      handleActionButtons(apiClass, tableSelector, 'btn-delete');
+      handleActionButtons(tableSelector, 'btn-delete');
     });
 }
 
