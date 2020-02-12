@@ -1,15 +1,24 @@
 import { apiUri } from '../../config/paths';
-//import { modal, populateTable } from '../helpers/render';
+import { modal, populateTable } from '../helpers/render';
+
+// TODO:
+// refactor ajax
 
 class Band {
   static getAll() {
-    return fetch(`${apiUri}band/read.php`)
+    fetch(`${apiUri}band/read.php`)
       .then(response => {
-        if (response !== undefined) {
+        if (response) {
           return response.json();
         }
       })
-      .then(data => data.records)
+      .then(data => {
+        const records = data.records;
+        populateTable(records, 'band');
+      })
+      .then(() => {
+        modal('band');
+      })
       .catch(error => console.error('Ooops!...', error));
   }
 
