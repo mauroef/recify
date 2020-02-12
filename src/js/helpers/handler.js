@@ -2,9 +2,8 @@ import Recital from '../api/recital';
 import Band from '../api/band';
 import Place from '../api/place';
 
-// recitals
+// Recitals
 const getRecital = () => Recital.getAll();
-const deleteRecital = id => Recital.delete(id);
 
 // bands
 const getBand = () => Band.getAll();
@@ -40,7 +39,6 @@ const savePlace = () => {
 
 export {
   getRecital,
-  deleteRecital,
   getBand,
   editBand,
   deleteBand,

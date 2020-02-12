@@ -1,6 +1,5 @@
 import Band from '../api/band';
 import Place from '../api/place';
-import Recital from '../api/recital';
 
 const createNode = element => document.createElement(element);
 
@@ -15,20 +14,7 @@ const createButton = (id, action, color, icon) => {
   return button;
 };
 
-// on click delete actual recital record
-const prepareDelete = () => {
-  const table = document.getElementById('table');
-  const buttons = table.getElementsByTagName('a');
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = event => {
-      event.preventDefault();
-      let id = buttons[i].id;
-      Recital.delete(id);
-    };
-  }
-};
-
-// start modal render for edit & delete
+// modal
 const modal = target => {
   const table = document.getElementById('table');
   const buttons = table.getElementsByTagName('a');
@@ -117,7 +103,6 @@ const buildDataModal = (action, id, target) => {
 
 const populateRecitalTable = records => {
   const tbody = document.getElementById('recital-data');
-  let counter = 0;
   records.map(item => {
     let tr = createNode('tr');
     let tdNumber = createNode('td');
@@ -125,9 +110,7 @@ const populateRecitalTable = records => {
     let tdBand = createNode('td');
     let tdPlace = createNode('td');
     let tdTicket = createNode('td');
-    let tdDelete = createNode('td');
-    let btnDelete = createButton(item.id, 'delete', 'is-danger', 'trash-alt');
-    tdNumber.textContent = ++counter;
+    tdNumber.textContent = item.id;
     tdDate.textContent = item.date;
     tdBand.textContent = item.band;
     tdPlace.textContent = item.place;
@@ -138,8 +121,6 @@ const populateRecitalTable = records => {
     append(tr, tdBand);
     append(tr, tdPlace);
     append(tr, tdTicket);
-    append(tr, tdDelete);
-    append(tdDelete, btnDelete);
   });
 };
 
@@ -181,4 +162,4 @@ function modalToggle() {
   modal.classList.toggle('is-active');
 }
 
-export { modal, populateRecitalTable, prepareDelete, populateTable };
+export { modal, populateRecitalTable, populateTable };

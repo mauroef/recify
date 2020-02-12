@@ -70,7 +70,7 @@ class Place {
       headers: {
         Accept: 'application/json, text/plain, */*'
       },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id: id })
     };
     fetch(`${apiUri}place/delete.php`, init)
       .then(response => {
