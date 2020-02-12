@@ -3,8 +3,6 @@ import Band from './api/band';
 import Place from './api/place';
 import { renderTable } from './helpers/render';
 
-import Panel from '../js/helpers/panel';
-
 const initApp = function() {
   const location = window.location.pathname;
   switch (location) {
@@ -12,8 +10,6 @@ const initApp = function() {
       renderTable(Recital, 'recital-data', true);
       break;
     case '/bands.html':
-      let panelCreate = new Panel('create', 'band');
-      panelCreate.handleCreate();
       renderTable(Band, 'band-data', false);
       break;
     case '/places.html':

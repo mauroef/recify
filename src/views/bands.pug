@@ -10,34 +10,34 @@ block main
   section.section
     .container
       .tile.is-ancestor
-        //- create
+        //- insert
         .tile.is-6.is-parent          
-          article.tile.is-child.notification#panel-create
+          article.tile.is-child.notification
             p.title Insert new ones!
             //- input
             .field              
               .control.has-icons-left
-                input.input.is-medium(type="text", id="create-input", placeholder="New name...")
+                input.input.is-medium(type="text", id="new-band", placeholder="New name...")
                 span.icon.is-medium.is-left
                   i.fas.fa-plus-square
             //- button
             .field
               .control
-                button.button.is-primary.is-medium.is-fullwidth#save Save changes
-        //- search
+                button.button.is-primary.is-medium.is-fullwidth#save-band Save changes
+        //- edit
         .tile.is-6.is-parent
-          article.tile.is-child.notification#panel-search
+          article.tile.is-child.notification
             p.title What you're looking for? 
             //- input
             .field              
               .control.has-icons-left
-                input.input.is-medium(type="text", id="search-input", placeholder="Type here...")
+                input.input.is-medium(type="text", id="edit-name", placeholder="Type here...")
                 span.icon.is-medium.is-left
                   i.fas.fa-search
             //- button
             .field
               .control
-                button.button.is-primary.is-medium.is-fullwidth#search Search
+                button.button.is-primary.is-medium.is-fullwidth Search
   //- table
   section.section
     .container

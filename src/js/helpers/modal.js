@@ -104,6 +104,10 @@ class Modal {
       }
     });
   }
+
+  static handleEditButton(id) {
+    console.log(id);
+  }
 }
 
 export default Modal;
