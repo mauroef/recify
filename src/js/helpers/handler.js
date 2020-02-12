@@ -1,6 +1,6 @@
 import Modal from './modal';
 
-function handleActionButtons(tableSelector, actionClass) {
+function handleActionButtons(apiClass, tableSelector, actionClass) {
   const buttons = document.querySelectorAll(
     `#${tableSelector} a.${actionClass}`
   );
@@ -10,16 +10,14 @@ function handleActionButtons(tableSelector, actionClass) {
       let id = buttons[i].id;
       let name = buttons[i].parentNode.previousSibling.textContent;
 
-      handleModalOpen(actionClass, id, name);
-      
+      handleModalOpen(apiClass, actionClass, id, name);
     });
   }
-
 }
 
-function handleModalOpen(actionClass, id, name) {
+function handleModalOpen(apiClass, actionClass, id, name) {
   const modalElement = document.getElementById('modal');
-    
+
   switch (actionClass) {
     case 'btn-edit': {
       const editModal = new Modal(
@@ -29,19 +27,20 @@ function handleModalOpen(actionClass, id, name) {
         'edit'
       );
       editModal.renderModal(modalElement, name);
-      
+      handleEditButton(apiClass, id, name);
+
       break;
     }
     case 'btn-delete': {
       const deleteModal = new Modal(id, 'Delete', 'Are you sure?', 'delete');
-      deleteModal.renderModal(modalElement, name);      
-      
+      deleteModal.renderModal(modalElement);
+      handleDeleteButton(apiClass, id);
+
       break;
     }
     default:
       console.warn('unauthorized action');
   }
-
 }
 
 function handleModalClose(modalElement) {
@@ -58,14 +57,13 @@ function handleEditButton(id) {
   console.log(id);
 }
 
-function handleModalAcceptButton(apiClass) {
+function handleDeleteButton(apiClass, id) {
   const btnAccept = document.getElementById('btn-accept');
-  // TODO: manage edit and delete.
-  // check what happens if fails server response
+
   btnAccept.addEventListener('click', () => {
-    console.log('envio delete api', btnAccept.dataset.action);
-    apiClass.delete(btnAccept.dataset.action);
+    console.log('click en boton accept');
+    apiClass.delete(id);
   });
 }
 
-export { handleActionButtons, handleModalOpen, handleModalClose, handleModalAcceptButton };
+export { handleActionButtons, handleModalOpen, handleModalClose };

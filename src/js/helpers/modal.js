@@ -1,20 +1,18 @@
-import { createInput, removeInput } from "./ui";
+import { createInput, removeInput } from './ui';
 
 class Modal {
   constructor(id, title, text, action) {
     this.id = id || 0;
-    this.title = title || "";
-    this.text = text || "";
-    this.action = action || "";
+    this.title = title || '';
+    this.text = text || '';
+    this.action = action || '';
   }
 
   renderModal(modalElement, name) {
     this.clearModal(modalElement);
-    modalElement.querySelector(".modal-card-title").textContent = this.title;
-    modalElement.querySelector(".modal-card-body > p").textContent = this.text;
-    // change var name
-    document.getElementById("btn-accept").setAttribute("data-action", this.id);
-    if (this.action === "edit") {
+    modalElement.querySelector('.modal-card-title').textContent = this.title;
+    modalElement.querySelector('.modal-card-body > p').textContent = this.text;
+    if (this.action === 'edit') {
       createInput(modalElement, name);
     }
     Modal.toggleModal(modalElement);
@@ -22,16 +20,16 @@ class Modal {
 
   clearModal(modalElement) {
     const hasInput = modalElement.contains(
-      modalElement.querySelector(".edit-input")
+      modalElement.querySelector('.edit-input')
     );
 
-    if (hasInput || (hasInput && this.action === "delete")) {
+    if (hasInput || (hasInput && this.action === 'delete')) {
       removeInput(modalElement);
     }
   }
 
   static toggleModal(modal) {
-    modal.classList.toggle("is-active");
+    modal.classList.toggle('is-active');
   }
 }
 

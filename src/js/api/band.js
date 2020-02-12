@@ -71,7 +71,7 @@ class Band {
       body: JSON.stringify({ id: id })
     };
     return fetch(`${apiUri}band/delete.php`, init).then(response => {
-      console.log('respuesta del servidor', response.json());
+      console.log(response.json());
     });
     // .then(() => {
     //   let table = document.getElementById('band-data');
