@@ -1,23 +1,25 @@
 import { apiUri } from '../../config/paths';
+import { modal, populateTable } from '../helpers/render';
+
+// TODO:
+// refactor ajax
 
 class Place {
   static getAll() {
-    return fetch(`${apiUri}place/read.php`)
+    fetch(`${apiUri}place/read.php`)
       .then(response => {
-        if (response !== undefined) {
+        if (response) {
           return response.json();
         }
       })
-      .then(data => data.records)
-      .catch(error => {
-        const message = 'return mocked data.';
-        console.warn(message, error);
-        return [
-          { id: '1', name: 'Groove' },
-          { id: '2', name: 'Niceto' },
-          { id: '3', name: 'El Teatro' }
-        ];
-      });
+      .then(data => {
+        const records = data.records;
+        populateTable(records, 'place');
+      })
+      .then(() => {
+        modal('place');
+      })
+      .catch(error => console.error('Ooops!...', error));
   }
 
   static create(name) {

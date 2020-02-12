@@ -1,41 +1,22 @@
 import { apiUri } from '../../config/paths';
+import { populateRecitalTable, prepareDelete } from '../helpers/render';
 
 class Recital {
   static getAll() {
-    return fetch(`${apiUri}recital/read.php`)
+    fetch(`${apiUri}recital/read.php`)
       .then(response => {
-        if (response !== undefined) {
+        if (response) {
           return response.json();
         }
       })
-      .then(data => data.records)
-      .catch(error => {
-        const message = 'return mocked data.';
-        console.warn(message, error);
-        return [
-          {
-            id: '1',
-            date: '2019-01-02',
-            band: 'Boom Boom Kid',
-            place: 'El Teatro',
-            ticket: 1
-          },
-          {
-            id: '2',
-            date: '2019-08-21',
-            band: 'Shaila',
-            place: 'Groove',
-            ticket: 1
-          },
-          {
-            id: '3',
-            date: '2019-07-22',
-            band: 'Shaila',
-            place: 'Niceto',
-            ticket: 0
-          }
-        ];
-      });
+      .then(data => {
+        const records = data.records;
+        populateRecitalTable(records);
+      })
+      .then(() => {
+        prepareDelete();
+      })
+      .catch(error => console.log('Ooops!...', error));
   }
 
   static delete(id) {

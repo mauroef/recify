@@ -1,4 +1,5 @@
 import { apiUri } from '../../config/paths';
+//import { modal, populateTable } from '../helpers/render';
 
 class Band {
   static getAll() {
@@ -13,10 +14,10 @@ class Band {
         const message = 'return mocked data.';
         console.warn(message, error);
         return [
-          { id: '1', name: 'Shaila' },
-          { id: '2', name: 'Boom Boom Kid' },
-          { id: '3', name: 'Cucsifae' }
-        ];
+          { id: '1', name: 'shaila' },
+          { id: '2', name: 'boom boom kid' },
+          { id: '3', name: 'eterna inocencia' },
+        ]
       });
   }
 

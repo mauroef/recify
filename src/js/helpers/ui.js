@@ -21,9 +21,9 @@ const createInput = (modalElement, value) => {
   append(bodyModal[0], input);
 };
 
-const removeInput = () => {
+function removeInput() {
   let input = document.getElementById('edit-input');
   input.remove();
-};
+}
 
 export { createNode, append, createButton, createInput, removeInput };

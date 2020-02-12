@@ -1,52 +1,52 @@
-import Modal from './modal';
+import Recital from '../api/recital';
+import Band from '../api/band';
+import Place from '../api/place';
 
-function handleActionButtons(tableSelector, actionClass) {
-  const buttons = document.querySelectorAll(
-    `#${tableSelector} a.${actionClass}`
-  );
+// recitals
+const getRecital = () => Recital.getAll();
+const deleteRecital = id => Recital.delete(id);
 
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', () => {
-      let id = buttons[i].id;
-      let name = buttons[i].parentNode.previousSibling.textContent;
+// bands
+const getBand = () => Band.getAll();
 
-      handleModalOpen(actionClass, id, name, buttons[i]);
-    });
-  }
-}
+const editBand = (id, name) => Band.update(id, name);
 
-function handleModalOpen(actionClass, id, name) {
-  const modalElement = document.getElementById('modal');
+const deleteBand = id => Band.delete(id);
 
-  switch (actionClass) {
-    case 'btn-edit': {
-      const editModal = new Modal(
-        id,
-        'Edit - ' + name,
-        'Enter the new name',
-        'edit'
-      );
-      editModal.renderModal(modalElement, name);
-      break;
-    }
-    case 'btn-delete': {
-      const deleteModal = new Modal(id, 'Delete', 'Are you sure?', 'delete');
-      deleteModal.renderModal(modalElement);
-      break;
-    }
-    default:
-      console.warn('unauthorized action');
-  }
-}
+const saveBand = () => {
+  const btnSave = document.getElementById('save-band');
+  btnSave.onclick = event => {
+    event.preventDefault();
+    const name = document.getElementById('new-band').value;
+    Band.create(name);
+  };
+};
 
-function handleModalClose(modalElement) {
-  var btnClose = modalElement.querySelectorAll('.modal-remove');
+// places
+const getPlace = () => Place.getAll();
 
-  for (var i = 0; i < btnClose.length; i++) {
-    btnClose[i].addEventListener('click', () => {
-      Modal.toggleModal(modalElement);
-    });
-  }
-}
+const editPlace = (id, name) => Place.update(id, name);
 
-export { handleActionButtons, handleModalOpen, handleModalClose };
+const deletePlace = id => Place.delete(id);
+
+const savePlace = () => {
+  const btnSave = document.getElementById('save-place');
+  btnSave.onclick = event => {
+    event.preventDefault();
+    const name = document.getElementById('new-place').value;
+    Place.create(name);
+  };
+};
+
+export {
+  getRecital,
+  deleteRecital,
+  getBand,
+  editBand,
+  deleteBand,
+  saveBand,
+  getPlace,
+  editPlace,
+  deletePlace,
+  savePlace
+};
