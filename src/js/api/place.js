@@ -49,7 +49,7 @@ class Place {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-    return fetch(`${apiUri}place/update.php`, init)
+    fetch(`${apiUri}place/update.php`, init)
       .then(response => {
         console.log(response.json());
       })
@@ -70,7 +70,7 @@ class Place {
       },
       body: JSON.stringify({ id })
     };
-    return fetch(`${apiUri}place/delete.php`, init)
+    fetch(`${apiUri}place/delete.php`, init)
       .then(response => {
         console.log(response.json());
       })
@@ -79,8 +79,8 @@ class Place {
         while (table.firstChild) {
           table.removeChild(table.firstChild);
         }
-      });
-    // .then(() => Place.getAll());
+      })
+      .then(() => Place.getAll());
   }
 }
 
