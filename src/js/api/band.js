@@ -57,9 +57,10 @@ class Band {
       body: JSON.stringify({ id: id })
     };
 
-    return fetch(`${apiUri}band/delete.php`, init).then(response => {
-      console.log('respuesta del servidor', response.json());
-    });
+    return fetch(`${apiUri}band/delete.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 }
 

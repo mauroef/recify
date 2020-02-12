@@ -26,4 +26,27 @@ const removeInput = () => {
   input.remove();
 };
 
-export { createNode, append, createButton, createInput, removeInput };
+const removeRow = (tableSelector, responseId) => {
+  let rows = document.querySelectorAll(`#${tableSelector} > tr`);
+  let rowsId = document.querySelectorAll(
+    `#${tableSelector} > tr td:first-child`
+  );
+
+  for (let i = 0; i < rows.length; i++) {
+    // if server response is undefined remove the current mocked data
+    responseId = responseId !== 0 ? responseId : +rowsId[i].innerText;
+
+    if (+rowsId[i].innerText === +responseId) {
+      rows[i].parentNode.removeChild(rows[i]);
+    }
+  }
+};
+
+export {
+  createNode,
+  append,
+  createButton,
+  createInput,
+  removeInput,
+  removeRow
+};

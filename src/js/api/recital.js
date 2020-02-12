@@ -46,17 +46,11 @@ class Recital {
       },
       body: JSON.stringify({ id })
     };
+
     return fetch(`${apiUri}recital/delete.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('recital-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstElementChild);
-        }
-      });
-    // .then(() => Recital.getAll());
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 }
 
