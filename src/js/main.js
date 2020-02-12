@@ -2,6 +2,7 @@ import Recital from './api/recital';
 import Band from './api/band';
 import Place from './api/place';
 import { renderTable } from './helpers/render';
+import Panel from '../js/helpers/panel';
 
 const initApp = function() {
   const location = window.location.pathname;
@@ -9,12 +10,18 @@ const initApp = function() {
     case '/':
       renderTable(Recital, 'recital-data', true);
       break;
-    case '/bands.html':
+    case '/bands.html': {
+      let panelCreate = new Panel('create');
+      panelCreate.handlePanelEvents(Band);
       renderTable(Band, 'band-data', false);
       break;
-    case '/places.html':
+    }
+    case '/places.html': {
+      let panelCreate = new Panel('create');
+      panelCreate.handlePanelEvents(Place);
       renderTable(Place, 'place-data', false);
       break;
+    }
     default:
       console.warn('unrecheable view');
       break;

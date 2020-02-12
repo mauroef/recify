@@ -28,17 +28,10 @@ class Place {
       },
       body: JSON.stringify({ name: name })
     };
-    fetch(`${apiUri}place/create.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('place-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Place.getAll());
+
+    return fetch(`${apiUri}place/create.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 
   static update(id, name) {
@@ -49,17 +42,10 @@ class Place {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-    fetch(`${apiUri}place/update.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('place-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Place.getAll());
+
+    return fetch(`${apiUri}place/update.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 
   static delete(id) {
@@ -70,17 +56,11 @@ class Place {
       },
       body: JSON.stringify({ id })
     };
-    fetch(`${apiUri}place/delete.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('place-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Place.getAll());
+
+    return fetch(`${apiUri}place/delete.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 }
 

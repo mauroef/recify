@@ -28,17 +28,10 @@ class Band {
       },
       body: JSON.stringify({ name: name })
     };
-    fetch(`${apiUri}band/create.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('band-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Band.getAll());
+
+    return fetch(`${apiUri}band/create.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 
   static update(id, name) {
@@ -49,17 +42,10 @@ class Band {
       },
       body: JSON.stringify({ id: id, name: name })
     };
-    fetch(`${apiUri}band/update.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('band-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Band.getAll());
+
+    return fetch(`${apiUri}band/update.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 
   static delete(id) {
@@ -70,17 +56,11 @@ class Band {
       },
       body: JSON.stringify({ id: id })
     };
-    fetch(`${apiUri}band/delete.php`, init)
-      .then(response => {
-        console.log(response.json());
-      })
-      .then(() => {
-        let table = document.getElementById('band-data');
-        while (table.firstChild) {
-          table.removeChild(table.firstChild);
-        }
-      })
-      .then(() => Band.getAll());
+
+    return fetch(`${apiUri}band/delete.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 }
 
