@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "recitals crud for personal use",
   "main": "build/index.html",
-  "scripts": {    
-    "start": "gulp",
-    "serve": "gulp serve",
+  "scripts": {
+    "dev": "gulp",
+    "start": "gulp serve",
     "css": "gulp css",
     "js": "gulp js"
   },
