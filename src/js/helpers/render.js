@@ -37,7 +37,7 @@ function renderTable(apiClass, tableSelector, isRecitalTable) {
       }
       Table.handleActionButtons(tableSelector, 'btn-delete');
       Modal.handleModalCloseButtons(document.getElementById('modal'));
-      Modal.handleModalAcceptButton(apiClass, tableSelector);
+      Modal.handleModalAcceptButton(apiClass);
     });
 }
 

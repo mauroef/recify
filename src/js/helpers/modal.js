@@ -1,4 +1,4 @@
-import { createInput, removeInput, removeRow } from './ui';
+import { createInput, removeInput } from './ui';
 
 class Modal {
   constructor(id, title, text, action) {
@@ -79,7 +79,7 @@ class Modal {
     }
   }
 
-  static handleModalAcceptButton(apiClass, tableSelector) {
+  static handleModalAcceptButton(apiClass) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
     // TODO: check what happens if fails server response
@@ -98,12 +98,7 @@ class Modal {
 
       if (btnAccept.dataset.action == 'delete') {
         apiClass.delete(btnAccept.dataset.id).then(data => {
-          if (data !== undefined) {
-            removeRow(tableSelector, data.id);
-          } else {
-            removeRow(tableSelector, 0);
-          }
-
+          console.log('data', data);
           this.toggleModal(modalElement);
         });
       }

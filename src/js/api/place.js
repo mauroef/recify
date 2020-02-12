@@ -57,10 +57,9 @@ class Place {
       body: JSON.stringify({ id })
     };
 
-    return fetch(`${apiUri}place/delete.php`, init)
-      .then(response => response.json())
-      .then(data => data)
-      .catch(error => console.warn('error with server res', error));
+    return fetch(`${apiUri}place/delete.php`, init).then(response => {
+      console.log(response.json());
+    });
   }
 }
 
