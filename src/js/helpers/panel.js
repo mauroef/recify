@@ -8,7 +8,8 @@ class Panel {
       `#panel-${this.type} input[type=text]`
     );
     const btn = document.querySelector(`#panel-${this.type} button`);
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       if (this.type === 'create') {
         apiClass
           .create(input.value)

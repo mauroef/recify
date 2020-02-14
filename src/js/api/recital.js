@@ -38,6 +38,8 @@ class Recital {
       });
   }
 
+  // TODO: static create...
+
   static delete(id) {
     const init = {
       method: 'POST',
