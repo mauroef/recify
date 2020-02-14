@@ -29,9 +29,10 @@ class Place {
       body: JSON.stringify({ name: name })
     };
 
-    return fetch(`${apiUri}place/create.php`, init).then(response => {
-      console.log(response.json());
-    });
+    return fetch(`${apiUri}place/create.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 
   static update(id, name) {
@@ -43,9 +44,10 @@ class Place {
       body: JSON.stringify({ id: id, name: name })
     };
 
-    return fetch(`${apiUri}place/update.php`, init).then(response => {
-      console.log(response.json());
-    });
+    return fetch(`${apiUri}place/update.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with server res', error));
   }
 
   static delete(id) {
