@@ -9,12 +9,12 @@ class Panel {
     );
     const btn = document.querySelector(`#panel-${this.type} button`);
     btn.addEventListener('click', e => {
-      e.stopPropagation();
       if (this.type === 'create') {
         apiClass
           .create(input.value)
           .then(() => console.log('ejecuto bien la req.'));
       }
+      e.stopImmediatePropagation();
     });
   }
 

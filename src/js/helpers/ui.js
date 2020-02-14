@@ -26,6 +26,25 @@ const removeInput = () => {
   input.remove();
 };
 
+const editRow = (tableSelector, responseId, responseName) => {
+  let rows = document.querySelectorAll(`#${tableSelector} > tr`);
+  let rowsId = document.querySelectorAll(
+    `#${tableSelector} > tr td:first-child`
+  );
+  let rowsName = document.querySelectorAll(
+    `#${tableSelector} > tr td:nth-child(2)`
+  );
+
+  for (let i = 0; i < rows.length; i++) {
+    // if server response is undefined (or fail) remove the current mocked data
+    //responseId = responseId !== 0 ? responseId : +rowsId[i].innerText;
+
+    if (+rowsId[i].innerText === +responseId) {
+      rowsName[i].innerText = responseName;
+    }
+  }
+};
+
 const removeRow = (tableSelector, responseId) => {
   let rows = document.querySelectorAll(`#${tableSelector} > tr`);
   let rowsId = document.querySelectorAll(
@@ -34,7 +53,7 @@ const removeRow = (tableSelector, responseId) => {
 
   for (let i = 0; i < rows.length; i++) {
     // if server response is undefined remove the current mocked data
-    responseId = responseId !== 0 ? responseId : +rowsId[i].innerText;
+    //responseId = responseId !== 0 ? responseId : +rowsId[i].innerText;
 
     if (+rowsId[i].innerText === +responseId) {
       rows[i].parentNode.removeChild(rows[i]);
@@ -48,5 +67,6 @@ export {
   createButton,
   createInput,
   removeInput,
+  editRow,
   removeRow
 };

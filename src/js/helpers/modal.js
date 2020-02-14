@@ -1,4 +1,4 @@
-import { createInput, removeInput, removeRow } from './ui';
+import { createInput, removeInput, editRow, removeRow } from './ui';
 
 class Modal {
   constructor(id, title, text, action) {
@@ -91,14 +91,25 @@ class Modal {
             document.getElementById('edit-input').value
           )
           .then(data => {
-            console.log('data', data);
+            // console.log('data', data);
+            editRow(
+              tableSelector,
+              data !== undefined ? data.id : btnAccept.dataset.id,
+              data !== undefined
+                ? data.name
+                : document.getElementById('edit-input').value
+            );
+
             this.toggleModal(modalElement);
           });
       }
 
       if (btnAccept.dataset.action == 'delete') {
         apiClass.delete(btnAccept.dataset.id).then(data => {
-          removeRow(tableSelector, data !== undefined ? data.id : 0);
+          removeRow(
+            tableSelector,
+            data !== undefined ? data.id : btnAccept.dataset.id
+          );
 
           this.toggleModal(modalElement);
         });
