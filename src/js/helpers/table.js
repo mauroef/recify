@@ -1,5 +1,5 @@
 import { append } from '../helpers/ui';
-import Modal from './modal'; // momentaneo
+import Modal from './modal'; /* TODO: handle out of this class */
 
 class Table {
   constructor() {

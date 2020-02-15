@@ -13,9 +13,9 @@ class Place {
         const message = 'return mocked data.';
         console.warn(message, error);
         return [
-          { id: '1', name: 'Groove' },
+          { id: '3', name: 'El Teatro' },
           { id: '2', name: 'Niceto' },
-          { id: '3', name: 'El Teatro' }
+          { id: '1', name: 'Groove' }
         ];
       });
   }

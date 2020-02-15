@@ -14,11 +14,11 @@ class Recital {
         console.warn(message, error);
         return [
           {
-            id: '1',
-            date: '2019-01-02',
-            band: 'Boom Boom Kid',
-            place: 'El Teatro',
-            ticket: 1
+            id: '3',
+            date: '2019-07-22',
+            band: 'Shaila',
+            place: 'Niceto',
+            ticket: 0
           },
           {
             id: '2',
@@ -28,11 +28,11 @@ class Recital {
             ticket: 1
           },
           {
-            id: '3',
-            date: '2019-07-22',
-            band: 'Shaila',
-            place: 'Niceto',
-            ticket: 0
+            id: '1',
+            date: '2019-01-02',
+            band: 'Boom Boom Kid',
+            place: 'El Teatro',
+            ticket: 1
           }
         ];
       });

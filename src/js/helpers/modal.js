@@ -91,7 +91,6 @@ class Modal {
             document.getElementById('edit-input').value
           )
           .then(data => {
-            // console.log('data', data);
             editRow(
               tableSelector,
               data !== undefined ? data.id : btnAccept.dataset.id,

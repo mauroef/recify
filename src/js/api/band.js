@@ -13,9 +13,9 @@ class Band {
         const message = 'return mocked data.';
         console.warn(message, error);
         return [
-          { id: '1', name: 'Shaila' },
+          { id: '3', name: 'Cucsifae' },
           { id: '2', name: 'Boom Boom Kid' },
-          { id: '3', name: 'Cucsifae' }
+          { id: '1', name: 'Shaila' }
         ];
       });
   }

@@ -51,6 +51,22 @@ class Row {
     append(row, this.createRowNode(this.ticket));
     append(row, this.createRowButton('delete', 'is-danger', 'trash'));
   }
+
+  static insertRowOnTop(row) {
+    let table = document
+      .getElementById('table')
+      .getElementsByTagName('tbody')[0];
+
+    // insert new row at index 0
+    table.insertAdjacentElement('afterbegin', row);
+  }
+
+  static getNextMaxRowId() {
+    // return the top one id ]
+    const id =
+      +document.querySelector('table > tbody > tr > td').textContent + 1;
+    return id;
+  }
 }
 
 export default Row;
