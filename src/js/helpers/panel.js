@@ -1,4 +1,5 @@
 import Row from './row';
+import Table from './table';
 
 class Panel {
   constructor(type) {
@@ -15,9 +16,11 @@ class Panel {
           .create(input.value)
           .then(data => new Row(data.id, data.name))
           .catch(() => new Row(Row.getNextMaxRowId(), input.value)) // if backend fails
-          .then(rowData => {
-            const row = rowData.createRow(false);
+          .then(rowData => rowData.createRow(false))
+          .then(row => {
             Row.insertRowOnTop(row);
+            Table.handleOneActionButton(row, 'btn-edit');
+            Table.handleOneActionButton(row, 'btn-delete');
           });
       }
     });

@@ -22,6 +22,17 @@ class Table {
     return table;
   }
 
+  static handleOneActionButton(row, actionClass) {
+    const button = row.getElementsByClassName(actionClass)[0];
+
+    button.addEventListener('click', () => {
+      const id = button.id;
+      const name = button.parentNode.previousSibling.textContent;
+
+      Modal.handleModalOpenButton(actionClass, id, name);
+    });
+  }
+
   static handleActionButtons(tableSelector, actionClass) {
     const buttons = document.querySelectorAll(
       `#${tableSelector} a.${actionClass}`

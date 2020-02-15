@@ -63,9 +63,7 @@ class Row {
 
   static getNextMaxRowId() {
     // return the top one id ]
-    const id =
-      +document.querySelector('table > tbody > tr > td').textContent + 1;
-    return id;
+    return +document.querySelector('table > tbody > tr > td').textContent + 1;
   }
 }
 

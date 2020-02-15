@@ -65,7 +65,7 @@ class Modal {
         break;
       }
       default:
-        console.warn('unauthorized action');
+        console.warn('unauthorized action.');
     }
   }
 
