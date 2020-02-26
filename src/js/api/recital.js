@@ -38,7 +38,9 @@ class Recital {
       });
   }
 
-  // TODO: static create...
+  static create(date, hasTicket, idBand, idPlace) {
+    const init = { date, hasTicket, idBand, idPlace };
+  }
 
   static delete(id) {
     const init = {

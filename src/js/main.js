@@ -6,18 +6,26 @@ import Panel from '../js/helpers/panel';
 
 const initApp = function() {
   const location = window.location.pathname;
+
   switch (location) {
-    case '/':
+    case '/': {
+      let panelRecital = new Panel('recital');
+
+      panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
+      panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
       renderTable(Recital, 'recital-data', true);
       break;
+    }
     case '/bands.html': {
       let panelCreate = new Panel('create');
+
       panelCreate.handlePanelEvents(Band);
       renderTable(Band, 'band-data', false);
       break;
     }
     case '/places.html': {
       let panelCreate = new Panel('create');
+
       panelCreate.handlePanelEvents(Place);
       renderTable(Place, 'place-data', false);
       break;

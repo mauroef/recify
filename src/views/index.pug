@@ -6,6 +6,46 @@ block main
 			.container
 				h1.title Welcome to Recify homepage
 				h2.subtitle Here you can view the list of registered shows that you assisted.
+	//- actions
+	section.section#panel-recital
+		.container
+			.tile.is-ancestor
+				//- date
+				.tile.is-3.is-parent          
+					article.tile.is-child.notification
+						p.title.is-3 Select date						
+						.field
+							.control.has-icons-left
+								input.input.is-medium(type="date", id="recital-date", placeholder="")
+								span.icon.is-medium.is-left
+									i.fas.fa-calendar
+				//- place
+				.tile.is-3.is-parent
+					article.tile.is-child.notification
+						p.title.is-3 Place...						
+						.field
+							.control
+								.select.is-medium
+									select#place-dropdown
+				//- band
+				.tile.is-3.is-parent
+					article.tile.is-child.notification
+						p.title.is-3 Band...
+						.field
+							.control
+								.select.is-medium
+									select#band-dropdown
+				//- ticket
+				.tile.is-3.is-parent
+					article.tile.is-child.notification
+						p.title.is-3 Have any ticket?						
+						.field
+							.control.has-icons-left
+								label#ticket-checkbox
+									input(type="checkbox", id="ticket-checkbox", name="Yes, I have")
+									|	Yes, I have
+			<button class="button is-medium is-fullwidth is-primary">Create!</button>													
+	//- table
 	section.section
 		.container
 			table.table.is-hoverable.is-fullwidth#table
@@ -18,4 +58,4 @@ block main
 						th Ticket
 						th Delete
 				tbody#recital-data
-	include ./blocks/modal  
+	include ./blocks/modal

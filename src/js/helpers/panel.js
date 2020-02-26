@@ -1,9 +1,29 @@
 import Row from './row';
 import Table from './table';
+import * as Ui from './ui';
 
 class Panel {
   constructor(type) {
-    this.type = type; // create || search
+    if (type !== 'recital') {
+      this.type = type; // create || search
+    } else {
+      this.combo = { place: 'place-dropdown', band: 'band-dropdown' };
+    }
+  }
+
+  buildPanelCombo(apiClass, cboSelector) {
+    let cboPanel = document.getElementById(cboSelector);
+
+    apiClass.getAll().then(result => {
+      if (result.length > 0) {
+        result.forEach(r => {
+          let optionNode = Ui.createNode('option');
+          optionNode.value = r.id;
+          optionNode.textContent = r.name;
+          Ui.append(cboPanel, optionNode);
+        });
+      }
+    });
   }
 
   handlePanelEvents(apiClass) {
