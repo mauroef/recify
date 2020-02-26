@@ -46,14 +46,14 @@ class Row {
   appendRecitalRowNodes(row) {
     append(row, this.createRowNode(this.id));
     append(row, this.createRowNode(this.date));
-    append(row, this.createRowNode(this.place));
     append(row, this.createRowNode(this.band));
+    append(row, this.createRowNode(this.place));
     append(row, this.createRowNode(this.ticket));
     append(row, this.createRowButton('delete', 'is-danger', 'trash'));
   }
 
   static insertRowOnTop(row) {
-    let table = document
+    const table = document
       .getElementById('table')
       .getElementsByTagName('tbody')[0];
 
@@ -64,6 +64,16 @@ class Row {
   static getNextMaxRowId() {
     // return the top one id ]
     return +document.querySelector('table > tbody > tr > td').textContent + 1;
+  }
+
+  static getNameById(selector, id) {
+    const items = document.getElementById(selector).options;
+    // return matched name with any id from dropdown list
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].value == id) {
+        return items[i].textContent;
+      }
+    }
   }
 }
 

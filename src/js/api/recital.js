@@ -39,7 +39,23 @@ class Recital {
   }
 
   static create(date, hasTicket, idBand, idPlace) {
-    const init = { date, hasTicket, idBand, idPlace };
+    const init = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*'
+      },
+      body: JSON.stringify({
+        date: date,
+        ticket: hasTicket,
+        id_band: idBand,
+        id_place: idPlace
+      })
+    };
+
+    return fetch(`${apiUri}recital/create.php`, init)
+      .then(response => response.json())
+      .then(data => data)
+      .catch(error => console.warn('error with the server res', error));
   }
 
   static delete(id) {

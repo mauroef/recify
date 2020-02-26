@@ -9,10 +9,11 @@ const initApp = function() {
 
   switch (location) {
     case '/': {
-      let panelRecital = new Panel('recital');
+      let panelRecital = new Panel('create', true);
 
-      panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
       panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
+      panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
+      panelRecital.handlePanelEvents(Recital);
       renderTable(Recital, 'recital-data', true);
       break;
     }
