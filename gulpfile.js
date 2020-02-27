@@ -24,7 +24,10 @@ gulp.task('pug', () =>
 // browserify js
 gulp.task('js', async () => {
   browserify('./src/js/main.js')
-    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .transform(babelify, {
+      presets: ['@babel/preset-env'],
+      plugins: [['@babel/plugin-proposal-class-properties']]
+    })
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())

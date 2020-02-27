@@ -1,3 +1,4 @@
+import validator from '../helpers/validator';
 import { createInput, removeInput, editRow, removeRow } from './ui';
 
 class Modal {
@@ -82,9 +83,18 @@ class Modal {
   static handleModalAcceptButton(apiClass, tableSelector) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
-    // TODO: check what happens if fails server response
+
     btnAccept.addEventListener('click', () => {
       if (btnAccept.dataset.action == 'edit') {
+        if (
+          !validator.validate(
+            document.getElementById('edit-input').value,
+            validator.REQUIRED
+          )
+        ) {
+          console.log('errorcillo');
+          return;
+        }
         apiClass
           .update(
             btnAccept.dataset.id,
