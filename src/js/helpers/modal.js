@@ -99,30 +99,53 @@ class Modal {
           return;
         }
 
-        apiClass.update(btnAccept.dataset.id, inputValue).then(data => {
-          editRow(
-            tableSelector,
-            data !== undefined ? data.id : btnAccept.dataset.id,
-            data !== undefined
-              ? data.name
-              : document.getElementById('edit-input').value
-          );
-
-          this.toggleModal(modalElement);
-        });
+        apiClass
+          .update(btnAccept.dataset.id, inputValue)
+          .then(data => {
+            editRow(
+              tableSelector,
+              data !== undefined ? data.id : btnAccept.dataset.id,
+              data !== undefined ? data.name : inputValue
+            );
+          })
+          .then(() => {
+            this.toggleModal(modalElement);
+            Notification.showTextSuccessMessage(
+              Modal.getRecordTypeName(tableSelector),
+              'edited'
+            );
+          });
       }
 
       if (btnAccept.dataset.action == 'delete') {
-        apiClass.delete(btnAccept.dataset.id).then(data => {
-          removeRow(
-            tableSelector,
-            data !== undefined ? data.id : btnAccept.dataset.id
-          );
-
-          this.toggleModal(modalElement);
-        });
+        apiClass
+          .delete(btnAccept.dataset.id)
+          .then(data => {
+            removeRow(
+              tableSelector,
+              data !== undefined ? data.id : btnAccept.dataset.id
+            );
+          })
+          .then(() => {
+            this.toggleModal(modalElement);
+            Notification.showTextSuccessMessage(
+              Modal.getRecordTypeName(tableSelector),
+              'deleted'
+            );
+          });
       }
     });
+  }
+
+  static getRecordTypeName(record) {
+    switch (record) {
+      case 'band-data':
+        return 'Band';
+      case 'place-data':
+        return 'Place';
+      case 'recital-data':
+        return 'Recital';
+    }
   }
 }
 

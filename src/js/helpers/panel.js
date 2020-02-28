@@ -37,12 +37,14 @@ class Panel {
   }
 
   handleNonRecitalPanelEvents(apiClass) {
-    let inputValue = document.querySelector(
-      `#panel-${this.type} input[type=text]`
-    ).value;
     const btn = document.querySelector(`#panel-${this.type} button`);
+    let inputValue = '';
 
     btn.addEventListener('click', () => {
+      inputValue = document.querySelector(
+        `#panel-${this.type} input[type=text]`
+      ).value;
+
       if (this.type === 'create') {
         if (
           !Validator.validate(inputValue, Validator.REQUIRED) ||
@@ -62,6 +64,9 @@ class Panel {
             Row.insertRowOnTop(row);
             Table.handleOneActionButton(row, 'btn-edit');
             Table.handleOneActionButton(row, 'btn-delete');
+          })
+          .then(() => {
+            Notification.showTextSuccessMessage('Record', 'created');
           });
       }
     });
@@ -110,6 +115,9 @@ class Panel {
         .then(row => {
           Row.insertRowOnTop(row);
           Table.handleOneActionButton(row, 'btn-delete');
+        })
+        .then(() => {
+          Notification.showTextSuccessMessage('Recital', 'created');
         });
     });
   }
