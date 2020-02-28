@@ -1,5 +1,5 @@
-import validator from '../helpers/validator';
 import { createInput, removeInput, editRow, removeRow } from './ui';
+import validator from '../helpers/validator';
 
 class Modal {
   constructor(id, title, text, action) {
@@ -83,34 +83,32 @@ class Modal {
   static handleModalAcceptButton(apiClass, tableSelector) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
+    let inputValue = '';
 
     btnAccept.addEventListener('click', () => {
       if (btnAccept.dataset.action == 'edit') {
+        inputValue = document.getElementById('edit-input').value;
+
         if (
-          !validator.validate(
-            document.getElementById('edit-input').value,
-            validator.REQUIRED
-          )
+          !validator.validate(inputValue, validator.REQUIRED) ||
+          !validator.validate(inputValue, validator.MIN_LENGTH, 2) ||
+          !validator.validate(inputValue, validator.MAX_LENGTH, 20)
         ) {
-          console.log('errorcillo');
+          validator.showErrorMessage();
           return;
         }
-        apiClass
-          .update(
-            btnAccept.dataset.id,
-            document.getElementById('edit-input').value
-          )
-          .then(data => {
-            editRow(
-              tableSelector,
-              data !== undefined ? data.id : btnAccept.dataset.id,
-              data !== undefined
-                ? data.name
-                : document.getElementById('edit-input').value
-            );
 
-            this.toggleModal(modalElement);
-          });
+        apiClass.update(btnAccept.dataset.id, inputValue).then(data => {
+          editRow(
+            tableSelector,
+            data !== undefined ? data.id : btnAccept.dataset.id,
+            data !== undefined
+              ? data.name
+              : document.getElementById('edit-input').value
+          );
+
+          this.toggleModal(modalElement);
+        });
       }
 
       if (btnAccept.dataset.action == 'delete') {

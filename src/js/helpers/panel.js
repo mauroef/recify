@@ -1,6 +1,7 @@
 import Row from './row';
 import Table from './table';
 import * as Ui from './ui';
+import validator from './validator';
 
 class Panel {
   constructor(type, isRecital) {
@@ -35,15 +36,26 @@ class Panel {
   }
 
   handleNonRecitalPanelEvents(apiClass) {
-    let input = document.querySelector(`#panel-${this.type} input[type=text]`);
+    let inputValue = document.querySelector(
+      `#panel-${this.type} input[type=text]`
+    ).value;
     const btn = document.querySelector(`#panel-${this.type} button`);
 
     btn.addEventListener('click', () => {
       if (this.type === 'create') {
+        if (
+          !validator.validate(inputValue, validator.REQUIRED) ||
+          !validator.validate(inputValue, validator.MIN_LENGTH, 2) ||
+          !validator.validate(inputValue, validator.MAX_LENGTH, 20)
+        ) {
+          validator.showErrorMessage();
+          return;
+        }
+
         apiClass
-          .create(input.value)
+          .create(inputValue)
           .then(data => new Row(data.id, data.name))
-          .catch(() => new Row(Row.getNextMaxRowId(), input.value)) // if backend fails
+          .catch(() => new Row(Row.getNextMaxRowId(), inputValue)) // if backend fails
           .then(rowData => rowData.createRow(false))
           .then(row => {
             Row.insertRowOnTop(row);
