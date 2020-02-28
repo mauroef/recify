@@ -1,5 +1,6 @@
 import { createInput, removeInput, editRow, removeRow } from './ui';
-import validator from '../helpers/validator';
+import Validator from './validator';
+import Notification from './notification';
 
 class Modal {
   constructor(id, title, text, action) {
@@ -90,11 +91,11 @@ class Modal {
         inputValue = document.getElementById('edit-input').value;
 
         if (
-          !validator.validate(inputValue, validator.REQUIRED) ||
-          !validator.validate(inputValue, validator.MIN_LENGTH, 2) ||
-          !validator.validate(inputValue, validator.MAX_LENGTH, 20)
+          !Validator.validate(inputValue, Validator.REQUIRED) ||
+          !Validator.validate(inputValue, Validator.MIN_LENGTH, 2) ||
+          !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
         ) {
-          validator.showErrorMessage();
+          Notification.showTextErrorMessage(2, 10);
           return;
         }
 

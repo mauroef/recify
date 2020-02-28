@@ -1,4 +1,4 @@
-export default class validator {
+export default class Validator {
   static REQUIRED = 'REQUIRED';
   static MIN_LENGTH = 'MIN_LENGTH';
   static MAX_LENGTH = 'MAX_LENGTH';
@@ -15,9 +15,5 @@ export default class validator {
         return value.trim().length < validatorValue;
       }
     }
-  }
-
-  static showErrorMessage() {
-    console.log('error');
   }
 }

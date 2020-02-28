@@ -1,7 +1,8 @@
 import Row from './row';
 import Table from './table';
 import * as Ui from './ui';
-import validator from './validator';
+import Validator from './validator';
+import Notification from './notification';
 
 class Panel {
   constructor(type, isRecital) {
@@ -44,11 +45,11 @@ class Panel {
     btn.addEventListener('click', () => {
       if (this.type === 'create') {
         if (
-          !validator.validate(inputValue, validator.REQUIRED) ||
-          !validator.validate(inputValue, validator.MIN_LENGTH, 2) ||
-          !validator.validate(inputValue, validator.MAX_LENGTH, 20)
+          !Validator.validate(inputValue, Validator.REQUIRED) ||
+          !Validator.validate(inputValue, Validator.MIN_LENGTH, 2) ||
+          !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
         ) {
-          validator.showErrorMessage();
+          Notification.showTextErrorMessage(2, 20);
           return;
         }
 
@@ -76,6 +77,11 @@ class Panel {
     const btn = document.querySelector(`#panel-${this.type} button`);
 
     btn.addEventListener('click', () => {
+      if (!Validator.validate(date.value, Validator.REQUIRED)) {
+        Notification.showDateErrorMessage();
+        return;
+      }
+
       apiClass
         .create(date.value, ticket.checked, bandId.value, placeId.value)
         .then(
