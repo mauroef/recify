@@ -7,7 +7,7 @@ export default class Notification {
       type: 'is-info',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'fadeIn', out: 'fadeOut' }
     });
   }
 
@@ -24,6 +24,16 @@ export default class Notification {
   static showDateErrorMessage() {
     superToast({
       message: '<strong>Error:</strong> input value must be a valid date.',
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' }
+    });
+  }
+
+  static showServerErrorMessage(message) {
+    superToast({
+      message: `<strong>Error:</strong> ${message}`,
       type: 'is-danger',
       dismissible: true,
       duration: 3000,

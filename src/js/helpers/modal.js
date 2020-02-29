@@ -102,18 +102,19 @@ class Modal {
         apiClass
           .update(btnAccept.dataset.id, inputValue)
           .then(data => {
-            editRow(
-              tableSelector,
-              data !== undefined ? data.id : btnAccept.dataset.id,
-              data !== undefined ? data.name : inputValue
-            );
+            editRow(tableSelector, data.id, data.name);
+          })
+          .catch(() => {
+            editRow(tableSelector, btnAccept.dataset.id, inputValue);
           })
           .then(() => {
-            this.toggleModal(modalElement);
             Notification.showTextSuccessMessage(
               Modal.getRecordTypeName(tableSelector),
               'edited'
             );
+          })
+          .finally(() => {
+            this.toggleModal(modalElement);
           });
       }
 
@@ -121,17 +122,25 @@ class Modal {
         apiClass
           .delete(btnAccept.dataset.id)
           .then(data => {
-            removeRow(
-              tableSelector,
-              data !== undefined ? data.id : btnAccept.dataset.id
-            );
+            if (data.id !== undefined) {
+              removeRow(tableSelector, data.id);
+              Notification.showTextSuccessMessage(
+                Modal.getRecordTypeName(tableSelector),
+                'deleted'
+              );
+            } else {
+              Notification.showServerErrorMessage(data.message);
+            }
           })
-          .then(() => {
-            this.toggleModal(modalElement);
+          .catch(() => {
+            removeRow(tableSelector, btnAccept.dataset.id);
             Notification.showTextSuccessMessage(
               Modal.getRecordTypeName(tableSelector),
               'deleted'
             );
+          })
+          .finally(() => {
+            this.toggleModal(modalElement);
           });
       }
     });
