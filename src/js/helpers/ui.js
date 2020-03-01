@@ -54,6 +54,14 @@ const removeRow = (tableSelector, responseId) => {
   }
 };
 
+const showSpinner = (element, flag) => {
+  if (flag) {
+    element.classList.add('is-loading');
+  } else {
+    element.classList.remove('is-loading');
+  }
+};
+
 export {
   createNode,
   append,
@@ -61,5 +69,6 @@ export {
   createInput,
   removeInput,
   editRow,
-  removeRow
+  removeRow,
+  showSpinner
 };

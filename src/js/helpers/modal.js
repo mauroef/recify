@@ -1,4 +1,4 @@
-import { createInput, removeInput, editRow, removeRow } from './ui';
+import * as Ui from './ui';
 import Validator from './validator';
 import Notification from './notification';
 
@@ -16,7 +16,7 @@ class Modal {
     modalElement.querySelector('.modal-card-body > p').textContent = this.text;
 
     if (this.action === 'edit') {
-      createInput(modalElement, name);
+      Ui.createInput(modalElement, name);
       document.getElementById('btn-accept').setAttribute('data-action', 'edit');
     }
 
@@ -37,7 +37,7 @@ class Modal {
     );
 
     if (hasInput || (hasInput && this.action === 'delete')) {
-      removeInput(modalElement);
+      Ui.removeInput(modalElement);
     }
   }
 
@@ -87,6 +87,7 @@ class Modal {
     let inputValue = '';
 
     btnAccept.addEventListener('click', () => {
+      Ui.showSpinner(btnAccept, true);
       if (btnAccept.dataset.action == 'edit') {
         inputValue = document.getElementById('edit-input').value;
 
@@ -102,10 +103,10 @@ class Modal {
         apiClass
           .update(btnAccept.dataset.id, inputValue)
           .then(data => {
-            editRow(tableSelector, data.id, data.name);
+            Ui.editRow(tableSelector, data.id, data.name);
           })
           .catch(() => {
-            editRow(tableSelector, btnAccept.dataset.id, inputValue);
+            Ui.editRow(tableSelector, btnAccept.dataset.id, inputValue);
           })
           .then(() => {
             Notification.showTextSuccessMessage(
@@ -115,6 +116,7 @@ class Modal {
           })
           .finally(() => {
             this.toggleModal(modalElement);
+            Ui.showSpinner(btnAccept, false);
           });
       }
 
@@ -123,7 +125,7 @@ class Modal {
           .delete(btnAccept.dataset.id)
           .then(data => {
             if (data.id !== undefined) {
-              removeRow(tableSelector, data.id);
+              Ui.removeRow(tableSelector, data.id);
               Notification.showTextSuccessMessage(
                 Modal.getRecordTypeName(tableSelector),
                 'deleted'
@@ -133,7 +135,7 @@ class Modal {
             }
           })
           .catch(() => {
-            removeRow(tableSelector, btnAccept.dataset.id);
+            Ui.removeRow(tableSelector, btnAccept.dataset.id);
             Notification.showTextSuccessMessage(
               Modal.getRecordTypeName(tableSelector),
               'deleted'

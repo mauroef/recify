@@ -44,6 +44,7 @@ class Panel {
       inputValue = document.querySelector(
         `#panel-${this.type} input[type=text]`
       ).value;
+      Ui.showSpinner(btn, true);
 
       if (this.type === 'create') {
         if (
@@ -72,6 +73,7 @@ class Panel {
             document.querySelector(
               `#panel-${this.type} input[type=text]`
             ).value = '';
+            Ui.showSpinner(btn, false);
           });
       }
     });
