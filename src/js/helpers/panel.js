@@ -67,6 +67,11 @@ class Panel {
           })
           .then(() => {
             Notification.showTextSuccessMessage('Record', 'created');
+          })
+          .finally(() => {
+            document.querySelector(
+              `#panel-${this.type} input[type=text]`
+            ).value = '';
           });
       }
     });

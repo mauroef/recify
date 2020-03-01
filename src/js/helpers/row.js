@@ -29,6 +29,16 @@ class Row {
     return td;
   }
 
+  createRowTicketNode(data) {
+    const td = createNode('td');
+    const ticketIcon = createNode('i');
+    data
+      ? ticketIcon.classList.add('fas', 'fa-ticket-alt', 'has-text-success')
+      : ticketIcon.classList.add('fas', 'fa-times', 'has-text-danger');
+    append(td, ticketIcon);
+    return td;
+  }
+
   createRowButton(action, cssClass, icon) {
     const td = createNode('td');
     const button = createButton(this.id, action, cssClass, icon);
@@ -48,7 +58,7 @@ class Row {
     append(row, this.createRowNode(this.date));
     append(row, this.createRowNode(this.band));
     append(row, this.createRowNode(this.place));
-    append(row, this.createRowNode(this.ticket));
+    append(row, this.createRowTicketNode(this.ticket));
     append(row, this.createRowButton('delete', 'is-danger', 'trash'));
   }
 
