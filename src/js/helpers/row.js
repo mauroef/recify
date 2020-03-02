@@ -32,7 +32,8 @@ class Row {
   createRowTicketNode(data) {
     const td = createNode('td');
     const ticketIcon = createNode('i');
-    data
+    console.log('ticket', data);
+    data !== '0' && data !== false
       ? ticketIcon.classList.add('fas', 'fa-ticket-alt', 'has-text-success')
       : ticketIcon.classList.add('fas', 'fa-times', 'has-text-danger');
     append(td, ticketIcon);
