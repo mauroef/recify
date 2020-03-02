@@ -143,6 +143,7 @@ class Modal {
           })
           .finally(() => {
             this.toggleModal(modalElement);
+            Ui.showSpinner(btnAccept, false);
           });
       }
     });

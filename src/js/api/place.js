@@ -64,15 +64,6 @@ class Place {
       .then(data => data)
       .catch(error => console.warn('error with server res', error));
   }
-
-  static handleErrors(response) {
-    if (!response.ok) {
-      var foo = response.json();
-      console.log('res?', foo);
-      Notification.showServerErrorMessage(foo.message);
-    }
-    return response;
-  }
 }
 
 export default Place;

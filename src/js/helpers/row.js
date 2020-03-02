@@ -73,7 +73,9 @@ class Row {
 
   static getNextMaxRowId() {
     // return the top one id ]
-    return +document.querySelector('table > tbody > tr > td').textContent + 1;
+    return document.querySelector('table > tbody').childElementCount !== 0
+      ? +document.querySelector('table > tbody > tr > td').textContent + 1
+      : 1;
   }
 
   static getNameById(selector, id) {

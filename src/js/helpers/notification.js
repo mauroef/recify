@@ -40,4 +40,16 @@ export default class Notification {
       animate: { in: 'shake', out: 'fadeOut' }
     });
   }
+
+  static showServerWarningMessage() {
+    superToast({
+      message: 'Failed with server. Returning mocked Data.',
+      type: 'is-warning',
+      dismissible: true,
+      duration: 4000,
+      pauseOnHover: true,
+      position: 'top-center',
+      animate: { in: 'swing', out: 'bounceOut' }
+    });
+  }
 }

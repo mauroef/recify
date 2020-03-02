@@ -1,4 +1,5 @@
 import { apiUri } from '../../config/paths';
+import Notification from '../helpers/notification';
 
 class Recital {
   static getAll() {
@@ -12,6 +13,7 @@ class Recital {
       .catch(error => {
         const message = 'return mocked data.';
         console.warn(message, error);
+        Notification.showServerWarningMessage();
         return [
           {
             id: '3',

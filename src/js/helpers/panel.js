@@ -53,6 +53,7 @@ class Panel {
           !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
         ) {
           Notification.showTextErrorMessage(2, 20);
+          Ui.showSpinner(btn, false);
           return;
         }
 
@@ -89,8 +90,11 @@ class Panel {
     const btn = document.querySelector(`#panel-${this.type} button`);
 
     btn.addEventListener('click', () => {
+      Ui.showSpinner(btn, true);
+
       if (!Validator.validate(date.value, Validator.REQUIRED)) {
         Notification.showDateErrorMessage();
+        Ui.showSpinner(btn, false);
         return;
       }
 
@@ -125,6 +129,10 @@ class Panel {
         })
         .then(() => {
           Notification.showTextSuccessMessage('Recital', 'created');
+        })
+        .finally(() => {
+          Ui.showSpinner(btn, false);
+          date.value = '';
         });
     });
   }
