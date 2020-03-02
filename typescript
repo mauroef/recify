@@ -1,105 +1,0 @@
-Script started on Mon Feb 24 04:52:07 2020
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004heewrerewrrr        e  cconsole.log()')')o')l')a')[?1l>[?2004l
-]2;console.log('ola')]1;console.log('ola')zsh: number expected
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hnnode console.log()o)l)a) )) ) ) ) ')')o')l')a') ')m')u')n')d')') ') n')d')o') ')X')D')[?1l>[?2004l
-]2;node console.log('ola mundo XD')]1;nodezsh: number expected
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hnode console.log('ola mundo XD');[?1l>[?2004l
-]2;node console.log('ola mundo XD')]1;nodezsh: number expected
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004h[?1l>[?2004l
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004h110[?1l>[?2004l
-]2;10]1;10zsh: command not found: 10
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004h[?1l>[?2004l
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004h[?1l>[?2004l
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hllsl  ccls[?1l>[?2004l
-]2;clear]1;cls[H[2J[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hnnode ola[?1l>[?2004l
-]2;node ola]1;nodeinternal/modules/cjs/loader.js:800
-    throw err;
-    ^
-
-Error: Cannot find module '/Users/mauro/Projects/recify/ola'
-[90m    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:797:15)[39m
-[90m    at Function.Module._load (internal/modules/cjs/loader.js:690:27)[39m
-[90m    at Function.Module.runMain (internal/modules/cjs/loader.js:1047:10)[39m
-[90m    at internal/main/run_main_module.js:17:11[39m {
-  code: [32m'MODULE_NOT_FOUND'[39m,
-  requireStack: []
-}
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;31m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hnnod n  nnano  n  nnano ola.js[?1l>[?2004l
-]2;nano ola.js]1;nano[?1049h[1;23r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.0.6               File: ola.js                                     [21;35H[ New File ][22d^G(B[m Get Help  (B[0;7m^O(B[m WriteOut  (B[0;7m^R(B[m Read File (B[0;7m^Y(B[m Prev Page (B[0;7m^K(B[m Cut Text  (B[0;7m^C(B[m Cur Pos[23d(B[0;7m^X(B[m Exit[14G(B[0;7m^J(B[m Justify   (B[0;7m^W(B[m Where Is  (B[0;7m^V(B[m Next Page (B[0;7m^U(B[m UnCut Text(B[0;7m^T(B[m To Spell[3d[1;71H(B[0;7mModified[3d(B[mcond sole.log()')'')o')l')a') ')m')i')[21d[K[3;20Hn')a') ')s')')[Kx')j')')[Kd')');[21d(B[0;7mSave modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ?                    [22;1H Y(B[m Yes[K[23d(B[0;7m N(B[m No  [14G   (B[0;7m^C(B[m Cancel[K[21;62H(B[0;7mFile Name to Write: ola.js                                  [22d^G(B[m Get Help[22;21H(B[0;7m^T(B[m To Files[22;41H(B[0;7mM-M(B[m Mac Format[61G(B[0;7mM-P(B[m Prepend[23d(B[0;7m^C(B[m Cancel[17G    (B[0;7mM-D(B[m DOS Format[41G(B[0;7mM-A(B[m Append[23;61H(B[0;7mM-B(B[m Backup File[21;27H[22d[39;49m(B[m[J[1;71H(B[0;7m        [21;32H(B[m[1K (B[0;7m[ Wrote 1 line ](B[m[K[23;80H[23;1H[?1049l[?1l>[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hnnaon  n  nnode 
-[1;31mbuild[0m/             [1;31mnode_modules[0m/      package.json                        
-favicon.png        ola.js             [1;31msrc[0m/                                
-[Jgulpfile.js        [Jpackage-lock.json  [Jtypescript         [J                 [3A[0m[27m[24m[25Cnode[K[1Cola.js[?1l>[?2004l
-[J]2;node ola.js]1;nodeola mina xd
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hccla s[?1l>[?2004l
-]2;clear]1;cls[H[2J[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
-]2;ls -G]1;ls[1m[36mbuild[39;49m[0m             [1m[36mnode_modules[39;49m[0m      package.json
-favicon.png       ola.js            [1m[36msrc[39;49m[0m
-gulpfile.js       package-lock.json typescript
-[1m[7m%[27m[1m[0m                                                                                ]2;mauro@mauro-mbp: ~/Projects/recify]1;..ojects/recify[0m[27m[24m[J[01;32m➜  [36mrecify[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hvvim gulpfile.js[1m [0m[0m [?1l>[?2004l
-]2;vim gulpfile.js]1;vim[?1049h[?1h=[?2004h[1;23r[?12h[?12l[22;2t[22;1t[27m[29m[m[H[2J[?25l[23;1H"gulpfile.js" 61L, 1462C[2;1H▽[6n[2;1H  [1;1H[>c]10;?]11;?[1;1Hconst gulp = require('gulp');
-const pug = require('gulp-pug');
-const concat = require('gulp-concat');
-const browserify = require('browserify');
-const babelify = require('babelify');
-const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
-const browserSync = require('browser-sync');
-const reload = browserSync.reload;
-
-// pug html
-gulp.task('pug', () =>
-  gulp
-    .src('./src/views/*.pug')
-    .pipe([16;7Hpug({[17;9Hpretty: true[18;7H})
-    )
-    .pipe(gulp.dest('./build/'))
-    .pipe(reload({ stream: true }))
-);[1;1H[?25h[?12$p
-c[?25l[23;1H[1m-- INSERT --[m[23;13H[K[2;2Hnst pug = require('gulp-pug');[2;32H[K[2;2H[?25h[?25ldnst pug = require('gulp-pug');cd[?25h[?25lfnst pug = require('gulp-pug');cdf[?25h[?25lsnst pug = require('gulp-pug');cdfs[?25h[?25ldnst pug = require('gulp-pug');cdfsd[?25h[?25lfnst pug = require('gulp-pug');[2;7H[?25h[?25lsnst pug = require('gulp-pug');[2;8H[?25h[?25ldnst pug = require('gulp-pug');[2;9H[?25h[?25lfnst pug = require('gulp-pug');[2;10H[?25h[?25ldnst pug = require('gulp-pug');[2;11H[?25h[?25lsnst pug = require('gulp-pug');[2;12H[?25h[?25lanst pug = require('gulp-pug');[2;13H[?25h[?25lfnst pug = require('gulp-pug');[2;14H[?25h[?25lsnst pug = require('gulp-pug');[2;15H[?25h[?25ldnst pug = require('gulp-pug');[2;16H[?25h[?25lanst pug = require('gulp-pug');[2;17H[?25h[?25llnst pug = require('gulp-pug');[2;18H[?25h[?25lknst pug = require('gulp-pug');[2;19H[?25h[?25lfnst pug = require('gulp-pug');[2;20H[?25h[?25ljnst pug = require('gulp-pug');[2;21H[?25h[?25ldnst pug = require('gulp-pug');[2;22H[?25h[?25lsnst pug = require('gulp-pug');[2;23H[?25h[?25lanst pug = require('gulp-pug');[2;24H[?25h[?25lknst pug = require('gulp-pug');[2;25H[?25h[?25lfnst pug = require('gulp-pug');[2;26H[?25h[?25ljnst pug = require('gulp-pug');[2;27H[?25h[?25llnst pug = require('gulp-pug');[2;28H[?25h[?25ldnst pug = require('gulp-pug');[2;29H[?25h[?25lsnst pug = require('gulp-pug');[2;30H[?25h[?25lfnst pug = require('gulp-pug');[2;31H[?25h[?25lknst pug = require('gulp-pug');[2;32H[?25h[?25llnst pug = require('gulp-pug');[2;33H[?25h[?25ljnst pug = require('gulp-pug');[2;34H[?25h[?25lsnst pug = require('gulp-pug');[2;35H[?25h[?25ldnst pug = require('gulp-pug');[2;36H[?25h[?25lanst pug = require('gulp-pug');[2;37H[?25h[?25lfnst pug = require('gulp-pug');[2;38H[?25h[?25lknst pug = require('gulp-pug');[2;39H[?25h[?25ljnst pug = require('gulp-pug');[2;40H[?25h[?25ldnst pug = require('gulp-pug');[2;41H[?25h[?25lsnst pug = require('gulp-pug');[2;42H[?25h[?25lanst pug = require('gulp-pug');[2;43H[?25h[?25lfnst pug = require('gulp-pug');[2;44H[?25h[?25lknst pug = require('gulp-pug');[2;45H[?25h[?25ldnst pug = require('gulp-pug');[2;46H[?25h[?25lsnst pug = require('gulp-pug');[2;47H[?25h[?25lanst pug = require('gulp-pug');[2;48H[?25h[?25ljnst pug = require('gulp-pug');[2;49H[?25h[?25lfnst pug = require('gulp-pug');[2;50H[?25h[?25llnst pug = require('gulp-pug');[2;51H[?25h[?25l[3;22r[3;1H[L[1;23r[2;51Hknst pug = require('gulp-pug'))[3;1H;[2;52H[?25h[?25lanst pug = require('gulp-pug''[3;1H);[2;53H[?25h[?25ldnst pug = require('gulp-pugg[3;1H');[2;54H[?25h[?25lsnst pug = require('gulp-puu[3;1Hg');[2;55H[?25h[?25ljnst pug = require('gulp-pp[3;1Hug');[2;56H[?25h[?25lfnst pug = require('gulp--[3;1Hpug');[2;57H[?25h[?25lknst pug = require('gulpp[3;1H-pug');[2;58H[?25h[?25llnst pug = require('gull[3;1Hp-pug');[2;59H[?25h[?25ldnst pug = require('guu[3;1Hlp-pug');[2;60H[?25h[?25lanst pug = require('gg[3;1Hulp-pug');[2;61H[?25h[?25lsnst pug = require(''[3;1Hgulp-pug');[2;62H[?25h[?25ljnst pug = require(([3;1H'gulp-pug');[2;63H[?25h[?25lfnst pug = requiree[3;1H('gulp-pug');[2;64H[?25h[?25llnst pug = requirr[3;1He('gulp-pug');[2;65H[?25h[?25lknst pug = requii[3;1Hre('gulp-pug');[2;66H[?25h[?25lanst pug = requu[3;1Hire('gulp-pug');[2;67H[?25h[?25ldnst pug = reqq[3;1Huire('gulp-pug');[2;68H[?25h[?25lsnst pug = ree[3;1Hquire('gulp-pug');[2;69H[?25h[?25lfnst pug = rr[3;1Hequire('gulp-pug');[2;70H[?25h[?25llnst pug =  [3;1Hrequire('gulp-pug');[2;71H[?25h[?25lknst pug ==[3;1H require('gulp-pug');[2;72H[?25h[?25lanst pug  [3;1H= require('gulp-pug');[2;73H[?25h[?25ldnst pugg[3;1H = require('gulp-pug');[2;74H[?25h[?25lsnst puu[3;1Hg = require('gulp-pug');[2;75H[?25h[?25linst pp[3;1Hug = require('gulp-pug');[2;76H[?25h[23;1H[K[2;75H[?25l[?25h[?25l[23;1H:[?2004h[?25hQ[?25l[23;2H[K[23;2H[?25h!q[?25l:!q[?2004l[?1l>[?25h[?1049l
-[No write since last change]
-zsh:1: command not found: q
-
-shell returned 127
-
-Press ENTER or type command to continue[?1049h[?1h=[?2004h[27m[29m[m[H[2J[?25l[1;1Hconst gulp = require('gulp');
-cdfsdfsdfdsafsdalkfjdsakfjldsfkljsdafkjdsafkdsajflkadsjfkldasjflkadsflkadsinst pp[3;1Hug = require('gulp-pug');
-const concat = require('gulp-concat');
-const browserify = require('browserify');
-const babelify = require('babelify');
-const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
-const browserSync = require('browser-sync');
-const reload = browserSync.reload;
-
-// pug html
-gulp.task('pug', () =>
-  gulp
-    .src('./src/views/*.pug')
-    .pipe([17;7Hpug({[18;9Hpretty: true[19;7H})
-    )
-    .pipe(gulp.dest('./build/'))
-    .pipe(reload({ stream: true }))[2;75H[?25hi[?25l[23;1H[1m-- INSERT --[m[2;76Hst puu[3;1Hg = require('gulp-pug');[3;25H[K[2;76H[?25h[?25l[2;76H[K[3;1Hst pug = require('gulp-pug');[?25h[?25lqst pug = require('gulp-pug');q[?25h[?25l:st pug = require('gulp-pug');q:[?25h[?25lQst pug = require('gulp-pug');q:Q[?25h[?25l:st pug = require('gulp-pug');q:Q:[?25h[23;1H[K[3;4H[?25l[?25h[?25l[23;1H:[?2004h[?25hq[?25l[23;2H[K[23;2H[?25h!q[?25l:!q[?2004l[?1l>[?25h[?1049l
-[No write since last change]
-zsh:1: command not found: q
-
-shell returned 127
-
-Press ENTER or type command to continue[?1049h[?1h=[?2004h[27m[29m[m[H[2J[?25l[1;1Hconst gulp = require('gulp');
-cdfsdfsdfdsafsdalkfjdsakfjldsfkljsdafkjdsafkdsajflkadsjfkldasjflkadsflkadsi
-q:Q:st pug = require('gulp-pug');
-const concat = require('gulp-concat');
-const browserify = require('browserify');
-const babelify = require('babelify');
-const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
-const browserSync = require('browser-sync');
-const reload = browserSync.reload;
-
-// pug html
-gulp.task('pug', () =>
-  gulp
-    .src('./src/views/*.pug')
-    .pipe([17;7Hpug({[18;9Hpretty: true[19;7H})
-    )
-    .pipe(gulp.dest('./build/'))
-    .pipe(reload({ stream: true }))[3;4H[?25h[?25l[23;1H:[?2004h[?25hq[?25l[97m[41mE37: No write since last change (add ! to override)[?2004h[3;4H[?25h
