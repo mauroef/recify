@@ -62,6 +62,15 @@ const showSpinner = (element, flag) => {
   }
 };
 
+const showTableLoader = (tableElement, flag) => {
+  document.getElementById(tableElement).parentElement.style.display = flag
+    ? 'none'
+    : 'block';
+  document.getElementById('loading-disc').style.display = flag
+    ? 'block'
+    : 'none';
+};
+
 export {
   createNode,
   append,
@@ -70,5 +79,6 @@ export {
   removeInput,
   editRow,
   removeRow,
-  showSpinner
+  showSpinner,
+  showTableLoader
 };

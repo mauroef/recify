@@ -1,3 +1,7 @@
+.container.loader-disc {
+  display: none;
+}
+
 .recital-table-container {
   overflow-x: overlay;
 }

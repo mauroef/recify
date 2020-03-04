@@ -1,10 +1,12 @@
 import Table from './table';
 import Row from './row';
 import Modal from './modal';
+import * as Ui from './ui';
 
 function renderTable(apiClass, tableSelector, isRecitalTable) {
   const table = new Table();
 
+  Ui.showTableLoader('table', true);
   apiClass
     .getAll()
     .then(records => {
@@ -38,6 +40,9 @@ function renderTable(apiClass, tableSelector, isRecitalTable) {
       Table.handleActionButtons(tableSelector, 'btn-delete');
       Modal.handleModalCloseButtons(document.getElementById('modal'));
       Modal.handleModalAcceptButton(apiClass, tableSelector);
+    })
+    .finally(() => {
+      Ui.showTableLoader('table', false);
     });
 }
 

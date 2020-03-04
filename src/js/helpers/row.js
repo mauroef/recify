@@ -25,6 +25,7 @@ class Row {
 
   createRowNode(data) {
     const td = createNode('td');
+
     td.textContent = data;
     return td;
   }
@@ -32,7 +33,7 @@ class Row {
   createRowTicketNode(data) {
     const td = createNode('td');
     const ticketIcon = createNode('i');
-    console.log('ticket', data);
+
     data !== '0' && data !== false
       ? ticketIcon.classList.add('fas', 'fa-ticket-alt', 'has-text-success')
       : ticketIcon.classList.add('fas', 'fa-times', 'has-text-danger');
@@ -43,6 +44,7 @@ class Row {
   createRowButton(action, cssClass, icon) {
     const td = createNode('td');
     const button = createButton(this.id, action, cssClass, icon);
+
     append(td, button);
     return td;
   }
@@ -73,7 +75,7 @@ class Row {
   }
 
   static getNextMaxRowId() {
-    // return the top one id ]
+    // return the top one id
     return document.querySelector('table > tbody').childElementCount !== 0
       ? +document.querySelector('table > tbody > tr > td').textContent + 1
       : 1;
