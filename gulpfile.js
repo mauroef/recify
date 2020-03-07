@@ -38,7 +38,11 @@ gulp.task('js', async () => {
 // concat css
 gulp.task('css', () =>
   gulp
-    .src(['./node_modules/bulma/css/bulma.min.css', './src/css/styles.css'])
+    .src([
+      './node_modules/bulma/css/bulma.min.css',
+      './node_modules/cool-checkboxes-for-bulma.io/dist/css/bulma-radio-checkbox.min.css',
+      './src/css/styles.css'
+    ])
     .pipe(concat('stylesheet.css'))
     .pipe(gulp.dest('./build/css'))
     .pipe(reload({ stream: true }))

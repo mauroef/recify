@@ -40,11 +40,11 @@ block main
 					article.tile.is-child.notification
 						p.title.is-3 Have any ticket?						
 						.field
-							.control.has-icons-left
-								label#ticket-checkbox
-									input(type="checkbox", id="ticket-checkbox")
-									|	Yes, I have
-			<button class="button is-medium is-fullwidth is-primary">Create!</button>													
+							p.control
+								.b-checkbox.is-primary
+									input(type="checkbox", id="checkbox", class="styled")
+									label(for="checkbox") Yes, I have
+			button.button.is-medium.is-fullwidth.is-primary Create!
 	//- table
 	section.section
 		.container.recital-table-container

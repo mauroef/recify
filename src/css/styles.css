@@ -5,3 +5,8 @@
 .recital-table-container {
   overflow-x: overlay;
 }
+
+input[type='checkbox'].styled:checked + label:after {
+  font-family: FontAwesome;
+  content: '✔';
+}

@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bulma": "^0.7.4",
-    "bulma-toast": "^1.5.4"
+    "bulma-toast": "^1.5.4",
+    "cool-checkboxes-for-bulma.io": "^1.1.0"
   }
 }
