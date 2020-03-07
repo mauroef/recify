@@ -7,37 +7,37 @@ block main
         h1.title Places
         h2.subtitle Add new places or modify them.
   //- actions
-  section.section
+  section.section.actions
     .container
       .tile.is-ancestor
         //- create
         .tile.is-6.is-parent          
           article.tile.is-child.notification#panel-create
-            p.title Insert new ones!
+            h3.title Insert new ones!
             //- input
             .field              
               .control.has-icons-left
-                input.input.is-medium(type="text", id="create-input", placeholder="New name...")
-                span.icon.is-medium.is-left
+                input.input(type="text", id="create-input", placeholder="New name...")
+                span.icon.is-left
                   i.fas.fa-plus-square
             //- button
             .field
               .control
-                button.button.is-primary.is-medium.is-fullwidth#save-place Save changes
+                button.button.is-primary.is-fullwidth#save-place Save changes
         //- search
         .tile.is-6.is-parent
           article.tile.is-child.notification#panel-search
-            p.title What you're looking for? 
+            h3.title What you're looking for? 
             //- input
             .field              
               .control.has-icons-left
-                input.input.is-medium(type="text", id="search-input", placeholder="Type here...")
-                span.icon.is-medium.is-left
+                input.input(type="text", id="search-input", placeholder="Type here...")
+                span.icon.is-left
                   i.fas.fa-search
             //- button
             .field
               .control
-                button.button.is-primary.is-medium.is-fullwidth Search
+                button.button.is-primary.is-fullwidth Search
   //- table
   section.section
     .container

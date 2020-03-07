@@ -10,3 +10,8 @@ input[type='checkbox'].styled:checked + label:after {
   font-family: FontAwesome;
   content: '✔';
 }
+
+.section.panel-create h3,
+.section.actions h3 {
+  font-size: 1.5rem;
+}

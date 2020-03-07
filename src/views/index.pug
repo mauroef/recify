@@ -7,44 +7,44 @@ block main
 				h1.title Welcome to Recify homepage
 				h2.subtitle Here you can view the list of registered shows that you assisted.
 	//- actions
-	section.section#panel-create
+	section.section.panel-create#panel-create
 		.container
-			.tile.is-ancestor
+			.tile.is-ancestor.columns
 				//- date
-				.tile.is-3.is-parent          
+				.tile.is-3.is-parent.column.is-2
 					article.tile.is-child.notification
-						p.title.is-3 Select date						
+						h3.title.is-3 Select date						
 						.field
 							.control.has-icons-left
-								input.input.is-medium(type="date", id="recital-date", placeholder="")
-								span.icon.is-medium.is-left
+								input.input(type="date", id="recital-date", placeholder="")
+								span.icon.is-left
 									i.fas.fa-calendar
 				//- band
-				.tile.is-3.is-parent
+				.tile.is-3.is-parent.column.is-2
 					article.tile.is-child.notification
-						p.title.is-3 Band...
+						h3.title.is-3 Band...
 						.field
 							.control
-								.select.is-medium
+								.select
 									select#band-dropdown
 				//- place
-				.tile.is-3.is-parent
+				.tile.is-3.is-parent.column.is-2
 					article.tile.is-child.notification
-						p.title.is-3 Place...
+						h3.title.is-3 Place...
 						.field
 							.control
-								.select.is-medium
+								.select
 									select#place-dropdown
 				//- ticket
-				.tile.is-3.is-parent
+				.tile.is-3.is-parent.column.is-2
 					article.tile.is-child.notification
-						p.title.is-3 Have any ticket?						
+						h3.title.is-3 Have any ticket?						
 						.field
 							p.control
 								.b-checkbox.is-primary
 									input(type="checkbox", id="checkbox", class="styled")
 									label(for="checkbox") Yes, I have
-			button.button.is-medium.is-fullwidth.is-primary Create!
+			button.button.is-fullwidth.is-primary Create!
 	//- table
 	section.section
 		.container.recital-table-container
