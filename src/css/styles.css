@@ -32,12 +32,45 @@ input[type='checkbox'].styled:checked + label:after {
 .is-child.notification.date {
   background-color: var(--color-1);
 }
+
 .is-child.notification.band {
   background-color: var(--color-2);
 }
+
 .is-child.notification.place {
   background-color: var(--color-3);
 }
+
 .is-child.notification.ticket {
   background-color: var(--color-4);
+}
+
+.hero-body {
+  padding-top: 75px;
+  padding-bottom: 75px;
+  background-position: center center;
+  background-size: cover;
+}
+
+.hero-body.recital {
+  background-image: url('../img/recital.jpg');
+}
+
+.hero-body.band {
+  background-image: url('../img/band.jpg');
+}
+
+.hero-body.place {
+  background-image: url('../img/place.jpg');
+}
+
+/* navbar */
+
+.icon-brand {
+  margin-right: 5px;
+}
+
+.navbar-item:hover {
+  background-color: #0a0a0a !important;
+  color: #fff !important;
 }
