@@ -4,10 +4,12 @@ import Place from './api/place';
 import { renderTable } from './helpers/render';
 import Panel from './helpers/panel';
 import Navbar from './helpers/navbar';
+import Footer from './helpers/footer';
 
 const initApp = function() {
   const location = window.location.pathname;
   Navbar.handleHamburguerButton();
+  Footer.setYear();
 
   switch (location) {
     case '/': {

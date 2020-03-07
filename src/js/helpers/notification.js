@@ -24,10 +24,10 @@ export default class Notification {
   static showTextRepeatedErrorMessage(value) {
     superToast({
       message: `<strong>${value}</strong> already exists.`,
-      type: 'is-danger',
+      type: 'is-warning',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'swing', out: 'bounceOut' }
     });
   }
 

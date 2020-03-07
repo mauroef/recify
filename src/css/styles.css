@@ -6,6 +6,8 @@
   --color-4: #f9b636;
 }
 
+/* table */
+
 .container.loader-disc {
   display: none;
 }
@@ -13,6 +15,8 @@
 .recital-table-container {
   overflow-x: overlay;
 }
+
+/* panels */
 
 input[type='checkbox'].styled:checked + label:after {
   font-family: FontAwesome;
@@ -27,6 +31,10 @@ input[type='checkbox'].styled:checked + label:after {
 .section.panel-create h3,
 .section.actions h3 {
   font-size: 1.5rem;
+}
+
+.action-ancestor {
+  flex-wrap: wrap;
 }
 
 .is-child.notification.date {
@@ -44,6 +52,16 @@ input[type='checkbox'].styled:checked + label:after {
 .is-child.notification.ticket {
   background-color: var(--color-4);
 }
+
+.is-child.notification.bands-search {
+  background-color: var(--color-2);
+}
+
+.is-child.notification.places-search {
+  background-color: var(--color-3);
+}
+
+/* hero */
 
 .hero-body {
   padding-top: 75px;

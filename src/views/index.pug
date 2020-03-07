@@ -9,36 +9,36 @@ block main
 	//- actions
 	section.section.panel-create#panel-create
 		.container
-			.tile.is-ancestor.columns
+			.tile.is-ancestor.action-ancestor
 				//- date
-				.tile.is-3.is-parent.column.is-2
-					article.tile.is-child.notification.date
-						h3.title.is-3 Select date						
+				.tile.is-parent
+					article.tile.is-child.box.notification.date
+						h3.title Select date						
 						.field
 							.control.has-icons-left
 								input.input(type="date", id="recital-date", placeholder="yyyy-mm-dd")
 								span.icon.is-left
 									i.fas.fa-calendar
 				//- band
-				.tile.is-3.is-parent.column.is-2
-					article.tile.is-child.notification.band
-						h3.title.is-3 Band...
+				.tile.is-parent
+					article.tile.is-child.box.notification.band
+						h3.title Band...
 						.field
 							.control
-								.select
+								.select.is-fullwidth
 									select#band-dropdown
 				//- place
-				.tile.is-3.is-parent.column.is-2
-					article.tile.is-child.notification.place
-						h3.title.is-3 Place...
+				.tile.is-parent
+					article.tile.is-child.box.notification.place
+						h3.title Place...
 						.field
 							.control
-								.select
+								.select.is-fullwidth
 									select#place-dropdown
 				//- ticket
-				.tile.is-3.is-parent.column.is-2
-					article.tile.is-child.notification.ticket
-						h3.title.is-3 Have any ticket?						
+				.tile.is-parent
+					article.tile.is-child.box.notification.ticket
+						h3.title Have any ticket?						
 						.field
 							p.control
 								.b-checkbox.is-primary

@@ -16,16 +16,24 @@ class Panel {
   buildPanelCombo(apiClass, cboSelector) {
     let cboPanel = document.getElementById(cboSelector);
 
-    apiClass.getAll().then(result => {
-      if (result.length > 0) {
-        result.forEach(r => {
-          let optionNode = Ui.createNode('option');
-          optionNode.value = r.id;
-          optionNode.textContent = r.name;
-          Ui.append(cboPanel, optionNode);
-        });
-      }
-    });
+    Ui.showSpinner(document.querySelector('div.select'), true);
+
+    apiClass
+      .getAll()
+      .then(result => {
+        if (result.length > 0) {
+          result.forEach(r => {
+            let optionNode = Ui.createNode('option');
+
+            optionNode.value = r.id;
+            optionNode.textContent = r.name;
+            Ui.append(cboPanel, optionNode);
+          });
+        }
+      })
+      .finally(() => {
+        Ui.showSpinner(document.querySelector('div.select'), false);
+      });
   }
 
   handlePanelEvents(apiClass, tbodySelector) {
