@@ -83,7 +83,7 @@ class Panel {
   handleRecitalPanelEvents(apiClass) {
     const bandId = document.getElementById(this.combo.band);
     const placeId = document.getElementById(this.combo.place);
-    const date = document.querySelector(`#panel-${this.type} input[type=date]`);
+    const date = document.querySelector(`#panel-${this.type} #recital-date`);
     const ticket = document.querySelector(
       `#panel-${this.type} input[type=checkbox]`
     );
@@ -91,8 +91,11 @@ class Panel {
 
     btn.addEventListener('click', () => {
       Ui.showSpinner(btn, true);
-
-      if (!Validator.validate(date.value, Validator.REQUIRED)) {
+      console.log('date', date.value);
+      if (
+        !Validator.validate(date.value, Validator.REQUIRED) ||
+        !Validator.validate(date.value, Validator.DATE_FORMAT)
+      ) {
         Notification.showDateErrorMessage();
         Ui.showSpinner(btn, false);
         return;
