@@ -28,15 +28,15 @@ class Panel {
     });
   }
 
-  handlePanelEvents(apiClass) {
+  handlePanelEvents(apiClass, tbodySelector) {
     if (!this.isRecital) {
-      this.handleNonRecitalPanelEvents(apiClass);
+      this.handleNonRecitalPanelEvents(apiClass, tbodySelector);
     } else {
       this.handleRecitalPanelEvents(apiClass);
     }
   }
 
-  handleNonRecitalPanelEvents(apiClass) {
+  handleNonRecitalPanelEvents(apiClass, tbodySelector) {
     const btn = document.querySelector(`#panel-${this.type} button`);
     let inputValue = '';
 
@@ -45,7 +45,8 @@ class Panel {
         `#panel-${this.type} input[type=text]`
       ).value;
       Ui.showSpinner(btn, true);
-
+      console.log('tbody', tbodySelector);
+      console.log('inputVal', inputValue);
       if (this.type === 'create') {
         if (
           !Validator.validate(inputValue, Validator.REQUIRED) ||
@@ -53,6 +54,13 @@ class Panel {
           !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
         ) {
           Notification.showTextErrorMessage(2, 20);
+          Ui.showSpinner(btn, false);
+          return;
+        }
+        if (
+          !Validator.validate(inputValue, Validator.NON_REPEATED, tbodySelector)
+        ) {
+          Notification.showTextRepeatedErrorMessage(inputValue);
           Ui.showSpinner(btn, false);
           return;
         }

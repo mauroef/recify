@@ -21,6 +21,16 @@ export default class Notification {
     });
   }
 
+  static showTextRepeatedErrorMessage(value) {
+    superToast({
+      message: `<strong>${value}</strong> already exists.`,
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' }
+    });
+  }
+
   static showDateErrorMessage() {
     superToast({
       message: '<strong>Error:</strong> input value must be a valid date.',

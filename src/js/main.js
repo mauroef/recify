@@ -22,14 +22,14 @@ const initApp = function() {
     case '/bands.html': {
       let panelCreate = new Panel('create');
 
-      panelCreate.handlePanelEvents(Band);
+      panelCreate.handlePanelEvents(Band, 'band-data');
       renderTable(Band, 'band-data', false);
       break;
     }
     case '/places.html': {
       let panelCreate = new Panel('create');
 
-      panelCreate.handlePanelEvents(Place);
+      panelCreate.handlePanelEvents(Place, 'place-data');
       renderTable(Place, 'place-data', false);
       break;
     }

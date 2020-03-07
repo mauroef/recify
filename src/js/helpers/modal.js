@@ -81,7 +81,7 @@ class Modal {
     }
   }
 
-  static handleModalAcceptButton(apiClass, tableSelector) {
+  static handleModalAcceptButton(apiClass, tbodySelector) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
     let inputValue = '';
@@ -99,18 +99,25 @@ class Modal {
           Notification.showTextErrorMessage(2, 10);
           return;
         }
+        if (
+          !Validator.validate(inputValue, Validator.NON_REPEATED, tbodySelector)
+        ) {
+          Notification.showTextRepeatedErrorMessage(inputValue);
+          Ui.showSpinner(btnAccept, false);
+          return;
+        }
 
         apiClass
           .update(btnAccept.dataset.id, inputValue)
           .then(data => {
-            Ui.editRow(tableSelector, data.id, data.name);
+            Ui.editRow(tbodySelector, data.id, data.name);
           })
           .catch(() => {
-            Ui.editRow(tableSelector, btnAccept.dataset.id, inputValue);
+            Ui.editRow(tbodySelector, btnAccept.dataset.id, inputValue);
           })
           .then(() => {
             Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tableSelector),
+              Modal.getRecordTypeName(tbodySelector),
               'edited'
             );
           })
@@ -125,9 +132,9 @@ class Modal {
           .delete(btnAccept.dataset.id)
           .then(data => {
             if (data.id !== undefined) {
-              Ui.removeRow(tableSelector, data.id);
+              Ui.removeRow(tbodySelector, data.id);
               Notification.showTextSuccessMessage(
-                Modal.getRecordTypeName(tableSelector),
+                Modal.getRecordTypeName(tbodySelector),
                 'deleted'
               );
             } else {
@@ -135,9 +142,9 @@ class Modal {
             }
           })
           .catch(() => {
-            Ui.removeRow(tableSelector, btnAccept.dataset.id);
+            Ui.removeRow(tbodySelector, btnAccept.dataset.id);
             Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tableSelector),
+              Modal.getRecordTypeName(tbodySelector),
               'deleted'
             );
           })
