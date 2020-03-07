@@ -16,7 +16,8 @@ class Panel {
   buildPanelCombo(apiClass, cboSelector) {
     let cboPanel = document.getElementById(cboSelector);
 
-    Ui.showSpinner(document.querySelector('div.select'), true);
+    Ui.showSpinner(document.querySelectorAll('div.select')[0], true);
+    Ui.showSpinner(document.querySelectorAll('div.select')[1], true);
 
     apiClass
       .getAll()
@@ -32,7 +33,8 @@ class Panel {
         }
       })
       .finally(() => {
-        Ui.showSpinner(document.querySelector('div.select'), false);
+        Ui.showSpinner(document.querySelectorAll('div.select')[0], false);
+        Ui.showSpinner(document.querySelectorAll('div.select')[1], false);
       });
   }
 
@@ -140,7 +142,7 @@ class Panel {
               Row.getNameById(this.combo.place, placeId.value),
               ticket.checked
             )
-        ) // if backend fails
+        )
         .then(rowData => rowData.createRow(true))
         .then(row => {
           Row.insertRowOnTop(row);
