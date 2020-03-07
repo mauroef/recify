@@ -1,3 +1,11 @@
+/* variables */
+:root {
+  --color-1: #b687f8;
+  --color-2: #8be9fd;
+  --color-3: #ff6cc1;
+  --color-4: #f9b636;
+}
+
 .container.loader-disc {
   display: none;
 }
@@ -12,6 +20,24 @@ input[type='checkbox'].styled:checked + label:after {
 }
 
 .section.panel-create h3,
+.section.panel-create label {
+  color: #fff;
+}
+
+.section.panel-create h3,
 .section.actions h3 {
   font-size: 1.5rem;
+}
+
+.is-child.notification.date {
+  background-color: var(--color-1);
+}
+.is-child.notification.band {
+  background-color: var(--color-2);
+}
+.is-child.notification.place {
+  background-color: var(--color-3);
+}
+.is-child.notification.ticket {
+  background-color: var(--color-4);
 }
