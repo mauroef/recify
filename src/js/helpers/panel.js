@@ -55,8 +55,7 @@ class Panel {
         `#panel-${this.type} input[type=text]`
       ).value;
       Ui.showSpinner(btn, true);
-      console.log('tbody', tbodySelector);
-      console.log('inputVal', inputValue);
+
       if (this.type === 'create') {
         if (
           !Validator.validate(inputValue, Validator.REQUIRED) ||
@@ -109,7 +108,7 @@ class Panel {
 
     btn.addEventListener('click', () => {
       Ui.showSpinner(btn, true);
-      console.log('date', date.value);
+
       if (
         !Validator.validate(date.value, Validator.REQUIRED) ||
         !Validator.validate(date.value, Validator.DATE_FORMAT)

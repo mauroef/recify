@@ -17,7 +17,6 @@ export default class Validator {
         return value.trim().length < validatorValue;
       }
       case this.NON_REPEATED: {
-        console.log('entra en non repeated');
         return isNonRepeatedValue(value, validatorValue);
       }
       case this.DATE_FORMAT: {
