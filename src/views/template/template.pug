@@ -7,13 +7,14 @@ html(lang='en')
     link(rel="icon", type="image/png", href="../favicon.png")
     title Recify
     block styles
-      link(rel="stylesheet" href="css/stylesheet.css")
       link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css")
+      link(rel="stylesheet" href="css/stylesheet.css")
   body
     header
       include ../blocks/navbar      
     block main      
     include ../blocks/footer
     block scripts
-      script(src="js/bundle.js")
       script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js")
+      script(src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js")
+      script(src="js/bundle.js")
