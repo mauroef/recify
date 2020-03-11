@@ -1,4 +1,9 @@
 export default class Navbar {
+  constructor() {
+    this.signupBtn = document.querySelector('.navbar .signup');
+    this.loginBtn = document.querySelector('.navbar .login');
+    this.logoutBtn = document.querySelector('.navbar .logout');
+  }
   static handleHamburguerButton = () => {
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(
@@ -14,8 +19,6 @@ export default class Navbar {
           // Get the target from the "data-target" attribute
           const target = el.dataset.target;
           const $target = document.getElementById(target);
-          console.log('target', target);
-          console.log('$target', $target);
           // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
           el.classList.toggle('is-active');
           $target.classList.toggle('is-active');

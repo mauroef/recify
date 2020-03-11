@@ -1,4 +1,4 @@
-import { apiUri } from '../../config/paths';
+import { apiUri } from '../config/paths';
 
 class Place {
   static getAll() {

@@ -1,4 +1,4 @@
-import { apiUri } from '../../config/paths';
+import { apiUri } from '../config/paths';
 import Notification from '../helpers/notification';
 
 class Recital {
