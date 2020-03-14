@@ -1,9 +1,24 @@
 export default class Navbar {
   constructor() {
-    this.signupBtn = document.querySelector('.navbar .signup');
     this.loginBtn = document.querySelector('.navbar .login');
+    this.userContainer = document.querySelector('.navbar .user-container');
     this.logoutBtn = document.querySelector('.navbar .logout');
   }
+
+  switchView(isLoggedIn, name, photoUrl) {
+    if (isLoggedIn) {
+      this.loginBtn.style.display = 'none';
+      this.userContainer.style.display = 'inline-flex';
+      this.userContainer.querySelector(
+        ' .user-name'
+      ).childNodes[2].textContent = name;
+      this.userContainer.querySelector('.user-avatar').src = photoUrl;
+    } else {
+      this.loginBtn.style.display = 'inline-flex';
+      this.userContainer.style.display = 'none';
+    }
+  }
+
   static handleHamburguerButton = () => {
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(

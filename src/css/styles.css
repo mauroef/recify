@@ -83,12 +83,24 @@ input[type='checkbox'].styled:checked + label:after {
 }
 
 /* navbar */
+.navbar {
+  height: 56px;
+}
 
 .icon-brand {
   margin-right: 5px;
 }
 
-.navbar-item:hover {
-  background-color: #0a0a0a !important;
-  color: #fff !important;
+.navbar-item.login,
+.navbar-item.user-container {
+  display: none;
+}
+
+.user-name figure {
+  margin-right: 10px;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  margin-right: 5px;
 }

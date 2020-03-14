@@ -12,6 +12,13 @@ nav(class="navbar is-black" role="navigation" aria-label="main navigation")
       a(class="navbar-item" href="./bands.html") Bands
       a(class="navbar-item" href="./places.html") Places
     .navbar-end
-      a(class="navbar-item signup") Sign Up
-      a(class="navbar-item login") Login
-      a(class="navbar-item logout") Logout
+      .navbar-item
+        .buttons          
+          a(class="navbar-item login button is-primary") Login
+          div(class="navbar-item has-dropdown is-hoverable user-container")
+            a(class="navbar-link user-name")
+              figure(class="image is-32x32")
+                img(alt="avatar" class="user-avatar" src="")
+              | User
+            .navbar-dropdown
+              a(class="navbar-item logout") Logout

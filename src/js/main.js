@@ -8,74 +8,7 @@ import Footer from './helpers/footer';
 
 import firebase from 'firebase';
 import { config } from './config/firebase.config';
-
-const authProviderHandler = (signupBtn, loginBtn, logoutBtn) => {
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
-  // const db = firebase.firestore();
-  // const func = firebase.functions();
-
-  signupBtn.addEventListener('click', signup);
-  loginBtn.addEventListener('click', getUserData);
-  logoutBtn.addEventListener('click', logout);
-
-  function signup() {
-    auth
-      .signInWithPopup(provider)
-      .then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-        console.log('token', token);
-        console.log('user', user);
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-        console.log('ErrorCode', errorCode);
-        console.log('Email', email);
-      });
-  }
-
-  function logout() {
-    auth
-      .signOut()
-      .then(() => {
-        console.log('deslogueado.');
-      })
-      .catch(() => {
-        console.log('error al desloguear');
-      });
-  }
-
-  function getUserData() {
-    const user = auth.currentUser;
-
-    if (user != null) {
-      const data = {
-        name: user.displayName,
-        email: user.email,
-        photoUrl: user.photoURL,
-        emailVerified: user.emailVerified,
-        uid: user.uid
-      };
-      // The user's ID, unique to the Firebase project. Do NOT use
-      // this value to authenticate with your backend server, if
-      // you have one. Use User.getToken() instead.
-      console.log(data);
-    } else {
-      console.log('there is not user logged.');
-    }
-  }
-};
+import Authorization from './helpers/authorization';
 
 const initApp = function() {
   const location = window.location.pathname;
@@ -84,26 +17,53 @@ const initApp = function() {
   Footer.setYear();
 
   switch (location) {
-    case '/build/': {
+    case '/': {
       firebase.initializeApp(config);
+
       // let panelRecital = new Panel('create', true);
+
+      // foo.signInWithPopup(this.provider)
 
       // panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
       // panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
       // panelRecital.handlePanelEvents(Recital);
+      const gAuth = new Authorization(
+        firebase.auth(),
+        new firebase.auth.GoogleAuthProvider()
+      );
+
       const navbar = new Navbar();
-      authProviderHandler(navbar.signupBtn, navbar.loginBtn, navbar.logoutBtn);
+
+      gAuth.auth.onAuthStateChanged(user => {
+        if (user !== null) {
+          navbar.switchView(true, user.displayName, user.photoURL);
+        } else {
+          navbar.switchView(false);
+        }
+      });
+
+      navbar.loginBtn.addEventListener('click', () =>
+        gAuth.logIn().then(() => navbar.switchView(true))
+      );
+      navbar.logoutBtn.addEventListener('click', () =>
+        gAuth.logout().then(() => navbar.switchView(false))
+      );
+
+      // document.querySelector('.title').addEventListener('click', () => {
+      //   auth.getUserData();
+      // });
       // renderTable(Recital, 'recital-data', true);
+
       break;
     }
-    case '/build/bands.html': {
+    case '/bands.html': {
       let panelCreate = new Panel('create');
 
       panelCreate.handlePanelEvents(Band, 'band-data');
       renderTable(Band, 'band-data', false);
       break;
     }
-    case '/build/places.html': {
+    case '/places.html': {
       let panelCreate = new Panel('create');
 
       panelCreate.handlePanelEvents(Place, 'place-data');
@@ -121,7 +81,7 @@ if (
   document.readyState === 'complete' ||
   (document.readyState !== 'loading' && !document.documentElement.doScroll)
 ) {
-  initApp();
+  // initApp();
 } else {
   document.addEventListener('DOMContentLoaded', initApp);
 }
