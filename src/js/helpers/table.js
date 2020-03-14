@@ -1,5 +1,6 @@
-import { append } from '../helpers/ui';
-import Modal from './modal'; /* TODO: handle out of this class */
+import Row from './row';
+import Modal from './modal';
+import * as Ui from '../helpers/ui';
 
 class Table {
   constructor() {
@@ -18,7 +19,7 @@ class Table {
 
   appendRowsToTable(selector) {
     const table = this.createTable(selector);
-    this.rows.forEach(row => append(table, row));
+    this.rows.forEach(row => Ui.append(table, row));
     return table;
   }
 
@@ -46,6 +47,49 @@ class Table {
         Modal.handleModalOpenButton(actionClass, id, name);
       });
     }
+  }
+
+  static renderTable(apiClass, tableSelector, isRecitalTable) {
+    const table = new Table();
+
+    Ui.showTableLoader('table', true);
+    apiClass
+      .getAll()
+      .then(records => {
+        try {
+          records.forEach(r => {
+            if (!isRecitalTable) {
+              let row = new Row(r.id, r.name);
+              table.addRow(row.createRow(false));
+            } else {
+              let recitalRow = new Row(
+                r.id,
+                '',
+                r.date,
+                r.band,
+                r.place,
+                r.ticket
+              );
+              table.addRow(recitalRow.createRow(true));
+            }
+          });
+          table.appendRowsToTable(tableSelector);
+        } catch (err) {
+          console.log('Data read from API failed.');
+        }
+      })
+      .then(() => {
+        if (!isRecitalTable) {
+          // Not edition for Recital View
+          Table.handleActionButtons(tableSelector, 'btn-edit');
+        }
+        Table.handleActionButtons(tableSelector, 'btn-delete');
+        Modal.handleModalCloseButtons(document.getElementById('modal'));
+        Modal.handleModalAcceptButton(apiClass, tableSelector);
+      })
+      .finally(() => {
+        Ui.showTableLoader('table', false);
+      });
   }
 }
 

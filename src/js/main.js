@@ -1,7 +1,7 @@
 import Recital from './api/recital';
 import Band from './api/band';
 import Place from './api/place';
-import { renderTable } from './helpers/render';
+import Table from './helpers/table';
 import Panel from './helpers/panel';
 import Navbar from './helpers/navbar';
 import Footer from './helpers/footer';
@@ -10,24 +10,25 @@ import Firebase from './helpers/firebase';
 
 const initApp = function() {
   const location = window.location.pathname;
+  const firebase = new Firebase();
+  const navbar = new Navbar();
 
   Navbar.handleHamburguerButton();
   Footer.setYear();
 
+  // TODO: if is auth get data from firestore
+  // else user mocked data
   switch (location) {
     case '/': {
-      // let panelRecital = new Panel('create', true);
-
-      // panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
-      // panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
-      // panelRecital.handlePanelEvents(Recital);
-      const firebase = new Firebase();
-
-      const navbar = new Navbar();
-
       firebase.auth.onAuthStateChanged(user => {
         if (user !== null) {
-          navbar.switchView(true, user.displayName, user.photoURL);
+          const panelRecital = new Panel('create', true);
+
+          panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
+          panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
+          panelRecital.handlePanelEvents(Recital);
+          Table.renderTable(Recital, 'recital-data', true);
+          navbar.switchView(true, user.displayName, user.photoURL, () => {});
         } else {
           navbar.switchView(false);
         }
@@ -46,14 +47,14 @@ const initApp = function() {
       let panelCreate = new Panel('create');
 
       panelCreate.handlePanelEvents(Band, 'band-data');
-      renderTable(Band, 'band-data', false);
+      Table.renderTable(Band, 'band-data', false);
       break;
     }
     case '/places.html': {
       let panelCreate = new Panel('create');
 
       panelCreate.handlePanelEvents(Place, 'place-data');
-      renderTable(Place, 'place-data', false);
+      Table.renderTable(Place, 'place-data', false);
       break;
     }
     default:

@@ -5,7 +5,7 @@ export default class Navbar {
     this.logoutBtn = document.querySelector('.navbar .logout');
   }
 
-  switchView(isLoggedIn, name, photoUrl) {
+  switchView(isLoggedIn, name, photoUrl, callback) {
     if (isLoggedIn) {
       this.loginBtn.style.display = 'none';
       this.userContainer.style.display = 'inline-flex';
@@ -13,6 +13,8 @@ export default class Navbar {
         ' .user-name'
       ).childNodes[2].textContent = name;
       this.userContainer.querySelector('.user-avatar').src = photoUrl;
+      callback();
+      console.log('cb', callback());
     } else {
       this.loginBtn.style.display = 'inline-flex';
       this.userContainer.style.display = 'none';
