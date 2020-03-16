@@ -49,7 +49,7 @@ class Table {
     }
   }
 
-  static renderTable(apiClass, tableSelector, isRecitalTable) {
+  static buildTable(apiClass, tableSelector, isRecitalTable) {
     const table = new Table();
 
     Ui.showTableLoader('table', true);

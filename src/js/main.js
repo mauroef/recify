@@ -12,54 +12,64 @@ const initApp = function() {
   const location = window.location.pathname;
   const firebase = new Firebase();
   const navbar = new Navbar();
+  const panelCreate = new Panel('create', true);
 
   Navbar.handleHamburguerButton();
   Footer.setYear();
 
-  // TODO: if is auth get data from firestore
-  // else user mocked data
   switch (location) {
     case '/': {
       firebase.auth.onAuthStateChanged(user => {
-        if (user !== null) {
-          const panelRecital = new Panel('create', true);
-
-          panelRecital.buildPanelCombo(Band, panelRecital.combo.band);
-          panelRecital.buildPanelCombo(Place, panelRecital.combo.place);
-          panelRecital.handlePanelEvents(Recital);
-          Table.renderTable(Recital, 'recital-data', true);
-          navbar.switchView(true, user.displayName, user.photoURL, () => {});
-        } else {
-          navbar.switchView(false);
-        }
+        isAuthenticated(user, true);
       });
-      // console.log(gAuth.getUserData());
-      navbar.loginBtn.addEventListener('click', () =>
-        firebase.logIn().then(() => navbar.switchView(true))
-      );
-      navbar.logoutBtn.addEventListener('click', () =>
-        firebase.logout().then(() => navbar.switchView(false))
-      );
-
+      handleNavbarEvents();
       break;
     }
     case '/bands.html': {
-      let panelCreate = new Panel('create');
-
-      panelCreate.handlePanelEvents(Band, 'band-data');
-      Table.renderTable(Band, 'band-data', false);
+      firebase.auth.onAuthStateChanged(user => {
+        isAuthenticated(user, false, Band, 'band-data');
+      });
       break;
     }
     case '/places.html': {
-      let panelCreate = new Panel('create');
-
-      panelCreate.handlePanelEvents(Place, 'place-data');
-      Table.renderTable(Place, 'place-data', false);
+      firebase.auth.onAuthStateChanged(user => {
+        isAuthenticated(user, false, Place, 'place-data');
+      });
       break;
     }
     default:
-      console.warn('unrecheable view');
+      console.warn('unrecheable view.');
       break;
+  }
+
+  function isAuthenticated(user, isRecital, apiClass, tbodySelector) {
+    if (user !== null) {
+      //TODO: do the firesotre thing...if (isRecital) {
+      if (!isRecital) {
+      } else {
+        navbar.switchView(true, user.displayName, user.photoURL);
+      }
+    } else {
+      if (!isRecital) {
+        panelCreate.handlePanelEvents(apiClass, tbodySelector);
+        Table.buildTable(apiClass, tbodySelector, false);
+      } else {
+        panelCreate.buildPanelCombo(Band, panelCreate.combo.band);
+        panelCreate.buildPanelCombo(Place, panelCreate.combo.place);
+        panelCreate.handlePanelEvents(Recital);
+        Table.buildTable(Recital, 'recital-data', true);
+        navbar.switchView(false);
+      }
+    }
+  }
+
+  function handleNavbarEvents() {
+    navbar.loginBtn.addEventListener('click', () =>
+      firebase.logIn().then(() => navbar.switchView(true))
+    );
+    navbar.logoutBtn.addEventListener('click', () =>
+      firebase.logout().then(() => navbar.switchView(false))
+    );
   }
 };
 
