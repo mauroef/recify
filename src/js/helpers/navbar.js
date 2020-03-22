@@ -3,10 +3,11 @@ export default class Navbar {
     this.loginBtn = document.querySelector('.navbar .login');
     this.userContainer = document.querySelector('.navbar .user-container');
     this.logoutBtn = document.querySelector('.navbar .logout');
+    this.handleHamburguerButton();
   }
 
-  switchView(isLoggedIn, name, photoUrl) {
-    if (isLoggedIn) {
+  switchView(isLogged, name, photoUrl) {
+    if (isLogged) {
       this.loginBtn.style.display = 'none';
       this.userContainer.style.display = 'inline-flex';
       this.userContainer.querySelector(
@@ -17,9 +18,11 @@ export default class Navbar {
       this.loginBtn.style.display = 'inline-flex';
       this.userContainer.style.display = 'none';
     }
+
+    return isLogged;
   }
 
-  static handleHamburguerButton = () => {
+  handleHamburguerButton = () => {
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(
       document.querySelectorAll('.navbar-burger'),

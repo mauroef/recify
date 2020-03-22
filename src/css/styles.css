@@ -84,6 +84,7 @@ input[type='checkbox'].styled:checked + label:after {
 
 /* navbar */
 .navbar {
+  padding-top: 100px;
   height: 56px;
 }
 

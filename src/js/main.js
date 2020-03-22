@@ -9,32 +9,23 @@ import Footer from './helpers/footer';
 import Firebase from './helpers/firebase';
 
 const initApp = function() {
-  const location = window.location.pathname;
-  const firebase = new Firebase();
-  const navbar = new Navbar();
-  const panelCreate = new Panel('create', true);
-
-  Navbar.handleHamburguerButton();
-  Footer.setYear();
+  const location = window.location.pathname,
+    firebase = new Firebase(),
+    navbar = new Navbar(),
+    footer = new Footer(),
+    panelCreate = new Panel('create', true);
 
   switch (location) {
     case '/': {
-      firebase.auth.onAuthStateChanged(user => {
-        isAuthenticated(user, true);
-      });
-      handleNavbarEvents();
+      firebaseHandler(true);
       break;
     }
     case '/bands.html': {
-      firebase.auth.onAuthStateChanged(user => {
-        isAuthenticated(user, false, Band, 'band-data');
-      });
+      firebaseHandler(false, Band, 'band-data');
       break;
     }
     case '/places.html': {
-      firebase.auth.onAuthStateChanged(user => {
-        isAuthenticated(user, false, Place, 'place-data');
-      });
+      firebaseHandler(false, Place, 'place-data');
       break;
     }
     default:
@@ -42,34 +33,67 @@ const initApp = function() {
       break;
   }
 
-  function isAuthenticated(user, isRecital, apiClass, tbodySelector) {
-    if (user !== null) {
-      //TODO: do the firesotre thing...if (isRecital) {
-      if (!isRecital) {
+  function firebaseHandler(isRecital, apiClass, tbodySelector) {
+    firebase.auth.onAuthStateChanged(user => {
+      if (isAuthenticated(user, isRecital)) {
+        if (navbar.switchView(true, user.displayName, user.photoURL)) {
+          handleNavbarEvents(true);
+          // TODO: firestore thing
+          if (isRecital) {
+            firestoreSetup('recital');
+          } else {
+            firestoreSetup(tbodySelector);
+          }
+        }
       } else {
-        navbar.switchView(true, user.displayName, user.photoURL);
+        if (!navbar.switchView(false)) {
+          handleNavbarEvents(false);
+          // TODO: api thing
+          if (isRecital) {
+            panelCreate.buildPanelCombo(Band, panelCreate.combo.band);
+            panelCreate.buildPanelCombo(Place, panelCreate.combo.place);
+            panelCreate.handlePanelEvents(Recital);
+            Table.buildTableAPI(Recital, 'recital-data', true);
+          } else {
+            panelCreate.handlePanelEvents(apiClass, tbodySelector);
+            Table.buildTableAPI(apiClass, tbodySelector, false);
+          }
+        }
       }
-    } else {
-      if (!isRecital) {
-        panelCreate.handlePanelEvents(apiClass, tbodySelector);
-        Table.buildTable(apiClass, tbodySelector, false);
-      } else {
-        panelCreate.buildPanelCombo(Band, panelCreate.combo.band);
-        panelCreate.buildPanelCombo(Place, panelCreate.combo.place);
-        panelCreate.handlePanelEvents(Recital);
-        Table.buildTable(Recital, 'recital-data', true);
-        navbar.switchView(false);
+    });
+  }
+
+  function firestoreSetup(tbodySelector) {
+    //TODO: refactor
+    const FDocument = getFDocument(tbodySelector);
+
+    firebase.db.collection(FDocument).onSnapshot(snapshot => {
+      Table.buildTableFirebase(snapshot.docs);
+    });
+
+    function getFDocument(tbodySelector) {
+      if (tbodySelector === 'band-data') {
+        return 'bands';
+      } else if (tbodySelector === 'place-data') {
+        return 'places';
       }
     }
   }
 
-  function handleNavbarEvents() {
-    navbar.loginBtn.addEventListener('click', () =>
-      firebase.logIn().then(() => navbar.switchView(true))
-    );
-    navbar.logoutBtn.addEventListener('click', () =>
-      firebase.logout().then(() => navbar.switchView(false))
-    );
+  function isAuthenticated(user) {
+    return user !== null ? true : false;
+  }
+
+  function handleNavbarEvents(logged) {
+    if (!logged) {
+      navbar.loginBtn.addEventListener('click', () =>
+        firebase.logIn().then(() => navbar.switchView(true))
+      );
+    } else {
+      navbar.logoutBtn.addEventListener('click', () =>
+        firebase.logout().then(() => navbar.switchView(false))
+      );
+    }
   }
 };
 
@@ -78,7 +102,7 @@ if (
   document.readyState === 'complete' ||
   (document.readyState !== 'loading' && !document.documentElement.doScroll)
 ) {
-  // initApp();
+  initApp();
 } else {
   document.addEventListener('DOMContentLoaded', initApp);
 }

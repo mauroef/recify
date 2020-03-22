@@ -19,6 +19,7 @@ class Table {
 
   appendRowsToTable(selector) {
     const table = this.createTable(selector);
+
     this.rows.forEach(row => Ui.append(table, row));
     return table;
   }
@@ -49,7 +50,7 @@ class Table {
     }
   }
 
-  static buildTable(apiClass, tableSelector, isRecitalTable) {
+  static buildTableAPI(apiClass, tbodySelector, isRecitalTable) {
     const table = new Table();
 
     Ui.showTableLoader('table', true);
@@ -73,7 +74,7 @@ class Table {
               table.addRow(recitalRow.createRow(true));
             }
           });
-          table.appendRowsToTable(tableSelector);
+          table.appendRowsToTable(tbodySelector);
         } catch (err) {
           console.log('Data read from API failed.');
         }
@@ -90,6 +91,40 @@ class Table {
       .finally(() => {
         Ui.showTableLoader('table', false);
       });
+  }
+
+  static buildTableFirebase(snapDoc, tbodySelector, isRecitalTable) {
+    if (!isRecitalTable) {
+      // let html = '';
+
+      // snapDoc.forEach(doc => {
+      //   let band = doc.data();
+      //   let p = `<p>${band.name}</p>`;
+
+      //   html += p;
+      // });
+
+      snapDoc.forEach(doc => {
+        if (!isRecitalTable) {
+          let row = new Row(/* snapDoc.id */ 1, doc.name);
+          table.addRow(row.createRow(false));
+        } else {
+          // let recitalRow = new Row(
+          //   r.id,
+          //   '',
+          //   r.date,
+          //   r.band,
+          //   r.place,
+          //   r.ticket
+          // );
+          // table.addRow(recitalRow.createRow(true));
+        }
+      });
+      table.appendRowsToTable(tbodySelector);
+
+      // TODO: provisional
+      document.getElementById('panel-search').innerHTML = html;
+    }
   }
 }
 
