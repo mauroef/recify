@@ -19,7 +19,7 @@ class Table {
 
   appendRowsToTable(selector) {
     const table = this.createTable(selector);
-
+    console.log('tabla?', table);
     this.rows.forEach(row => Ui.append(table, row));
     return table;
   }
@@ -94,6 +94,8 @@ class Table {
   }
 
   static buildTableFirebase(snapDoc, tbodySelector, isRecitalTable) {
+    const table = new Table();
+
     if (!isRecitalTable) {
       // let html = '';
 
@@ -105,8 +107,10 @@ class Table {
       // });
 
       snapDoc.forEach(doc => {
+        let record = doc.data();
         if (!isRecitalTable) {
-          let row = new Row(/* snapDoc.id */ 1, doc.name);
+          let row = new Row(doc.id, record.name);
+
           table.addRow(row.createRow(false));
         } else {
           // let recitalRow = new Row(
@@ -120,10 +124,11 @@ class Table {
           // table.addRow(recitalRow.createRow(true));
         }
       });
+      console.log('tbody', tbodySelector);
       table.appendRowsToTable(tbodySelector);
 
       // TODO: provisional
-      document.getElementById('panel-search').innerHTML = html;
+      // document.getElementById('panel-search').innerHTML = html;
     }
   }
 }

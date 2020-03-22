@@ -49,7 +49,7 @@ class Row {
     return td;
   }
 
-  appendRowNodes(row) {
+  appendRowNodes(row) {    
     append(row, this.createRowNode(this.id));
     append(row, this.createRowNode(this.name));
     append(row, this.createRowButton('edit', 'is-info', 'edit'));

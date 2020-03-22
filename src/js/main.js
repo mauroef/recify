@@ -68,7 +68,7 @@ const initApp = function() {
     const FDocument = getFDocument(tbodySelector);
 
     firebase.db.collection(FDocument).onSnapshot(snapshot => {
-      Table.buildTableFirebase(snapshot.docs);
+      Table.buildTableFirebase(snapshot.docs, tbodySelector, false);
     });
 
     function getFDocument(tbodySelector) {
