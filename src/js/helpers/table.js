@@ -19,7 +19,7 @@ class Table {
 
   appendRowsToTable(selector) {
     const table = this.createTable(selector);
-    console.log('tabla?', table);
+
     this.rows.forEach(row => Ui.append(table, row));
     return table;
   }
@@ -82,11 +82,11 @@ class Table {
       .then(() => {
         if (!isRecitalTable) {
           // Not edition for Recital View
-          Table.handleActionButtons(tableSelector, 'btn-edit');
+          Table.handleActionButtons(tbodySelector, 'btn-edit');
         }
-        Table.handleActionButtons(tableSelector, 'btn-delete');
+        Table.handleActionButtons(tbodySelector, 'btn-delete');
         Modal.handleModalCloseButtons(document.getElementById('modal'));
-        Modal.handleModalAcceptButton(apiClass, tableSelector);
+        Modal.handleModalAcceptButton(apiClass, tbodySelector);
       })
       .finally(() => {
         Ui.showTableLoader('table', false);
@@ -97,39 +97,27 @@ class Table {
     const table = new Table();
 
     if (!isRecitalTable) {
-      // let html = '';
-
-      // snapDoc.forEach(doc => {
-      //   let band = doc.data();
-      //   let p = `<p>${band.name}</p>`;
-
-      //   html += p;
-      // });
-
-      snapDoc.forEach(doc => {
-        let record = doc.data();
+      snapDoc.forEach(change => {
         if (!isRecitalTable) {
-          let row = new Row(doc.id, record.name);
+          let row = new Row(change.doc.id, change.doc.data().name);
 
           table.addRow(row.createRow(false));
         } else {
-          // let recitalRow = new Row(
-          //   r.id,
-          //   '',
-          //   r.date,
-          //   r.band,
-          //   r.place,
-          //   r.ticket
-          // );
+          //TODO: do the render of recital
+          // let recitalRow = new Row();
           // table.addRow(recitalRow.createRow(true));
         }
       });
-      console.log('tbody', tbodySelector);
       table.appendRowsToTable(tbodySelector);
-
-      // TODO: provisional
-      // document.getElementById('panel-search').innerHTML = html;
     }
+    //then...
+    if (!isRecitalTable) {
+      // Not edition for Recital View
+      Table.handleActionButtons(tbodySelector, 'btn-edit');
+    }
+    Table.handleActionButtons(tbodySelector, 'btn-delete');
+    Modal.handleModalCloseButtons(document.getElementById('modal'));
+    // Modal.handleModalAcceptButtonFirebase(apiClass, tbodySelector);
   }
 }
 

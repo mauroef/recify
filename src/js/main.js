@@ -12,8 +12,7 @@ const initApp = function() {
   const location = window.location.pathname,
     firebase = new Firebase(),
     navbar = new Navbar(),
-    footer = new Footer(),
-    panelCreate = new Panel('create', true);
+    footer = new Footer();
 
   switch (location) {
     case '/': {
@@ -66,9 +65,18 @@ const initApp = function() {
   function firestoreSetup(tbodySelector) {
     //TODO: refactor
     const FDocument = getFDocument(tbodySelector);
+    //TODO: check this
+    const panelCreate = new Panel('create', false);
 
     firebase.db.collection(FDocument).onSnapshot(snapshot => {
-      Table.buildTableFirebase(snapshot.docs, tbodySelector, false);
+      Table.buildTableFirebase(snapshot.docChanges(), tbodySelector, false);
+    });
+
+    panelCreate.handlePanelEventsFiresbase(tbodySelector, name => {
+      return firebase.db.collection(FDocument).add({
+        name: name,
+        ownerId: firebase.auth.currentUser.uid
+      });
     });
 
     function getFDocument(tbodySelector) {

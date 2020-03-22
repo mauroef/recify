@@ -46,6 +46,56 @@ class Panel {
     }
   }
 
+  handlePanelEventsFiresbase(tbodySelector, callback) {
+    if (!this.isRecital) {
+      //TODO: resolve recital
+      this.handleNonRecitalPanelEventsFiresbase(tbodySelector, callback);
+    } else {
+      this.handleRecitalPanelEventsFiresbase();
+    }
+  }
+
+  handleNonRecitalPanelEventsFiresbase(tbodySelector, callback) {
+    const btn = document.querySelector(`#panel-${this.type} button`);
+    let inputValue = '';
+
+    btn.addEventListener('click', () => {
+      inputValue = document.querySelector(
+        `#panel-${this.type} input[type=text]`
+      ).value;
+      Ui.showSpinner(btn, true);
+      if (this.type === 'create') {
+        if (
+          !Validator.validate(inputValue, Validator.REQUIRED) ||
+          !Validator.validate(inputValue, Validator.MIN_LENGTH, 2) ||
+          !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
+        ) {
+          Notification.showTextErrorMessage(2, 20);
+          Ui.showSpinner(btn, false);
+          return;
+        }
+        if (
+          !Validator.validate(inputValue, Validator.NON_REPEATED, tbodySelector)
+        ) {
+          Notification.showTextRepeatedErrorMessage(inputValue);
+          Ui.showSpinner(btn, false);
+          return;
+        }
+
+        callback(inputValue)
+          .then(() => {
+            Notification.showTextSuccessMessage('Record', 'created');
+          })
+          .finally(() => {
+            document.querySelector(
+              `#panel-${this.type} input[type=text]`
+            ).value = '';
+            Ui.showSpinner(btn, false);
+          });
+      }
+    });
+  }
+
   handleNonRecitalPanelEvents(apiClass, tbodySelector) {
     const btn = document.querySelector(`#panel-${this.type} button`);
     let inputValue = '';
@@ -55,8 +105,6 @@ class Panel {
         `#panel-${this.type} input[type=text]`
       ).value;
       Ui.showSpinner(btn, true);
-      console.log('tbody', tbodySelector);
-      console.log('inputVal', inputValue);
       if (this.type === 'create') {
         if (
           !Validator.validate(inputValue, Validator.REQUIRED) ||

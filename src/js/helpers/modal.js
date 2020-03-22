@@ -81,7 +81,7 @@ class Modal {
     }
   }
 
-  static handleModalAcceptButton(apiClass, tbodySelector) {
+  static handleModalAcceptButtonAPI(apiClass, tbodySelector) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
     let inputValue = '';
@@ -154,17 +154,92 @@ class Modal {
           });
       }
     });
+
+    function getRecordTypeName(record) {
+      switch (record) {
+        case 'band-data':
+          return 'Band';
+        case 'place-data':
+          return 'Place';
+        case 'recital-data':
+          return 'Recital';
+      }
+    }
   }
 
-  static getRecordTypeName(record) {
-    switch (record) {
-      case 'band-data':
-        return 'Band';
-      case 'place-data':
-        return 'Place';
-      case 'recital-data':
-        return 'Recital';
-    }
+  static handleModalAcceptButtonFirebase(apiClass, tbodySelector) {
+    const btnAccept = document.getElementById('btn-accept');
+    const modalElement = document.getElementById('modal');
+    let inputValue = '';
+
+    btnAccept.addEventListener('click', () => {
+      Ui.showSpinner(btnAccept, true);
+      if (btnAccept.dataset.action == 'edit') {
+        inputValue = document.getElementById('edit-input').value;
+
+        if (
+          !Validator.validate(inputValue, Validator.REQUIRED) ||
+          !Validator.validate(inputValue, Validator.MIN_LENGTH, 2) ||
+          !Validator.validate(inputValue, Validator.MAX_LENGTH, 20)
+        ) {
+          Notification.showTextErrorMessage(2, 10);
+          return;
+        }
+        if (
+          !Validator.validate(inputValue, Validator.NON_REPEATED, tbodySelector)
+        ) {
+          Notification.showTextRepeatedErrorMessage(inputValue);
+          Ui.showSpinner(btnAccept, false);
+          return;
+        }
+
+        apiClass
+          .update(btnAccept.dataset.id, inputValue)
+          .then(data => {
+            Ui.editRow(tbodySelector, data.id, data.name);
+          })
+          .catch(() => {
+            Ui.editRow(tbodySelector, btnAccept.dataset.id, inputValue);
+          })
+          .then(() => {
+            Notification.showTextSuccessMessage(
+              Modal.getRecordTypeName(tbodySelector),
+              'edited'
+            );
+          })
+          .finally(() => {
+            this.toggleModal(modalElement);
+            Ui.showSpinner(btnAccept, false);
+          });
+      }
+
+      if (btnAccept.dataset.action == 'delete') {
+        apiClass
+          .delete(btnAccept.dataset.id)
+          .then(data => {
+            if (data.id !== undefined) {
+              Ui.removeRow(tbodySelector, data.id);
+              Notification.showTextSuccessMessage(
+                Modal.getRecordTypeName(tbodySelector),
+                'deleted'
+              );
+            } else {
+              Notification.showServerErrorMessage(data.message);
+            }
+          })
+          .catch(() => {
+            Ui.removeRow(tbodySelector, btnAccept.dataset.id);
+            Notification.showTextSuccessMessage(
+              Modal.getRecordTypeName(tbodySelector),
+              'deleted'
+            );
+          })
+          .finally(() => {
+            this.toggleModal(modalElement);
+            Ui.showSpinner(btnAccept, false);
+          });
+      }
+    });
   }
 }
 
