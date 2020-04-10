@@ -17,10 +17,10 @@ class Table {
     return this;
   }
 
-  appendRowsToTable(selector) {
-    const table = this.createTable(selector);
+  appendRowsToTable(tbodySel) {
+    const table = this.createTable(tbodySel);
 
-    this.rows.forEach(row => Ui.append(table, row));
+    this.rows.forEach((row) => Ui.append(table, row));
     return table;
   }
 
@@ -35,10 +35,8 @@ class Table {
     });
   }
 
-  static handleActionButtons(tableSelector, actionClass) {
-    const buttons = document.querySelectorAll(
-      `#${tableSelector} a.${actionClass}`
-    );
+  static handleActionButtons(tbodySel, actionClass) {
+    const buttons = document.querySelectorAll(`#${tbodySel} a.${actionClass}`);
 
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', () => {
@@ -56,9 +54,9 @@ class Table {
     Ui.showTableLoader('table', true);
     apiClass
       .getAll()
-      .then(records => {
+      .then((records) => {
         try {
-          records.forEach(r => {
+          records.forEach((r) => {
             if (!isRecitalTable) {
               let row = new Row(r.id, r.name);
               table.addRow(row.createRow(false));
@@ -81,43 +79,57 @@ class Table {
       })
       .then(() => {
         if (!isRecitalTable) {
-          // Not edition for Recital View
           Table.handleActionButtons(tbodySelector, 'btn-edit');
         }
         Table.handleActionButtons(tbodySelector, 'btn-delete');
         Modal.handleModalCloseButtons(document.getElementById('modal'));
-        Modal.handleModalAcceptButton(apiClass, tbodySelector);
+        Modal.handleModalAcceptButtonAPI(apiClass, tbodySelector);
       })
       .finally(() => {
         Ui.showTableLoader('table', false);
       });
   }
 
-  static buildTableFirebase(snapDoc, tbodySelector, isRecitalTable) {
+  static buildTableFirebase(record, tbodySel, isRecTable) {
     const table = new Table();
 
-    if (!isRecitalTable) {
-      snapDoc.forEach(change => {
-        if (!isRecitalTable) {
-          let row = new Row(change.doc.id, change.doc.data().name);
+    record.forEach((r) => {
+      if (!isRecTable) {
+        let row = new Row(r.id, r.name);
 
-          table.addRow(row.createRow(false));
-        } else {
-          //TODO: do the render of recital
-          // let recitalRow = new Row();
-          // table.addRow(recitalRow.createRow(true));
-        }
-      });
-      table.appendRowsToTable(tbodySelector);
+        table.addRow(row.createRow(false));
+      } else {
+        //TODO: do the render of recital
+        // let recitalRow = new Row();
+        // table.addRow(recitalRow.createRow(true));
+      }
+    });
+    // if is recital...
+    table.appendRowsToTable(tbodySel);
+
+    Ui.showTableLoader('table', false);
+  }
+
+  static addFirebaseRowToTable(tbodySel, id, name) {
+    const tbody = document.getElementById(tbodySel);
+    const firebaseRow = new Row(id, name).createRow(false);
+    const nameFieldIndex = 1;
+    const maxIndex = tbody.rows.length;
+
+    for (let row of tbody.rows) {
+      if (
+        firebaseRow.cells[nameFieldIndex].textContent.localeCompare(
+          row.cells[nameFieldIndex].textContent
+        ) < 0
+      ) {
+        row.insertAdjacentElement('beforebegin', firebaseRow);
+        break;
+      }
     }
-    //then...
-    if (!isRecitalTable) {
-      // Not edition for Recital View
-      Table.handleActionButtons(tbodySelector, 'btn-edit');
-    }
-    Table.handleActionButtons(tbodySelector, 'btn-delete');
-    Modal.handleModalCloseButtons(document.getElementById('modal'));
-    // Modal.handleModalAcceptButtonFirebase(apiClass, tbodySelector);
+    // insert new row at the end
+    tbody.insertBefore(firebaseRow, tbody.rows[maxIndex]);
+
+    return firebaseRow;
   }
 }
 

@@ -21,9 +21,9 @@ class Panel {
 
     apiClass
       .getAll()
-      .then(result => {
+      .then((result) => {
         if (result.length > 0) {
-          result.forEach(r => {
+          result.forEach((r) => {
             let optionNode = Ui.createNode('option');
 
             optionNode.value = r.id;
@@ -86,10 +86,15 @@ class Panel {
           .then(() => {
             Notification.showTextSuccessMessage('Record', 'created');
           })
+          .then(() => {
+            this.resetInputValue(
+              document.querySelector(`#panel-${this.type} input[type=text]`)
+            );
+          })
+          .then(() => {
+            // tengo que hacer un get de la tabla mono
+          })
           .finally(() => {
-            document.querySelector(
-              `#panel-${this.type} input[type=text]`
-            ).value = '';
             Ui.showSpinner(btn, false);
           });
       }
@@ -125,10 +130,10 @@ class Panel {
 
         apiClass
           .create(inputValue)
-          .then(data => new Row(data.id, data.name))
+          .then((data) => new Row(data.id, data.name))
           .catch(() => new Row(Row.getNextMaxRowId(), inputValue)) // if backend fails
-          .then(rowData => rowData.createRow(false))
-          .then(row => {
+          .then((rowData) => rowData.createRow(false))
+          .then((row) => {
             Row.insertRowOnTop(row);
             Table.handleOneActionButton(row, 'btn-edit');
             Table.handleOneActionButton(row, 'btn-delete');
@@ -137,9 +142,9 @@ class Panel {
             Notification.showTextSuccessMessage('Record', 'created');
           })
           .finally(() => {
-            document.querySelector(
-              `#panel-${this.type} input[type=text]`
-            ).value = '';
+            this.resetInputValue(
+              document.querySelector(`#panel-${this.type} input[type=text]`)
+            );
             Ui.showSpinner(btn, false);
           });
       }
@@ -157,7 +162,7 @@ class Panel {
 
     btn.addEventListener('click', () => {
       Ui.showSpinner(btn, true);
-      console.log('date', date.value);
+
       if (
         !Validator.validate(date.value, Validator.REQUIRED) ||
         !Validator.validate(date.value, Validator.DATE_FORMAT)
@@ -170,7 +175,7 @@ class Panel {
       apiClass
         .create(date.value, ticket.checked, bandId.value, placeId.value)
         .then(
-          data =>
+          (data) =>
             new Row(
               data.id,
               '',
@@ -191,8 +196,8 @@ class Panel {
               ticket.checked
             )
         )
-        .then(rowData => rowData.createRow(true))
-        .then(row => {
+        .then((rowData) => rowData.createRow(true))
+        .then((row) => {
           Row.insertRowOnTop(row);
           Table.handleOneActionButton(row, 'btn-delete');
         })
@@ -201,7 +206,7 @@ class Panel {
         })
         .finally(() => {
           Ui.showSpinner(btn, false);
-          date.value = '';
+          this.resetInputValue(date);
         });
     });
   }
@@ -213,6 +218,10 @@ class Panel {
     btn.addEventListener('click', () => {
       console.log('do the API thing with search', input.value);
     });
+  }
+
+  resetInputValue(input) {
+    input.value = '';
   }
 }
 

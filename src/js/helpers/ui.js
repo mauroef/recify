@@ -1,4 +1,4 @@
-const createNode = element => document.createElement(element);
+const createNode = (element) => document.createElement(element);
 
 const append = (parent, el) => parent.appendChild(el);
 
@@ -36,7 +36,7 @@ const editRow = (tableSelector, responseId, responseName) => {
   );
 
   for (let i = 0; i < rows.length; i++)
-    if (+rowsId[i].innerText === +responseId) {
+    if (rowsId[i].innerText === responseId) {
       rowsName[i].innerText = responseName;
     }
 };
@@ -48,7 +48,7 @@ const removeRow = (tableSelector, responseId) => {
   );
 
   for (let i = 0; i < rows.length; i++) {
-    if (+rowsId[i].innerText === +responseId) {
+    if (rowsId[i].innerText === responseId) {
       rows[i].parentNode.removeChild(rows[i]);
     }
   }
@@ -80,5 +80,5 @@ export {
   editRow,
   removeRow,
   showSpinner,
-  showTableLoader
+  showTableLoader,
 };

@@ -5,10 +5,11 @@ import Table from './helpers/table';
 import Panel from './helpers/panel';
 import Navbar from './helpers/navbar';
 import Footer from './helpers/footer';
+import Modal from './helpers/modal';
 
 import Firebase from './helpers/firebase';
 
-const initApp = function() {
+const initApp = function () {
   const location = window.location.pathname,
     firebase = new Firebase(),
     navbar = new Navbar(),
@@ -33,11 +34,11 @@ const initApp = function() {
   }
 
   function firebaseHandler(isRecital, apiClass, tbodySelector) {
-    firebase.auth.onAuthStateChanged(user => {
-      if (isAuthenticated(user, isRecital)) {
+    firebase.auth.onAuthStateChanged((user) => {
+      if (firebase.isAuthenticated(user)) {
         if (navbar.switchView(true, user.displayName, user.photoURL)) {
           handleNavbarEvents(true);
-          // TODO: firestore thing
+
           if (isRecital) {
             firestoreSetup('recital');
           } else {
@@ -47,13 +48,14 @@ const initApp = function() {
       } else {
         if (!navbar.switchView(false)) {
           handleNavbarEvents(false);
-          // TODO: api thing
           if (isRecital) {
+            const panelCreate = new Panel('create', true);
             panelCreate.buildPanelCombo(Band, panelCreate.combo.band);
             panelCreate.buildPanelCombo(Place, panelCreate.combo.place);
             panelCreate.handlePanelEvents(Recital);
             Table.buildTableAPI(Recital, 'recital-data', true);
           } else {
+            const panelCreate = new Panel('create', false);
             panelCreate.handlePanelEvents(apiClass, tbodySelector);
             Table.buildTableAPI(apiClass, tbodySelector, false);
           }
@@ -62,34 +64,44 @@ const initApp = function() {
     });
   }
 
-  function firestoreSetup(tbodySelector) {
-    //TODO: refactor
-    const FDocument = getFDocument(tbodySelector);
+  function firestoreSetup(tbodySel) {
     //TODO: check this
     const panelCreate = new Panel('create', false);
+    const fireDoc = getFireDoc(tbodySel);
 
-    firebase.db.collection(FDocument).onSnapshot(snapshot => {
-      Table.buildTableFirebase(snapshot.docChanges(), tbodySelector, false);
-    });
+    panelCreate.handlePanelEventsFiresbase(tbodySel, (name) =>
+      firebase
+        .add(fireDoc, name, firebase.auth.currentUser.uid)
+        .then((docRef) =>
+          Table.addFirebaseRowToTable(tbodySel, docRef.id, name)
+        )
+        .then((row) => {
+          Table.handleOneActionButton(row, 'btn-edit');
+          Table.handleOneActionButton(row, 'btn-delete');
+        })
+    );
 
-    panelCreate.handlePanelEventsFiresbase(tbodySelector, name => {
-      return firebase.db.collection(FDocument).add({
-        name: name,
-        ownerId: firebase.auth.currentUser.uid
+    firebase
+      .getData(fireDoc)
+      .then((r) => {
+        Table.buildTableFirebase(r, tbodySel, false);
+      })
+      .then(() => {
+        Table.handleActionButtons(tbodySel, 'btn-edit');
+        Table.handleActionButtons(tbodySel, 'btn-delete');
+      })
+      .then(() => {
+        Modal.handleModalCloseButtons(document.getElementById('modal'));
+        Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
       });
-    });
 
-    function getFDocument(tbodySelector) {
-      if (tbodySelector === 'band-data') {
+    function getFireDoc(tbodySel) {
+      if (tbodySel === 'band-data') {
         return 'bands';
-      } else if (tbodySelector === 'place-data') {
+      } else if (tbodySel === 'place-data') {
         return 'places';
       }
     }
-  }
-
-  function isAuthenticated(user) {
-    return user !== null ? true : false;
   }
 
   function handleNavbarEvents(logged) {

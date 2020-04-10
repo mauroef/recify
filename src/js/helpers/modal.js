@@ -50,20 +50,17 @@ class Modal {
 
     switch (actionClass) {
       case 'btn-edit': {
-        const editModal = new Modal(
-          id,
-          'Edit - ' + name,
-          'Enter the new name',
-          'edit'
-        );
-        editModal.renderModal(modalElement, name);
+        const msg = 'Please, inesrt the new name: ';
+        const editModal = new Modal(id, `Edit - ${name}`, msg, 'edit');
 
+        editModal.renderModal(modalElement, name);
         break;
       }
       case 'btn-delete': {
-        const deleteModal = new Modal(id, 'Delete', 'Are you sure?', 'delete');
-        deleteModal.renderModal(modalElement, name);
+        const msg = 'Are you sure?';
+        const deleteModal = new Modal(id, `Delete - ${name}`, msg, 'delete');
 
+        deleteModal.renderModal(modalElement, name);
         break;
       }
       default:
@@ -90,7 +87,6 @@ class Modal {
       Ui.showSpinner(btnAccept, true);
       if (btnAccept.dataset.action == 'edit') {
         inputValue = document.getElementById('edit-input').value;
-
         if (
           !Validator.validate(inputValue, Validator.REQUIRED) ||
           !Validator.validate(inputValue, Validator.MIN_LENGTH, 2) ||
@@ -109,7 +105,7 @@ class Modal {
 
         apiClass
           .update(btnAccept.dataset.id, inputValue)
-          .then(data => {
+          .then((data) => {
             Ui.editRow(tbodySelector, data.id, data.name);
           })
           .catch(() => {
@@ -117,7 +113,7 @@ class Modal {
           })
           .then(() => {
             Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tbodySelector),
+              getRecordTypeName(tbodySelector),
               'edited'
             );
           })
@@ -130,11 +126,11 @@ class Modal {
       if (btnAccept.dataset.action == 'delete') {
         apiClass
           .delete(btnAccept.dataset.id)
-          .then(data => {
+          .then((data) => {
             if (data.id !== undefined) {
               Ui.removeRow(tbodySelector, data.id);
               Notification.showTextSuccessMessage(
-                Modal.getRecordTypeName(tbodySelector),
+                getRecordTypeName(tbodySelector),
                 'deleted'
               );
             } else {
@@ -144,7 +140,7 @@ class Modal {
           .catch(() => {
             Ui.removeRow(tbodySelector, btnAccept.dataset.id);
             Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tbodySelector),
+              getRecordTypeName(tbodySelector),
               'deleted'
             );
           })
@@ -167,14 +163,15 @@ class Modal {
     }
   }
 
-  static handleModalAcceptButtonFirebase(apiClass, tbodySelector) {
+  static handleModalAcceptButtonFirebase(tbodySel, fireDoc, callback) {
     const btnAccept = document.getElementById('btn-accept');
     const modalElement = document.getElementById('modal');
     let inputValue = '';
 
     btnAccept.addEventListener('click', () => {
       Ui.showSpinner(btnAccept, true);
-      if (btnAccept.dataset.action == 'edit') {
+
+      if (btnAccept.dataset.action === 'edit') {
         inputValue = document.getElementById('edit-input').value;
 
         if (
@@ -185,27 +182,16 @@ class Modal {
           Notification.showTextErrorMessage(2, 10);
           return;
         }
-        if (
-          !Validator.validate(inputValue, Validator.NON_REPEATED, tbodySelector)
-        ) {
+        if (!Validator.validate(inputValue, Validator.NON_REPEATED, tbodySel)) {
           Notification.showTextRepeatedErrorMessage(inputValue);
           Ui.showSpinner(btnAccept, false);
           return;
         }
 
-        apiClass
-          .update(btnAccept.dataset.id, inputValue)
-          .then(data => {
-            Ui.editRow(tbodySelector, data.id, data.name);
-          })
-          .catch(() => {
-            Ui.editRow(tbodySelector, btnAccept.dataset.id, inputValue);
-          })
+        callback
+          .update(fireDoc, btnAccept.dataset.id, inputValue)
           .then(() => {
-            Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tbodySelector),
-              'edited'
-            );
+            Ui.editRow(tbodySel, btnAccept.dataset.id, inputValue);
           })
           .finally(() => {
             this.toggleModal(modalElement);
@@ -213,26 +199,11 @@ class Modal {
           });
       }
 
-      if (btnAccept.dataset.action == 'delete') {
-        apiClass
-          .delete(btnAccept.dataset.id)
-          .then(data => {
-            if (data.id !== undefined) {
-              Ui.removeRow(tbodySelector, data.id);
-              Notification.showTextSuccessMessage(
-                Modal.getRecordTypeName(tbodySelector),
-                'deleted'
-              );
-            } else {
-              Notification.showServerErrorMessage(data.message);
-            }
-          })
-          .catch(() => {
-            Ui.removeRow(tbodySelector, btnAccept.dataset.id);
-            Notification.showTextSuccessMessage(
-              Modal.getRecordTypeName(tbodySelector),
-              'deleted'
-            );
+      if (btnAccept.dataset.action === 'delete') {
+        callback
+          .delete(fireDoc, btnAccept.dataset.id)
+          .then(() => {
+            Ui.removeRow(tbodySel, btnAccept.dataset.id);
           })
           .finally(() => {
             this.toggleModal(modalElement);
