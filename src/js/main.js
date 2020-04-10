@@ -17,7 +17,7 @@ const initApp = function () {
 
   switch (location) {
     case '/': {
-      firebaseHandler(true);
+      firebaseHandler(true, Recital, 'recital-data');
       break;
     }
     case '/bands.html': {
@@ -39,11 +39,7 @@ const initApp = function () {
         if (navbar.switchView(true, user.displayName, user.photoURL)) {
           handleNavbarEvents(true);
 
-          if (isRecital) {
-            firestoreSetup('recital');
-          } else {
-            firestoreSetup(tbodySelector);
-          }
+          firestoreSetup(tbodySelector);
         }
       } else {
         if (!navbar.switchView(false)) {
@@ -65,42 +61,86 @@ const initApp = function () {
   }
 
   function firestoreSetup(tbodySel) {
-    //TODO: check this
-    const panelCreate = new Panel('create', false);
-    const fireDoc = getFireDoc(tbodySel);
+    const fireDoc = Firebase.getFireDoc(tbodySel);
 
-    panelCreate.handlePanelEventsFiresbase(tbodySel, (name) =>
+    if (fireDoc !== 'recitals') {
+      const panel = new Panel('create', false);
+
+      panel.handlePanelEventsFiresbase(tbodySel, (name) =>
+        firebase
+          .add(fireDoc, name, firebase.auth.currentUser.uid)
+          .then((docRef) =>
+            Table.addFirebaseRowToTable(tbodySel, docRef.id, name)
+          )
+          .then((row) => {
+            Table.handleOneActionButton(row, 'btn-edit');
+            Table.handleOneActionButton(row, 'btn-delete');
+          })
+      );
+
       firebase
-        .add(fireDoc, name, firebase.auth.currentUser.uid)
-        .then((docRef) =>
-          Table.addFirebaseRowToTable(tbodySel, docRef.id, name)
-        )
-        .then((row) => {
-          Table.handleOneActionButton(row, 'btn-edit');
-          Table.handleOneActionButton(row, 'btn-delete');
+        .getData(fireDoc)
+        .then((r) => {
+          Table.buildTableFirebase(r, tbodySel, false);
         })
-    );
+        .then(() => {
+          Table.handleActionButtons(tbodySel, 'btn-edit');
+          Table.handleActionButtons(tbodySel, 'btn-delete');
+        })
+        .then(() => {
+          Modal.handleModalCloseButtons(document.getElementById('modal'));
+          // TODO: check if has references on recital doc
+          Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
+        });
+    } else {
+      //create new recital
+      const panelRecital = new Panel('create', true);
 
-    firebase
-      .getData(fireDoc)
-      .then((r) => {
-        Table.buildTableFirebase(r, tbodySel, false);
-      })
-      .then(() => {
-        Table.handleActionButtons(tbodySel, 'btn-edit');
-        Table.handleActionButtons(tbodySel, 'btn-delete');
-      })
-      .then(() => {
-        Modal.handleModalCloseButtons(document.getElementById('modal'));
-        Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
-      });
+      panelRecital.buildPanelComboFirebase(
+        (doc) => firebase.getData(doc),
+        'bands',
+        panelRecital.combo.band
+      );
+      panelRecital.buildPanelComboFirebase(
+        (doc) => firebase.getData(doc),
+        'places',
+        panelRecital.combo.place
+      );
 
-    function getFireDoc(tbodySel) {
-      if (tbodySel === 'band-data') {
-        return 'bands';
-      } else if (tbodySel === 'place-data') {
-        return 'places';
-      }
+      panelRecital.handlePanelEventsFiresbase(
+        tbodySel,
+        (date, bandId, placeId, ticket) =>
+          firebase
+            .addRecital(
+              fireDoc,
+              date,
+              bandId,
+              placeId,
+              ticket,
+              firebase.auth.currentUser.uid
+            )
+            .then((docRef) => {
+              console.log(docRef);
+            })
+        // .then(
+        //   (docRef) => console.log('doc', docRef)
+        //   //Table.addFirebaseRowToTable(tbodySel, docRef.id, name)
+        // )
+        // .then((row) => {
+        //   //Table.handleOneActionButton(row, 'btn-delete');
+        // })
+      );
+
+      table;
+      firebase
+        .getRecitalData(fireDoc)
+        .then((r) => {
+          Table.buildTableFirebase(r, tbodySel, true);
+        })
+        .finally(() => {
+          Modal.handleModalCloseButtons(document.getElementById('modal'));
+          Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
+        });
     }
   }
 

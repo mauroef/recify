@@ -50,6 +50,33 @@ export default class Firebase {
       });
   }
 
+  getRecitalData(document) {
+    return this.db
+      .collection(document)
+      .get()
+      .then((snapshot) => {
+        let records = snapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            date: doc.data().date,
+            band: this.getNameById('bands', doc.data().bandId.id),
+            place: this.getNameById('places', doc.data().placeId.id),
+            ticket: doc.data().ticket,
+          };
+        });
+
+        return records;
+      });
+  }
+
+  getNameById(document, id) {
+    return this.db
+      .collection(document)
+      .doc(id)
+      .get()
+      .then((docRef) => docRef.data().name);
+  }
+
   getRealtimeData(document) {
     let records = [];
 
@@ -63,8 +90,17 @@ export default class Firebase {
     return records;
   }
 
-  add(document, name, owner) {
-    return this.db.collection(document).add({ name, owner });
+  add(document, name, userId) {
+    return this.db.collection(document).add({ name, userId });
+  }
+
+  addRecital(document, date, bandIdRef, placeIdRef, ticket, userId) {
+    const bandId = this.db.doc('bands/' + bandIdRef);
+    const placeId = this.db.doc('places/' + placeIdRef);
+
+    return this.db
+      .collection(document)
+      .add({ date, bandId, placeId, ticket, userId });
   }
 
   update(document, id, name) {
@@ -73,5 +109,39 @@ export default class Firebase {
 
   delete(document, id) {
     return this.db.collection(document).doc(id).delete();
+  }
+
+  // checkReferenceOnRecitalDoc(id) {
+  //   return this.db
+  //     .collection('recitals')
+  //     .doc(id)
+  //     .get()
+  //     .then((docRef) => {
+  //       if (docRef.exists) {
+  //         console.log('existe');
+  //       } else {
+  //         console.log('hice cagada');
+  //       }
+  //     });
+  // }
+
+  static getFireDoc(tbodySel) {
+    let document;
+
+    switch (tbodySel) {
+      case 'band-data':
+        document = 'bands';
+        break;
+      case 'place-data':
+        document = 'places';
+        break;
+      case 'recital-data':
+        document = 'recitals';
+        break;
+      default:
+        console.warn('unrecheable selector');
+    }
+
+    return document;
   }
 }

@@ -91,23 +91,38 @@ class Table {
   }
 
   static buildTableFirebase(record, tbodySel, isRecTable) {
-    const table = new Table();
+    let table = new Table();
 
     record.forEach((r) => {
       if (!isRecTable) {
         let row = new Row(r.id, r.name);
 
         table.addRow(row.createRow(false));
+
+        table.appendRowsToTable(tbodySel);
+        Ui.showTableLoader('table', false);
       } else {
-        //TODO: do the render of recital
-        // let recitalRow = new Row();
-        // table.addRow(recitalRow.createRow(true));
+        r.band
+          .then((band) =>
+            r.place.then((place) => {
+              return { band, place };
+            })
+          )
+          .then(
+            (data) => new Row(r.id, '', r.date, data.band, data.place, r.ticket)
+          )
+          .then((row) => {
+            table.addRow(row.createRow(true));
+          })
+          .then(() => {
+            table.appendRowsToTable(tbodySel);
+            Ui.showTableLoader('table', false);
+          })
+          .then(() => {
+            Table.handleActionButtons(tbodySel, 'btn-delete');
+          });
       }
     });
-    // if is recital...
-    table.appendRowsToTable(tbodySel);
-
-    Ui.showTableLoader('table', false);
   }
 
   static addFirebaseRowToTable(tbodySel, id, name) {

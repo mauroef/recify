@@ -16,9 +16,7 @@ class Panel {
   buildPanelCombo(apiClass, cboSelector) {
     let cboPanel = document.getElementById(cboSelector);
 
-    Ui.showSpinner(document.querySelectorAll('div.select')[0], true);
-    Ui.showSpinner(document.querySelectorAll('div.select')[1], true);
-
+    Ui.showSpinner(cboPanel.parentNode, true);
     apiClass
       .getAll()
       .then((result) => {
@@ -33,8 +31,28 @@ class Panel {
         }
       })
       .finally(() => {
-        Ui.showSpinner(document.querySelectorAll('div.select')[0], false);
-        Ui.showSpinner(document.querySelectorAll('div.select')[1], false);
+        Ui.showSpinner(cboPanel.parentNode, false);
+      });
+  }
+
+  buildPanelComboFirebase(callback, doc, cboSelector) {
+    let cboPanel = document.getElementById(cboSelector);
+
+    Ui.showSpinner(cboPanel.parentNode, true);
+    callback(doc)
+      .then((result) => {
+        if (result.length > 0) {
+          result.forEach((r) => {
+            let optionNode = Ui.createNode('option');
+
+            optionNode.value = r.id;
+            optionNode.textContent = r.name;
+            Ui.append(cboPanel, optionNode);
+          });
+        }
+      })
+      .finally(() => {
+        Ui.showSpinner(cboPanel.parentNode, false);
       });
   }
 
@@ -48,10 +66,9 @@ class Panel {
 
   handlePanelEventsFiresbase(tbodySelector, callback) {
     if (!this.isRecital) {
-      //TODO: resolve recital
       this.handleNonRecitalPanelEventsFiresbase(tbodySelector, callback);
     } else {
-      this.handleRecitalPanelEventsFiresbase();
+      this.handleRecitalPanelEventsFiresbase(tbodySelector, callback);
     }
   }
 
@@ -207,6 +224,37 @@ class Panel {
         .finally(() => {
           Ui.showSpinner(btn, false);
           this.resetInputValue(date);
+        });
+    });
+  }
+
+  handleRecitalPanelEventsFiresbase(tbodySelector, callback) {
+    const bandId = document.getElementById(this.combo.band);
+    const placeId = document.getElementById(this.combo.place);
+    const date = document.querySelector(`#panel-${this.type} #recital-date`);
+    const ticket = document.querySelector(
+      `#panel-${this.type} input[type=checkbox]`
+    );
+    const btn = document.querySelector(`#panel-${this.type} button`);
+
+    btn.addEventListener('click', () => {
+      Ui.showSpinner(btn, true);
+
+      if (
+        !Validator.validate(date.value, Validator.REQUIRED) ||
+        !Validator.validate(date.value, Validator.DATE_FORMAT)
+      ) {
+        Notification.showDateErrorMessage();
+        Ui.showSpinner(btn, false);
+        return;
+      }
+
+      callback(date.value, bandId.value, placeId.value, ticket.checked)
+        .then(() => {
+          console.log('success!');
+        })
+        .then(() => {
+          Notification.showTextSuccessMessage('Record', 'created');
         });
     });
   }
