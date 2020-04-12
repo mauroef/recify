@@ -7,7 +7,7 @@ export default class Notification {
       type: 'is-info',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'fadeIn', out: 'fadeOut' }
+      animate: { in: 'fadeIn', out: 'fadeOut' },
     });
   }
 
@@ -17,7 +17,7 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
@@ -27,7 +27,7 @@ export default class Notification {
       type: 'is-warning',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'swing', out: 'bounceOut' }
+      animate: { in: 'swing', out: 'bounceOut' },
     });
   }
 
@@ -37,7 +37,7 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
@@ -47,7 +47,17 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
+    });
+  }
+
+  static showCanNotDeleted() {
+    superToast({
+      message: `<strong>Error:</strong> record can not be deleted.`,
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
@@ -59,7 +69,7 @@ export default class Notification {
       duration: 4000,
       pauseOnHover: true,
       position: 'top-center',
-      animate: { in: 'swing', out: 'bounceOut' }
+      animate: { in: 'swing', out: 'bounceOut' },
     });
   }
 }

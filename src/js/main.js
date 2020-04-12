@@ -110,25 +110,14 @@ const initApp = function () {
       panelRecital.handlePanelEventsFiresbase(
         tbodySel,
         (date, bandId, placeId, ticket) =>
-          firebase
-            .addRecital(
-              fireDoc,
-              date,
-              bandId,
-              placeId,
-              ticket,
-              firebase.auth.currentUser.uid
-            )
-            .then((docRef) => {
-              console.log(docRef);
-            })
-        // .then(
-        //   (docRef) => console.log('doc', docRef)
-        //   //Table.addFirebaseRowToTable(tbodySel, docRef.id, name)
-        // )
-        // .then((row) => {
-        //   //Table.handleOneActionButton(row, 'btn-delete');
-        // })
+          firebase.addRecital(
+            fireDoc,
+            date,
+            bandId,
+            placeId,
+            ticket,
+            firebase.auth.currentUser.uid
+          )
       );
 
       table;

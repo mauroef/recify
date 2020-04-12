@@ -53,19 +53,44 @@ export default class Firebase {
   getRecitalData(document) {
     return this.db
       .collection(document)
+      .where('userId', '==', this.auth.currentUser.uid)
       .get()
       .then((snapshot) => {
         let records = snapshot.docs.map((doc) => {
           return {
             id: doc.id,
             date: doc.data().date,
-            band: this.getNameById('bands', doc.data().bandId.id),
-            place: this.getNameById('places', doc.data().placeId.id),
+            bandId: doc.data().bandId,
+            bandName: this.getNameById('bands', doc.data().bandId),
+            placeId: doc.data().placeId,
+            placeName: this.getNameById('places', doc.data().placeId),
             ticket: doc.data().ticket,
           };
         });
 
         return records;
+      });
+  }
+
+  canBeDeleted(document, id) {
+    return this.db
+      .collection('recitals')
+      .where('userId', '==', this.auth.currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        console.log('doc', document);
+        let hasError = false;
+
+        snapshot.docs.map((doc) => {
+          let idReference =
+            document === 'bands' ? doc.data().bandId : doc.data().placeId;
+          if (idReference === id) {
+            hasError = true;
+            return;
+          }
+        });
+
+        return hasError;
       });
   }
 
@@ -94,13 +119,13 @@ export default class Firebase {
     return this.db.collection(document).add({ name, userId });
   }
 
-  addRecital(document, date, bandIdRef, placeIdRef, ticket, userId) {
-    const bandId = this.db.doc('bands/' + bandIdRef);
-    const placeId = this.db.doc('places/' + placeIdRef);
+  addRecital(document, date, bandId, placeId, ticket, userId) {
+    const bandRef = this.db.doc('bands/' + bandId);
+    const placeRef = this.db.doc('places/' + placeId);
 
     return this.db
       .collection(document)
-      .add({ date, bandId, placeId, ticket, userId });
+      .add({ date, bandId, bandRef, placeId, placeRef, ticket, userId });
   }
 
   update(document, id, name) {
@@ -108,22 +133,16 @@ export default class Firebase {
   }
 
   delete(document, id) {
-    return this.db.collection(document).doc(id).delete();
+    return this.canBeDeleted(document, id).then((hasError) => {
+      return hasError
+        ? false
+        : this.db
+            .collection(document)
+            .doc(id)
+            .delete()
+            .then(() => true);
+    });
   }
-
-  // checkReferenceOnRecitalDoc(id) {
-  //   return this.db
-  //     .collection('recitals')
-  //     .doc(id)
-  //     .get()
-  //     .then((docRef) => {
-  //       if (docRef.exists) {
-  //         console.log('existe');
-  //       } else {
-  //         console.log('hice cagada');
-  //       }
-  //     });
-  // }
 
   static getFireDoc(tbodySel) {
     let document;

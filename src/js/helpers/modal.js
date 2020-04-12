@@ -202,8 +202,13 @@ class Modal {
       if (btnAccept.dataset.action === 'delete') {
         callback
           .delete(fireDoc, btnAccept.dataset.id)
-          .then(() => {
-            Ui.removeRow(tbodySel, btnAccept.dataset.id);
+          .then((hasSuccess) => {
+            if (hasSuccess) {
+              Notification.showTextSuccessMessage('record', 'deleted');
+              Ui.removeRow(tbodySel, btnAccept.dataset.id);
+            } else {
+              Notification.showCanNotDeleted();
+            }
           })
           .finally(() => {
             this.toggleModal(modalElement);

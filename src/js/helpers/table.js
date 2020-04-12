@@ -90,10 +90,10 @@ class Table {
       });
   }
 
-  static buildTableFirebase(record, tbodySel, isRecTable) {
+  static buildTableFirebase(records, tbodySel, isRecTable) {
     let table = new Table();
 
-    record.forEach((r) => {
+    records.forEach((r) => {
       if (!isRecTable) {
         let row = new Row(r.id, r.name);
 
@@ -102,14 +102,15 @@ class Table {
         table.appendRowsToTable(tbodySel);
         Ui.showTableLoader('table', false);
       } else {
-        r.band
+        r.bandName
           .then((band) =>
-            r.place.then((place) => {
-              return { band, place };
+            r.placeName.then((place) => {
+              return { bandName: band, placeName: place };
             })
           )
           .then(
-            (data) => new Row(r.id, '', r.date, data.band, data.place, r.ticket)
+            (data) =>
+              new Row(r.id, '', r.date, data.bandName, data.placeName, r.ticket)
           )
           .then((row) => {
             table.addRow(row.createRow(true));
