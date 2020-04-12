@@ -29,7 +29,8 @@ class Table {
 
     button.addEventListener('click', () => {
       const id = button.id;
-      const name = button.parentNode.previousSibling.textContent;
+      const nameIndex = 1;
+      const name = button.parentNode.parentElement.cells[nameIndex].textContent;
 
       Modal.handleModalOpenButton(actionClass, id, name);
     });
@@ -41,7 +42,9 @@ class Table {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', () => {
         let id = buttons[i].id;
-        let name = buttons[i].parentNode.previousSibling.textContent;
+        let nameIndex = 1;
+        let name =
+          buttons[i].parentNode.parentElement.cells[nameIndex].textContent;
 
         Modal.handleModalOpenButton(actionClass, id, name);
       });
@@ -93,12 +96,17 @@ class Table {
   static buildTableFirebase(records, tbodySel, isRecTable) {
     let table = new Table();
 
+    if (records.length === 0) {
+      Ui.showTableEmpty('table', true);
+      Ui.showTableLoader('table', false);
+      return;
+    }
+
     records.forEach((r) => {
       if (!isRecTable) {
         let row = new Row(r.id, r.name);
 
         table.addRow(row.createRow(false));
-
         table.appendRowsToTable(tbodySel);
         Ui.showTableLoader('table', false);
       } else {
@@ -145,7 +153,47 @@ class Table {
     // insert new row at the end
     tbody.insertBefore(firebaseRow, tbody.rows[maxIndex]);
 
+    if (tbody.rows.length === 1) {
+      Ui.showTableEmpty('table', false);
+    }
+
     return firebaseRow;
+  }
+
+  static addFirebaseRowToRecitalTable(
+    tbodySel,
+    id,
+    date,
+    bandRef,
+    placeRef,
+    ticket
+  ) {
+    const tbody = document.getElementById(tbodySel);
+    const maxIndex = tbody.rows.length;
+
+    return bandRef
+      .then((band) =>
+        placeRef.then((place) => {
+          return { bandName: band, placeName: place };
+        })
+      )
+      .then((data) =>
+        new Row(id, '', date, data.bandName, data.placeName, ticket).createRow(
+          true
+        )
+      )
+      .then((firebaseRow) => {
+        tbody.insertBefore(firebaseRow, tbody.rows[maxIndex]);
+
+        return firebaseRow;
+      })
+      .then((firebaseRow) => {
+        if (document.getElementById(tbodySel).rows.length === 1) {
+          Ui.showTableEmpty('table', false);
+        }
+
+        return firebaseRow;
+      });
   }
 }
 

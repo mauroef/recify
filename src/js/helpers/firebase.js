@@ -40,6 +40,7 @@ export default class Firebase {
   getData(document) {
     return this.db
       .collection(document)
+      .where('userId', '==', this.auth.currentUser.uid)
       .orderBy('name')
       .get()
       .then((snapshot) => {
@@ -54,6 +55,7 @@ export default class Firebase {
     return this.db
       .collection(document)
       .where('userId', '==', this.auth.currentUser.uid)
+      .orderBy('date')
       .get()
       .then((snapshot) => {
         let records = snapshot.docs.map((doc) => {
@@ -72,13 +74,28 @@ export default class Firebase {
       });
   }
 
+  getRecitalById(id) {
+    return this.db
+      .collection('recitals')
+      .doc(id)
+      .get()
+      .then((doc) => {
+        return {
+          id: doc.id,
+          date: doc.data().date,
+          bandName: this.getNameById('bands', doc.data().bandId),
+          placeName: this.getNameById('places', doc.data().placeId),
+          ticket: doc.data().ticket,
+        };
+      });
+  }
+
   canBeDeleted(document, id) {
     return this.db
       .collection('recitals')
       .where('userId', '==', this.auth.currentUser.uid)
       .get()
       .then((snapshot) => {
-        console.log('doc', document);
         let hasError = false;
 
         snapshot.docs.map((doc) => {

@@ -108,9 +108,6 @@ class Panel {
               document.querySelector(`#panel-${this.type} input[type=text]`)
             );
           })
-          .then(() => {
-            // tengo que hacer un get de la tabla mono
-          })
           .finally(() => {
             Ui.showSpinner(btn, false);
           });
@@ -222,8 +219,8 @@ class Panel {
           Notification.showTextSuccessMessage('Recital', 'created');
         })
         .finally(() => {
-          Ui.showSpinner(btn, false);
           this.resetInputValue(date);
+          Ui.showSpinner(btn, false);
         });
     });
   }
@@ -251,10 +248,10 @@ class Panel {
 
       callback(date.value, bandId.value, placeId.value, ticket.checked)
         .then(() => {
-          console.log('success!');
+          Notification.showTextSuccessMessage('Recital', 'created');
         })
-        .then(() => {
-          Notification.showTextSuccessMessage('Record', 'created');
+        .finally(() => {
+          Ui.showSpinner(btn, false);
         });
     });
   }

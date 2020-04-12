@@ -89,13 +89,11 @@ const initApp = function () {
         })
         .then(() => {
           Modal.handleModalCloseButtons(document.getElementById('modal'));
-          // TODO: check if has references on recital doc
           Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
         });
     } else {
-      //create new recital
       const panelRecital = new Panel('create', true);
-
+      // load combos
       panelRecital.buildPanelComboFirebase(
         (doc) => firebase.getData(doc),
         'bands',
@@ -106,27 +104,43 @@ const initApp = function () {
         'places',
         panelRecital.combo.place
       );
-
+      // create new recital
       panelRecital.handlePanelEventsFiresbase(
         tbodySel,
         (date, bandId, placeId, ticket) =>
-          firebase.addRecital(
-            fireDoc,
-            date,
-            bandId,
-            placeId,
-            ticket,
-            firebase.auth.currentUser.uid
-          )
+          firebase
+            .addRecital(
+              fireDoc,
+              date,
+              bandId,
+              placeId,
+              ticket,
+              firebase.auth.currentUser.uid
+            )
+            .then((docRef) => docRef.id)
+            .then((id) => firebase.getRecitalById(id))
+            .then((data) =>
+              Table.addFirebaseRowToRecitalTable(
+                tbodySel,
+                data.id,
+                data.date,
+                data.bandName,
+                data.placeName,
+                ticket
+              )
+            )
+            .then((newRow) => {
+              Table.handleOneActionButton(newRow, 'btn-delete');
+            })
       );
-
-      table;
+      // get data
       firebase
         .getRecitalData(fireDoc)
         .then((r) => {
           Table.buildTableFirebase(r, tbodySel, true);
         })
-        .finally(() => {
+        .then(() => Table.handleActionButtons(tbodySel, 'btn-delete'))
+        .then(() => {
           Modal.handleModalCloseButtons(document.getElementById('modal'));
           Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
         });

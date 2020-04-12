@@ -71,6 +71,13 @@ const showTableLoader = (tableElement, flag) => {
     : 'none';
 };
 
+const showTableEmpty = (tableElement, flag) => {
+  document.getElementById(tableElement).parentElement.style.display = flag
+    ? 'none'
+    : 'block';
+  document.getElementById('empty-list').style.display = flag ? 'block' : 'none';
+};
+
 export {
   createNode,
   append,
@@ -81,4 +88,5 @@ export {
   removeRow,
   showSpinner,
   showTableLoader,
+  showTableEmpty,
 };

@@ -204,10 +204,15 @@ class Modal {
           .delete(fireDoc, btnAccept.dataset.id)
           .then((hasSuccess) => {
             if (hasSuccess) {
-              Notification.showTextSuccessMessage('record', 'deleted');
+              Notification.showTextSuccessMessage('Record', 'deleted');
               Ui.removeRow(tbodySel, btnAccept.dataset.id);
             } else {
               Notification.showCanNotDeleted();
+            }
+          })
+          .then(() => {
+            if (document.getElementById(tbodySel).rows.length === 0) {
+              Ui.showTableEmpty('table', true);
             }
           })
           .finally(() => {

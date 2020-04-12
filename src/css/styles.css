@@ -12,6 +12,10 @@
   display: none;
 }
 
+.container.empty-list {
+  display: none;
+}
+
 .recital-table-container {
   overflow-x: overlay;
 }
