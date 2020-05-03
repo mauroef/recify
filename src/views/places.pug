@@ -1,53 +1,55 @@
 extends ./template/template
 
 block main
-  section.hero.is-success
-    .hero-body.place
+  main
+    section.hero.is-success
+      .hero-body.place
+        .container
+          h1.title Places
+          h2.subtitle Add new places or modify them.
+    //- actions
+    section.section.actions
       .container
-        h1.title Places
-        h2.subtitle Add new places or modify them.
-  //- actions
-  section.section.actions
-    .container
-      .tile.is-ancestor
-        //- create
-        .tile.is-6.is-parent          
-          article.tile.is-child.notification#panel-create
-            h3.title Insert new ones!
-            //- input
-            .field              
-              .control.has-icons-left
-                input.input(type="text", id="create-input", placeholder="New name...")
-                span.icon.is-left
-                  i.fas.fa-plus-square
-            //- button
-            .field
-              .control
-                button.button.is-primary.is-fullwidth#save-place Save changes
-        //- search
-        .tile.is-6.is-parent
-          article.tile.is-child.notification.places-search#panel-search
-            //- h3.title What you're looking for? 
-            //- //- input
-            //- .field              
-            //-   .control.has-icons-left
-            //-     input.input(type="text", id="search-input", placeholder="Type here...")
-            //-     span.icon.is-left
-            //-       i.fas.fa-search
-            //- //- button
-            //- .field
-            //-   .control
-            //-     button.button.is-primary.is-fullwidth Search
-  //- table
-  section.section
-    .container
-      table.table.is-hoverable.is-fullwidth#table
-        thead
-          tr
-            th #
-            th Name
-            th Edit
-            th Delete
-        tbody#place-data
-    include ./blocks/loader
-  include ./blocks/modal  
+        .tile.is-ancestor
+          //- create
+          .tile.is-6.is-parent          
+            article.tile.is-child.notification#panel-create
+              h3.title Insert new ones!
+              //- input
+              .field              
+                .control.has-icons-left
+                  input.input(type="text", id="create-input", placeholder="New name...")
+                  span.icon.is-left
+                    i.fas.fa-plus-square
+              //- button
+              .field
+                .control
+                  button.button.is-primary.is-fullwidth#save-place Save changes
+          //- search
+          .tile.is-6.is-parent
+            article.tile.is-child.notification.places-search#panel-search
+              //- h3.title What you're looking for? 
+              //- //- input
+              //- .field              
+              //-   .control.has-icons-left
+              //-     input.input(type="text", id="search-input", placeholder="Type here...")
+              //-     span.icon.is-left
+              //-       i.fas.fa-search
+              //- //- button
+              //- .field
+              //-   .control
+              //-     button.button.is-primary.is-fullwidth Search
+    //- table
+    section.section
+      .container
+        table.table.is-hoverable.is-fullwidth#table
+          thead
+            tr
+              th #
+              th Name
+              th Edit
+              th Delete
+          tbody#place-data
+      include ./blocks/loader
+      include ./blocks/empty-table
+    include ./blocks/modal  

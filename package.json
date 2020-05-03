@@ -27,6 +27,7 @@
   "dependencies": {
     "bulma": "^0.7.4",
     "bulma-toast": "^1.5.4",
-    "cool-checkboxes-for-bulma.io": "^1.1.0"
+    "cool-checkboxes-for-bulma.io": "^1.1.0",
+    "firebase": "^7.10.0"
   }
 }

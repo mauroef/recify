@@ -1,9 +1,25 @@
 /* variables */
+
 :root {
   --color-1: #b687f8;
   --color-2: #8be9fd;
   --color-3: #ff6cc1;
   --color-4: #f9b636;
+}
+
+/* general */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
 
 /* table */
@@ -12,8 +28,17 @@
   display: none;
 }
 
+.container.empty-list {
+  display: none;
+}
+
 .recital-table-container {
   overflow-x: overlay;
+}
+
+table thead > tr > th:first-child,
+table tbody > tr > td:first-child {
+  display: none;
 }
 
 /* panels */
@@ -61,6 +86,52 @@ input[type='checkbox'].styled:checked + label:after {
   background-color: var(--color-3);
 }
 
+.tile.is-child.notification {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.button.create-recital {
+  color: #fff;
+  text-transform: uppercase;
+  border: 0;
+  background-image: linear-gradient(
+    to right,
+    #fc00ff 0%,
+    #00dbde 51%,
+    #fc00ff 100%
+  );
+
+  background-size: 300% 100%;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+
+  box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+}
+
+.button.create-recital:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover.color-1 {
+  background-image: linear-gradient(
+    to right,
+    #25aae1,
+    #40e495,
+    #30dd8a,
+    #2bb673
+  );
+  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.icon-create {
+  margin-right: 5px;
+}
+
 /* hero */
 
 .hero-body {
@@ -84,11 +155,43 @@ input[type='checkbox'].styled:checked + label:after {
 
 /* navbar */
 
-.icon-brand {
+.navbar {
+  height: 56px;
+}
+
+.icon-brand,
+.icon-exit {
   margin-right: 5px;
 }
 
-.navbar-item:hover {
-  background-color: #0a0a0a !important;
-  color: #fff !important;
+.navbar-item.login,
+.navbar-item.user-container {
+  display: none;
+}
+
+.user-name figure {
+  margin-right: 10px;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* footer */
+
+.git-link {
+  display: block;
+  width: max-content;
+  text-decoration: none;
+  color: #000;
+  margin: 0 auto;
+}
+
+.git-link:hover {
+  opacity: 0.5;
+}
+
+.copy {
+  margin-top: 1em;
 }

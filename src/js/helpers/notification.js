@@ -1,4 +1,5 @@
 import { toast as superToast } from 'bulma-toast';
+import { capitalize } from './ui';
 
 export default class Notification {
   static showTextSuccessMessage(record, action) {
@@ -7,7 +8,7 @@ export default class Notification {
       type: 'is-info',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'fadeIn', out: 'fadeOut' }
+      animate: { in: 'fadeIn', out: 'fadeOut' },
     });
   }
 
@@ -17,7 +18,7 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
@@ -27,7 +28,7 @@ export default class Notification {
       type: 'is-warning',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'swing', out: 'bounceOut' }
+      animate: { in: 'swing', out: 'bounceOut' },
     });
   }
 
@@ -37,7 +38,17 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
+    });
+  }
+
+  static showComboErrorMessage() {
+    superToast({
+      message: '<strong>Error:</strong> bands | place values cannot be empty.',
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
@@ -47,19 +58,53 @@ export default class Notification {
       type: 'is-danger',
       dismissible: true,
       duration: 3000,
-      animate: { in: 'shake', out: 'fadeOut' }
+      animate: { in: 'shake', out: 'fadeOut' },
+    });
+  }
+
+  static showCanNotDeleted() {
+    superToast({
+      message: `<strong>Error:</strong> record can not be deleted.`,
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' },
     });
   }
 
   static showServerWarningMessage() {
     superToast({
-      message: 'Failed with server. Returning mocked Data.',
+      message: `This is a demo. Please, <strong>login</strong> to start the app 🎊`,
       type: 'is-warning',
       dismissible: true,
       duration: 4000,
       pauseOnHover: true,
       position: 'top-center',
-      animate: { in: 'swing', out: 'bounceOut' }
+      animate: { in: 'swing', out: 'bounceOut' },
+    });
+  }
+
+  static showLoging(name) {
+    superToast({
+      message: `Welcome <strong>${capitalize(name)}</strong> 😎`,
+      type: 'is-success',
+      dismissible: true,
+      duration: 4000,
+      pauseOnHover: true,
+      position: 'top-center',
+      animate: { in: 'bounceInUp', out: 'bounceOutUp' },
+    });
+  }
+
+  static showLogout() {
+    superToast({
+      message: `You logged out succefully. 🙋‍♂️`,
+      type: 'is-success',
+      dismissible: true,
+      duration: 3000,
+      pauseOnHover: true,
+      position: 'top-center',
+      animate: { in: 'bounceInDown', out: 'fadeOut' },
     });
   }
 }

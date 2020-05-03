@@ -1,4 +1,4 @@
-const createNode = element => document.createElement(element);
+const createNode = (element) => document.createElement(element);
 
 const append = (parent, el) => parent.appendChild(el);
 
@@ -36,7 +36,7 @@ const editRow = (tableSelector, responseId, responseName) => {
   );
 
   for (let i = 0; i < rows.length; i++)
-    if (+rowsId[i].innerText === +responseId) {
+    if (rowsId[i].innerText === responseId) {
       rowsName[i].innerText = responseName;
     }
 };
@@ -48,7 +48,7 @@ const removeRow = (tableSelector, responseId) => {
   );
 
   for (let i = 0; i < rows.length; i++) {
-    if (+rowsId[i].innerText === +responseId) {
+    if (rowsId[i].innerText === responseId) {
       rows[i].parentNode.removeChild(rows[i]);
     }
   }
@@ -71,6 +71,23 @@ const showTableLoader = (tableElement, flag) => {
     : 'none';
 };
 
+const showTableEmpty = (tableElement, flag) => {
+  document.getElementById(tableElement).parentElement.style.display = flag
+    ? 'none'
+    : 'block';
+  document.getElementById('empty-list').style.display = flag ? 'block' : 'none';
+};
+
+const capitalize = (string) => {
+  string = string.split(' ');
+
+  for (var i = 0, x = string.length; i < x; i++) {
+    string[i] = string[i][0].toUpperCase() + string[i].substr(1);
+  }
+
+  return string.join(' ');
+};
+
 export {
   createNode,
   append,
@@ -80,5 +97,7 @@ export {
   editRow,
   removeRow,
   showSpinner,
-  showTableLoader
+  showTableLoader,
+  showTableEmpty,
+  capitalize,
 };

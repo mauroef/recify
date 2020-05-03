@@ -1,21 +1,21 @@
-import { apiUri } from '../../config/paths';
+import { apiUri } from '../config/paths';
 
 class Place {
   static getAll() {
     return fetch(`${apiUri}place/read.php`)
-      .then(response => {
+      .then((response) => {
         if (response !== undefined) {
           return response.json();
         }
       })
-      .then(data => data.records)
-      .catch(error => {
+      .then((data) => data.records)
+      .catch((error) => {
         const message = 'return mocked data.';
         console.warn(message, error);
         return [
-          { id: '3', name: 'El Teatro' },
-          { id: '2', name: 'Niceto' },
-          { id: '1', name: 'Groove' }
+          { id: '3', name: 'Staples Center' },
+          { id: '2', name: 'Gier Music Club' },
+          { id: '1', name: 'Niceto Club' },
         ];
       });
   }
@@ -24,45 +24,45 @@ class Place {
     const init = {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*'
+        Accept: 'application/json, text/plain, */*',
       },
-      body: JSON.stringify({ name: name })
+      body: JSON.stringify({ name: name }),
     };
 
     return fetch(`${apiUri}place/create.php`, init)
-      .then(response => response.json())
-      .then(data => data)
-      .catch(error => console.warn('error with server res', error));
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((error) => console.warn('error with server res', error));
   }
 
   static update(id, name) {
     const init = {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*'
+        Accept: 'application/json, text/plain, */*',
       },
-      body: JSON.stringify({ id: id, name: name })
+      body: JSON.stringify({ id: id, name: name }),
     };
 
     return fetch(`${apiUri}place/update.php`, init)
-      .then(response => response.json())
-      .then(data => data)
-      .catch(error => console.warn('error with server res', error));
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((error) => console.warn('error with server res', error));
   }
 
   static delete(id) {
     const init = {
       method: 'POST',
       headers: {
-        Accept: 'application/json, text/plain, */*'
+        Accept: 'application/json, text/plain, */*',
       },
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id }),
     };
 
     return fetch(`${apiUri}place/delete.php`, init)
-      .then(response => response.json())
-      .then(data => data)
-      .catch(error => console.warn('error with server res', error));
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((error) => console.warn('error with server res', error));
   }
 }
 

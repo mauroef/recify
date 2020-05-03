@@ -1,5 +1,9 @@
 node_modules
 build
 .vscode
+<<<<<<< HEAD
 .firebase
 .env
+=======
+.firebase
+>>>>>>> feature-firebase-serverless
