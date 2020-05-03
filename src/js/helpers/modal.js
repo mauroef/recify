@@ -71,11 +71,32 @@ class Modal {
   static handleModalCloseButtons(modalElement) {
     const btnClose = modalElement.querySelectorAll('.modal-remove');
 
-    for (var i = 0; i < btnClose.length; i++) {
-      btnClose[i].addEventListener('click', () => {
-        Modal.toggleModal(modalElement);
-      });
+    for (let i = 0; i < btnClose.length; i++) {
+      btnClose[i].addEventListener(
+        'click',
+        () => {
+          Modal.toggleModal(modalElement);
+        },
+        { once: true }
+      );
     }
+  }
+
+  static unbindModalCloseButtons() {
+    const modalElement = document.getElementById('modal');
+    const btnClose = modalElement.querySelectorAll('.modal-remove');
+
+    for (let i = 0; i < btnClose.length; i++) {
+      btnClose[i].removeEventListener(
+        'click',
+        () => {
+          cb;
+        },
+        { once: true }
+      );
+    }
+
+    return true;
   }
 
   static handleModalAcceptButtonAPI(apiClass, tbodySelector) {

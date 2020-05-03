@@ -1,63 +1,66 @@
 extends ./template/template
 
 block main
-	section.hero.is-success
-		.hero-body.recital
+	main
+		section.hero.is-success
+			.hero-body.recital
+				.container
+					h1.title Welcome to Recify homepage
+					h2.subtitle View the list of registered shows.
+		//- actions
+		section.section.panel-create#panel-create
 			.container
-				h1.title Welcome to Recify homepage
-				h2.subtitle View the list of registered shows.
-	//- actions
-	section.section.panel-create#panel-create
-		.container
-			.tile.is-ancestor.action-ancestor
-				//- date
-				.tile.is-parent
-					article.tile.is-child.box.notification.date
-						h3.title Select date						
-						.field
-							.control.has-icons-left
-								input.input(type="date", id="recital-date", placeholder="yyyy-mm-dd")
-								span.icon.is-left
-									i.fas.fa-calendar
-				//- band
-				.tile.is-parent
-					article.tile.is-child.box.notification.band
-						h3.title Band...
-						.field
-							.control
-								.select.is-fullwidth
-									select#band-dropdown
-				//- place
-				.tile.is-parent
-					article.tile.is-child.box.notification.place
-						h3.title Place...
-						.field
-							.control
-								.select.is-fullwidth
-									select#place-dropdown
-				//- ticket
-				.tile.is-parent
-					article.tile.is-child.box.notification.ticket
-						h3.title Have any ticket?						
-						.field
-							p.control
-								.b-checkbox.is-primary
-									input(type="checkbox", id="checkbox", class="styled")
-									label(for="checkbox") Yes, I have
-			button.button.is-fullwidth.is-primary Create!
-	//- table
-	section.section
-		.container.recital-table-container
-			table.table.is-hoverable.is-fullwidth#table
-				thead
-					tr
-						th #
-						th Date
-						th Band
-						th Place
-						th Ticket
-						th Delete
-				tbody#recital-data
-		include ./blocks/loader
-		include ./blocks/empty
-	include ./blocks/modal
+				.tile.is-ancestor.action-ancestor
+					//- date
+					.tile.is-parent
+						article.tile.is-child.notification.date
+							h3.title Select date						
+							.field
+								.control.has-icons-left
+									input.input(type="date", id="recital-date", placeholder="yyyy-mm-dd")
+									span.icon.is-left
+										i.fas.fa-calendar
+					//- band
+					.tile.is-parent
+						article.tile.is-child.notification.band
+							h3.title Band...
+							.field
+								.control
+									.select.is-fullwidth
+										select#band-dropdown
+					//- place
+					.tile.is-parent
+						article.tile.is-child.notification.place
+							h3.title Place...
+							.field
+								.control
+									.select.is-fullwidth
+										select#place-dropdown
+					//- ticket
+					.tile.is-parent
+						article.tile.is-child.notification.ticket
+							h3.title Have any ticket?						
+							.field
+								p.control
+									.b-checkbox.is-primary
+										input(type="checkbox", id="checkbox", class="styled")
+										label(for="checkbox") Yes, I have
+				button.button.is-fullwidth.is-medium.create-recital
+					i.fas.fa-music.icon-create
+					| Create!
+		//- table
+		section.section
+			.container.recital-table-container
+				table.table.is-hoverable.is-fullwidth#table
+					thead
+						tr
+							th #
+							th Date
+							th Band
+							th Place
+							th Ticket
+							th Delete
+					tbody#recital-data
+			include ./blocks/loader
+			include ./blocks/empty-table
+		include ./blocks/modal

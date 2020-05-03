@@ -37,15 +37,23 @@ const initApp = function () {
     firebase.auth.onAuthStateChanged((user) => {
       if (firebase.isAuthenticated(user)) {
         if (navbar.switchView(true, user.displayName, user.photoURL)) {
-          handleNavbarEvents(true);
+          if (handleNavbarEvents(true) && Table.countRows(tbodySelector) > 0) {
+            Table.cleanTable(tbodySelector);
+          }
 
           firestoreSetup(tbodySelector);
         }
       } else {
         if (!navbar.switchView(false)) {
-          handleNavbarEvents(false);
+          if (handleNavbarEvents(false) && Table.countRows(tbodySelector) > 0) {
+            Table.cleanTable(tbodySelector);
+          }
           if (isRecital) {
             const panelCreate = new Panel('create', true);
+            // clean on relog
+            panelCreate.cleanCombo(panelCreate.combo.band);
+            panelCreate.cleanCombo(panelCreate.combo.place);
+            // load combos
             panelCreate.buildPanelCombo(Band, panelCreate.combo.band);
             panelCreate.buildPanelCombo(Place, panelCreate.combo.place);
             panelCreate.handlePanelEvents(Recital);
@@ -93,6 +101,9 @@ const initApp = function () {
         });
     } else {
       const panelRecital = new Panel('create', true);
+      // clean on relog
+      panelRecital.cleanCombo(panelRecital.combo.band);
+      panelRecital.cleanCombo(panelRecital.combo.place);
       // load combos
       panelRecital.buildPanelComboFirebase(
         (doc) => firebase.getData(doc),
@@ -141,22 +152,26 @@ const initApp = function () {
         })
         .then(() => Table.handleActionButtons(tbodySel, 'btn-delete'))
         .then(() => {
-          Modal.handleModalCloseButtons(document.getElementById('modal'));
-          Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
+          if (Modal.unbindModalCloseButtons()) {
+            Modal.handleModalCloseButtons(document.getElementById('modal'));
+            Modal.handleModalAcceptButtonFirebase(tbodySel, fireDoc, firebase);
+          }
         });
     }
   }
 
   function handleNavbarEvents(logged) {
     if (!logged) {
-      navbar.loginBtn.addEventListener('click', () =>
-        firebase.logIn().then(() => navbar.switchView(true))
-      );
+      navbar.loginBtn.addEventListener('click', () => {
+        firebase.logIn().then(() => navbar.switchView(true));
+      });
     } else {
       navbar.logoutBtn.addEventListener('click', () =>
         firebase.logout().then(() => navbar.switchView(false))
       );
     }
+
+    return true;
   }
 };
 

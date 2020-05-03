@@ -102,7 +102,7 @@ class Table {
       return;
     }
 
-    records.forEach((r) => {
+    records.forEach((r, i, arr) => {
       if (!isRecTable) {
         let row = new Row(r.id, r.name);
 
@@ -124,11 +124,15 @@ class Table {
             table.addRow(row.createRow(true));
           })
           .then(() => {
-            table.appendRowsToTable(tbodySel);
-            Ui.showTableLoader('table', false);
+            if (i + 1 === arr.length) {
+              table.appendRowsToTable(tbodySel);
+              Ui.showTableLoader('table', false);
+            }
           })
           .then(() => {
-            Table.handleActionButtons(tbodySel, 'btn-delete');
+            if (i + 1 === arr.length) {
+              Table.handleActionButtons(tbodySel, 'btn-delete');
+            }
           });
       }
     });
@@ -194,6 +198,16 @@ class Table {
 
         return firebaseRow;
       });
+  }
+
+  static countRows(tbodySel) {
+    const tbody = document.getElementById(tbodySel);
+
+    return tbody.rows.length;
+  }
+
+  static cleanTable(tbodySel) {
+    document.getElementById(tbodySel).innerHTML = '';
   }
 }
 

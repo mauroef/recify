@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-
 import config from '../config/firebase.config';
+import Notification from './notification';
 
 export default class Firebase {
   constructor() {
@@ -19,7 +19,14 @@ export default class Firebase {
     return this.auth
       .signInWithPopup(this.provider)
       .then(function (result) {
+        Notification.showLoging(result.user.displayName);
         console.log('logged successfully.');
+      })
+      .then(() => {
+        // TODO: villereada para prevenir eventos duplicados en login/logout
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       })
       .catch(function (error) {
         console.log(`error on login. code: ${error.code}. ${error.message}`);
@@ -30,7 +37,13 @@ export default class Firebase {
     return this.auth
       .signOut()
       .then(() => {
+        Notification.showLogout();
         console.log('deslogueado.');
+      })
+      .then(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       })
       .catch((ex) => {
         console.log('error al desloguear: ', ex);

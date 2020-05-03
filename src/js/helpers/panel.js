@@ -14,7 +14,7 @@ class Panel {
   }
 
   buildPanelCombo(apiClass, cboSelector) {
-    let cboPanel = document.getElementById(cboSelector);
+    const cboPanel = document.getElementById(cboSelector);
 
     Ui.showSpinner(cboPanel.parentNode, true);
     apiClass
@@ -36,7 +36,7 @@ class Panel {
   }
 
   buildPanelComboFirebase(callback, doc, cboSelector) {
-    let cboPanel = document.getElementById(cboSelector);
+    const cboPanel = document.getElementById(cboSelector);
 
     Ui.showSpinner(cboPanel.parentNode, true);
     callback(doc)
@@ -104,7 +104,7 @@ class Panel {
             Notification.showTextSuccessMessage('Record', 'created');
           })
           .then(() => {
-            this.resetInputValue(
+            this.cleanInputValue(
               document.querySelector(`#panel-${this.type} input[type=text]`)
             );
           })
@@ -156,7 +156,7 @@ class Panel {
             Notification.showTextSuccessMessage('Record', 'created');
           })
           .finally(() => {
-            this.resetInputValue(
+            this.cleanInputValue(
               document.querySelector(`#panel-${this.type} input[type=text]`)
             );
             Ui.showSpinner(btn, false);
@@ -219,7 +219,7 @@ class Panel {
           Notification.showTextSuccessMessage('Recital', 'created');
         })
         .finally(() => {
-          this.resetInputValue(date);
+          this.cleanInputValue(date);
           Ui.showSpinner(btn, false);
         });
     });
@@ -251,6 +251,7 @@ class Panel {
           Notification.showTextSuccessMessage('Recital', 'created');
         })
         .finally(() => {
+          this.cleanInputValue(date);
           Ui.showSpinner(btn, false);
         });
     });
@@ -265,8 +266,12 @@ class Panel {
     });
   }
 
-  resetInputValue(input) {
+  cleanInputValue(input) {
     input.value = '';
+  }
+
+  cleanCombo(cboSelector) {
+    document.getElementById(cboSelector).innerHTML = '';
   }
 }
 

@@ -63,13 +63,37 @@ export default class Notification {
 
   static showServerWarningMessage() {
     superToast({
-      message: 'Failed with server. Returning mocked Data.',
+      message: `This is a demo. Please, <strong>login</strong> to start the app 🎊`,
       type: 'is-warning',
       dismissible: true,
       duration: 4000,
       pauseOnHover: true,
       position: 'top-center',
       animate: { in: 'swing', out: 'bounceOut' },
+    });
+  }
+
+  static showLoging(name) {
+    superToast({
+      message: `Welcome <strong>${name}</strong> 😎`,
+      type: 'is-success',
+      dismissible: true,
+      duration: 4000,
+      pauseOnHover: true,
+      position: 'top-center',
+      animate: { in: 'bounceInUp', out: 'bounceOutUp' },
+    });
+  }
+
+  static showLogout() {
+    superToast({
+      message: `You logged out succefully. 🙋‍♂️`,
+      type: 'is-success',
+      dismissible: true,
+      duration: 3000,
+      pauseOnHover: true,
+      position: 'top-center',
+      animate: { in: 'bounceInDown', out: 'fadeOut' },
     });
   }
 }
