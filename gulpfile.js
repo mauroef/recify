@@ -6,6 +6,7 @@ const babelify = require('babelify');
 const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 const browserSync = require('browser-sync');
+const uglify = require('gulp-uglify');
 const reload = browserSync.reload;
 
 // pug html
@@ -14,7 +15,7 @@ gulp.task('pug', () =>
     .src('./src/views/*.pug')
     .pipe(
       pug({
-        pretty: true
+        pretty: true,
       })
     )
     .pipe(gulp.dest('./build/'))
@@ -26,11 +27,12 @@ gulp.task('js', async () => {
   browserify('./src/js/main.js')
     .transform(babelify, {
       presets: ['@babel/preset-env'],
-      plugins: [['@babel/plugin-proposal-class-properties']]
+      plugins: [['@babel/plugin-proposal-class-properties']],
     })
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
+    .pipe(uglify()) // comment for develop
     .pipe(gulp.dest('./build/js'))
     .pipe(reload({ stream: true }));
 });
@@ -41,7 +43,7 @@ gulp.task('css', () =>
     .src([
       './node_modules/bulma/css/bulma.min.css',
       './node_modules/cool-checkboxes-for-bulma.io/dist/css/bulma-radio-checkbox.min.css',
-      './src/css/styles.css'
+      './src/css/styles.css',
     ])
     .pipe(concat('stylesheet.css'))
     .pipe(gulp.dest('./build/css'))
@@ -54,8 +56,8 @@ gulp.task(
   gulp.series('pug', 'js', 'css', () => {
     browserSync.init({
       server: {
-        baseDir: './build/'
-      }
+        baseDir: './build/',
+      },
     });
   })
 );

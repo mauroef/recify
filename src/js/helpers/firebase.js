@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import config from '../config/firebase.config';
 import Notification from './notification';
 
