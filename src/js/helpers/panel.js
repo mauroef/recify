@@ -77,9 +77,9 @@ class Panel {
     let inputValue = '';
 
     btn.addEventListener('click', () => {
-      inputValue = document.querySelector(
-        `#panel-${this.type} input[type=text]`
-      ).value;
+      inputValue = Ui.capitalize(
+        document.querySelector(`#panel-${this.type} input[type=text]`).value
+      );
       Ui.showSpinner(btn, true);
       if (this.type === 'create') {
         if (
@@ -179,9 +179,19 @@ class Panel {
 
       if (
         !Validator.validate(date.value, Validator.REQUIRED) ||
-        !Validator.validate(date.value, Validator.DATE_FORMAT)
+        !Validator.validate(date.value, Validator.DATE_FORMAT) ||
+        !Validator.validate(bandId.value, Validator.COMBO_VALUE) ||
+        !Validator.validate(placeId.value, Validator.COMBO_VALUE)
       ) {
-        Notification.showDateErrorMessage();
+        if (!Validator.validate(date.value, Validator.DATE_FORMAT)) {
+          Notification.showDateErrorMessage();
+        }
+        if (
+          !Validator.validate(bandId.value, Validator.COMBO_VALUE) ||
+          !Validator.validate(placeId.value, Validator.COMBO_VALUE)
+        ) {
+          Notification.showComboErrorMessage();
+        }
         Ui.showSpinner(btn, false);
         return;
       }
@@ -236,12 +246,21 @@ class Panel {
 
     btn.addEventListener('click', () => {
       Ui.showSpinner(btn, true);
-
       if (
         !Validator.validate(date.value, Validator.REQUIRED) ||
-        !Validator.validate(date.value, Validator.DATE_FORMAT)
+        !Validator.validate(date.value, Validator.DATE_FORMAT) ||
+        !Validator.validate(bandId.value, Validator.COMBO_VALUE) ||
+        !Validator.validate(placeId.value, Validator.COMBO_VALUE)
       ) {
-        Notification.showDateErrorMessage();
+        if (!Validator.validate(date.value, Validator.DATE_FORMAT)) {
+          Notification.showDateErrorMessage();
+        }
+        if (
+          !Validator.validate(bandId.value, Validator.COMBO_VALUE) ||
+          !Validator.validate(placeId.value, Validator.COMBO_VALUE)
+        ) {
+          Notification.showComboErrorMessage();
+        }
         Ui.showSpinner(btn, false);
         return;
       }

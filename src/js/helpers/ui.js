@@ -78,6 +78,16 @@ const showTableEmpty = (tableElement, flag) => {
   document.getElementById('empty-list').style.display = flag ? 'block' : 'none';
 };
 
+const capitalize = (string) => {
+  string = string.split(' ');
+
+  for (var i = 0, x = string.length; i < x; i++) {
+    string[i] = string[i][0].toUpperCase() + string[i].substr(1);
+  }
+
+  return string.join(' ');
+};
+
 export {
   createNode,
   append,
@@ -89,4 +99,5 @@ export {
   showSpinner,
   showTableLoader,
   showTableEmpty,
+  capitalize,
 };

@@ -1,4 +1,5 @@
 import { toast as superToast } from 'bulma-toast';
+import { capitalize } from './ui';
 
 export default class Notification {
   static showTextSuccessMessage(record, action) {
@@ -41,6 +42,16 @@ export default class Notification {
     });
   }
 
+  static showComboErrorMessage() {
+    superToast({
+      message: '<strong>Error:</strong> bands | place values cannot be empty.',
+      type: 'is-danger',
+      dismissible: true,
+      duration: 3000,
+      animate: { in: 'shake', out: 'fadeOut' },
+    });
+  }
+
   static showServerErrorMessage(message) {
     superToast({
       message: `<strong>Error:</strong> ${message}`,
@@ -75,7 +86,7 @@ export default class Notification {
 
   static showLoging(name) {
     superToast({
-      message: `Welcome <strong>${name}</strong> 😎`,
+      message: `Welcome <strong>${capitalize(name)}</strong> 😎`,
       type: 'is-success',
       dismissible: true,
       duration: 4000,

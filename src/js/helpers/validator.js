@@ -4,6 +4,7 @@ export default class Validator {
   static MAX_LENGTH = 'MAX_LENGTH';
   static NON_REPEATED = 'NON_REPEATED';
   static DATE_FORMAT = 'DATE_FORMAT';
+  static COMBO_VALUE = 'COMBO_VALUE';
 
   static validate(value, flag, validatorValue) {
     switch (flag) {
@@ -21,6 +22,9 @@ export default class Validator {
       }
       case this.DATE_FORMAT: {
         return isValidDateFormat(value);
+      }
+      case this.COMBO_VALUE: {
+        return value.trim().length > 0;
       }
     }
 
