@@ -230,6 +230,7 @@ class Panel {
         })
         .finally(() => {
           this.cleanInputValue(date);
+          this.cleanCheckbox(ticket);
           Ui.showSpinner(btn, false);
         });
     });
@@ -271,6 +272,7 @@ class Panel {
         })
         .finally(() => {
           this.cleanInputValue(date);
+          this.cleanCheckbox(ticket);
           Ui.showSpinner(btn, false);
         });
     });
@@ -287,6 +289,10 @@ class Panel {
 
   cleanInputValue(input) {
     input.value = '';
+  }
+
+  cleanCheckbox(cbx) {
+    cbx.checked = false;
   }
 
   cleanCombo(cboSelector) {

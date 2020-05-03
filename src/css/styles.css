@@ -7,6 +7,21 @@
   --color-4: #f9b636;
 }
 
+/* general */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
 /* table */
 
 .container.loader-disc {
@@ -163,15 +178,20 @@ input[type='checkbox'].styled:checked + label:after {
   margin-right: 5px;
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  display: flex;
-  flex-direction: column;
+/* footer */
+
+.git-link {
+  display: block;
+  width: max-content;
+  text-decoration: none;
+  color: #000;
+  margin: 0 auto;
 }
 
-main {
-  flex-grow: 1;
+.git-link:hover {
+  opacity: 0.5;
+}
+
+.copy {
+  margin-top: 1em;
 }
