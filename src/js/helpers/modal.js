@@ -72,13 +72,9 @@ class Modal {
     const btnClose = modalElement.querySelectorAll('.modal-remove');
 
     for (let i = 0; i < btnClose.length; i++) {
-      btnClose[i].addEventListener(
-        'click',
-        () => {
-          Modal.toggleModal(modalElement);
-        },
-        { once: true }
-      );
+      btnClose[i].addEventListener('click', () => {
+        Modal.toggleModal(modalElement);
+      });
     }
   }
 
@@ -87,13 +83,9 @@ class Modal {
     const btnClose = modalElement.querySelectorAll('.modal-remove');
 
     for (let i = 0; i < btnClose.length; i++) {
-      btnClose[i].removeEventListener(
-        'click',
-        () => {
-          cb;
-        },
-        { once: true }
-      );
+      btnClose[i].removeEventListener('click', () => {
+        cb;
+      });
     }
 
     return true;
