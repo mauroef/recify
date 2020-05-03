@@ -1,7 +1,7 @@
 # recify app
 
 ## Demo
-[Goto to external link](http://recify.mauroef.com.ar)
+[Go to to external link](http://recify.mauroef.com.ar)
 
 ## Usage
 
